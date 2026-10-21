@@ -1,0 +1,7 @@
+# flake8 7.1.2 (mccabe: 0.7.0, pycodestyle: 2.12.1, pyflakes: 3.2.0) CPython 3.10.4 on
+# Command: flake8 --max-complexity 10 .
+# Commit: 98785a1  Date: 2026-10-21 10:42
+
+.\app.py:36:1: C901 'create_app' is too complex (27)
+
+# Total: 1 issue(s)
