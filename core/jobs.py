@@ -17,8 +17,12 @@ logger = logging.getLogger(__name__)
 QUEUED, RUNNING, COMPLETE, FAILED = "queued", "running", "complete", "failed"
 
 
-class Job:
-    """State of one training run (REQ-JB-2). Updated only by its JobRunner thread."""
+class Job:  # pylint: disable=too-many-instance-attributes
+    """State of one training run (REQ-JB-2). Updated only by its JobRunner thread.
+
+    A plain state holder, as in the SAD class diagram: every attribute is part of the
+    status or results payload.
+    """
 
     def __init__(self, trainers):
         self.job_id = uuid.uuid4().hex
@@ -104,10 +108,10 @@ class JobStore:
 class JobRunner:
     """Runs preprocessing once, then each trainer and the evaluator, for one job."""
 
-    def __init__(self, job, frame, target, trainers, settings):
+    def __init__(self, job, frame, trainers, settings):
+        """``settings`` holds target, seed, test_ratio and dataset_name for this run."""
         self.job = job
         self.frame = frame
-        self.target = target
         self.trainers = trainers
         self.settings = settings
 
@@ -125,12 +129,12 @@ class JobRunner:
             job.status = RUNNING
             job.update("Preprocessing data", 0)
             preprocessor = Preprocessor(self.settings["seed"], self.settings["test_ratio"])
-            split = preprocessor.fit_split(self.frame, self.target)
+            split = preprocessor.fit_split(self.frame, self.settings["target"])
             job.update(
                 "Preprocessing done",
                 100 / steps,
-                f"Preprocessing done: {split.X_train.shape[0]} train rows, "
-                f"{split.X_test.shape[0]} test rows, {split.X_train.shape[1]} features",
+                f"Preprocessing done: {split.x_train.shape[0]} train rows, "
+                f"{split.x_test.shape[0]} test rows, {split.x_train.shape[1]} features",
             )
 
             for index, trainer in enumerate(self.trainers, start=1):
@@ -141,7 +145,7 @@ class JobRunner:
             job.metadata = {
                 "dataset": self.settings.get("dataset_name"),
                 "rows": int(len(self.frame)),
-                "target": self.target,
+                "target": self.settings["target"],
                 "task": "binary" if split.n_classes == 2 else "multiclass",
                 "seed": self.settings["seed"],
                 "test_ratio": self.settings["test_ratio"],
@@ -149,7 +153,8 @@ class JobRunner:
             }
             job.status = COMPLETE
             job.update("Complete", 100)
-        except Exception as exc:  # REQ-JB-8: keep the server alive, report the failure
+        # REQ-JB-8 requires catching everything so the job, not the server, fails.
+        except Exception as exc:  # pylint: disable=broad-exception-caught
             logger.exception("Job %s failed", job.job_id)
             job.error = str(exc) or exc.__class__.__name__
             job.status = FAILED
@@ -163,7 +168,8 @@ class JobRunner:
         try:
             model, train_time = trainer.train(split)
             result = evaluate(model, split, trainer, train_time)
-        except Exception as exc:  # REQ-TR-8: isolate the failure to this model
+        # REQ-TR-8 requires one model's failure, whatever it is, not to stop the job.
+        except Exception as exc:  # pylint: disable=broad-exception-caught
             logger.exception("Model %s failed in job %s", trainer.key, job.job_id)
             reason = str(exc) or exc.__class__.__name__
             job.results.append(failed_result(trainer, reason))

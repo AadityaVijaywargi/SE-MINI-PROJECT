@@ -7,3 +7,7 @@ testpaths = ["tests"]
 markers = [
     "slow: long-running tests (QML), excluded from CI",
 ]
+
+[tool.pylint.basic]
+# A test's name says what it checks; a docstring would only repeat it.
+no-docstring-rgx = "^(_|test_)"

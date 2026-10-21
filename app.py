@@ -128,21 +128,21 @@ def train():
     except ValueError as exc:
         raise RequestError(str(exc)) from exc
 
-    settings["dataset_name"] = dataset.name
+    settings.update(target=target, dataset_name=dataset.name)
     job = Job(trainers)
     jobs().add(job)
-    JobRunner(job, frame, target, trainers, settings).start()
+    JobRunner(job, frame, trainers, settings).start()
     return jsonify({"job_id": job.job_id}), 202
 
 
 @api.get("/status/<job_id>")
-def status(job_id):
+def job_status(job_id):
     """Current state of a job; 404 if unknown (REQ-JB-2, REQ-JB-4)."""
     return jsonify(find_job(job_id).status_payload())
 
 
 @api.get("/results/<job_id>")
-def results(job_id):
+def job_results(job_id):
     """Results, summary and metadata of a job (SRS 3.3)."""
     return jsonify(find_job(job_id).results_payload())
 
