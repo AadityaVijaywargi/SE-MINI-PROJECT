@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ML vs DL vs QML Prediction Platform</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">◆</span>
+      <span>Prediction Platform <small>ML vs DL vs QML</small></span>
+    </div>
+    <ol class="stepper" aria-label="Progress through the four steps">
+      <li data-step="upload">Upload</li>
+      <li data-step="configure">Configure</li>
+      <li data-step="train">Train</li>
+      <li data-step="results">Results</li>
+    </ol>
+  </header>
+
+  <main>
+    <!-- Screen 1: Upload (REQ-UP-1 to REQ-UP-8) -->
+    <section data-screen="upload" aria-labelledby="upload-title">
+      <h1 id="upload-title" tabindex="-1">Upload a dataset</h1>
+      <p class="lede">A CSV or Excel file with one row per record and a column to predict.</p>
+
+      <label class="dropzone" id="dropzone" for="file-input">
+        <input type="file" id="file-input" accept=".csv,.xlsx" class="visually-hidden">
+        <span class="dropzone-icon" aria-hidden="true">⇪</span>
+        <span class="dropzone-text"><strong>Drop a file here</strong> or click to choose one</span>
+        <span class="dropzone-hint">.csv or .xlsx, up to 100 MB</span>
+      </label>
+      <div id="upload-progress" class="hidden upload-progress">
+        <span class="spinner" aria-hidden="true"></span>
+        <span id="upload-progress-text">Uploading…</span>
+      </div>
+
+      <div id="profile" class="hidden">
+        <h2 class="section-title">Dataset <span id="dataset-name" class="muted"></span></h2>
+        <div class="cards" id="summary-cards"></div>
+
+        <h2 class="section-title">Preview <span class="muted">first 10 rows</span></h2>
+        <div class="table-wrap"><table id="preview-table" class="data-table"></table></div>
+
+        <h2 class="section-title">Columns</h2>
+        <div class="table-wrap"><table id="column-table" class="data-table"></table></div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="to-configure">Continue to configure →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen 2: Configure (REQ-TG-1 to REQ-TG-6, REQ-MS-1) -->
+    <section data-screen="configure" class="hidden" aria-labelledby="configure-title">
+      <h1 id="configure-title" tabindex="-1">Choose a target and models</h1>
+
+      <div class="panel">
+        <label for="target-select" class="field-label">Column to predict (target)</label>
+        <select id="target-select"></select>
+        <p class="hint">★ marks suggested targets. You can pick any column.</p>
+        <div id="task-analysis" aria-live="polite"></div>
+      </div>
+
+      <div class="panel">
+        <h2 class="section-title">Models</h2>
+        <div id="model-grid" class="model-grid"></div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn" id="back-to-upload">← Back</button>
+        <button type="button" class="btn btn-primary" id="start-training">Start training</button>
+      </div>
+      <p id="train-blocked" class="blocked hidden" role="alert"></p>
+    </section>
+
+    <!-- Screen 3: Train (REQ-JB-3, REQ-JB-5) -->
+    <section data-screen="train" class="hidden" aria-labelledby="train-title">
+      <h1 id="train-title" tabindex="-1">Training</h1>
+      <div class="panel">
+        <div class="stage-row">
+          <span id="stage-label" class="stage-label">Starting…</span>
+          <span id="elapsed" class="muted">0s</span>
+        </div>
+        <div class="progress" id="progress-bar" role="progressbar" aria-label="Training progress"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span id="progress-text" class="muted">0%</span>
+      </div>
+      <div class="train-grid">
+        <div class="panel">
+          <h2 class="section-title">Models</h2>
+          <ul id="model-checklist" class="checklist"></ul>
+        </div>
+        <div class="panel">
+          <h2 class="section-title">Log</h2>
+          <ol id="job-log" class="log" aria-live="polite"></ol>
+        </div>
+      </div>
+      <div class="actions hidden" id="train-failed-actions">
+        <button type="button" class="btn" id="back-to-configure">← Back to configure</button>
+      </div>
+    </section>
+
+    <!-- Screen 4: Results (REQ-RS-1 to REQ-RS-3) -->
+    <section data-screen="results" class="hidden" aria-labelledby="results-title">
+      <h1 id="results-title" tabindex="-1" class="visually-hidden">Results</h1>
+      <div id="winner-banner" class="winner"></div>
+      <div id="paradigm-cards" class="cards cards-3"></div>
+      <div class="panel">
+        <h2 class="section-title">All models <span class="muted">click a column to sort</span></h2>
+        <div class="table-wrap"><table id="metrics-table" class="data-table metrics"></table></div>
+        <p id="run-meta" class="muted small"></p>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn" id="retrain">← Change models</button>
+        <button type="button" class="btn btn-primary" id="new-run">Upload another dataset</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="toasts" class="toasts" aria-live="assertive"></div>
+
+  <script type="module">
+    import { initUpload } from "./js/upload.js";
+    import { initConfigure } from "./js/config.js";
+    import { initProgress } from "./js/progress.js";
+    import { initResults } from "./js/results.js";
+    import { showScreen } from "./js/state.js";
+
+    initUpload();
+    initConfigure();
+    initProgress();
+    initResults();
+    showScreen("upload");
+  </script>
+</body>
+</html>
