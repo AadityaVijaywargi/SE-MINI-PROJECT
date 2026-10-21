@@ -4,6 +4,10 @@ One worker because the job store lives in process memory; four threads so status
 are answered while a training thread is busy.
 """
 
+# Gunicorn reads these exact lower-case names, so pylint's constant naming rule
+# does not apply to this file.
+# pylint: disable=invalid-name
+
 import os
 
 bind = f"0.0.0.0:{os.environ.get('PORT', '5000')}"

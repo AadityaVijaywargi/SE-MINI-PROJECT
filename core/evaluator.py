@@ -32,13 +32,13 @@ def evaluate(model, split, trainer, train_time):
     Binary targets use binary averaging; multi-class targets use weighted averaging;
     zero division counts as 0. ROC-AUC is computed for binary targets only.
     """
-    predictions = model.predict(split.X_test)
+    predictions = model.predict(split.x_test)
     binary = split.n_classes == 2
     average = "binary" if binary else "weighted"
 
     roc_auc = None
     if binary:
-        scores = positive_scores(model, split.X_test)
+        scores = positive_scores(model, split.x_test)
         if scores is not None:
             roc_auc = float(roc_auc_score(split.y_test, scores))
 

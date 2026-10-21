@@ -24,7 +24,7 @@ class Trainer(ABC):
 
     @abstractmethod
     def fit(self, split):
-        """Train on ``split.X_train`` / ``split.y_train`` and return the fitted model."""
+        """Train on ``split.x_train`` / ``split.y_train`` and return the fitted model."""
 
     def train(self, split):
         """Train and time the model. Returns ``(model, train_time_seconds)``."""
@@ -46,7 +46,7 @@ class MLTrainer(Trainer):
 
     def fit(self, split):
         model = self.factory(self.seed)
-        model.fit(split.X_train, split.y_train)
+        model.fit(split.x_train, split.y_train)
         return model
 
 
@@ -92,7 +92,7 @@ def build_trainers(model_keys, seed):
     if unknown:
         raise ValueError(f"Unknown or unavailable model(s): {', '.join(map(str, unknown))}.")
     return [
-        MLTrainer(key, ML_MODELS[key][0], ML_MODELS[key][1], seed)
-        for key in ML_MODELS
+        MLTrainer(key, name, factory, seed)
+        for key, (name, factory) in ML_MODELS.items()
         if key in model_keys
     ]

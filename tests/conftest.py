@@ -1,15 +1,13 @@
 """Shared pytest fixtures (SM-87): the five bundled sample datasets and a Flask client."""
 
-import sys
 from pathlib import Path
 
 import pandas as pd
 import pytest
 
-ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT))
+from app import create_app
 
-SAMPLES_DIR = ROOT / "data" / "samples"
+SAMPLES_DIR = Path(__file__).resolve().parent.parent / "data" / "samples"
 DOMAIN_SAMPLES = {
     "banking": "Exited",
     "healthcare": "Diagnosis",
@@ -44,7 +42,5 @@ def three_class():
 @pytest.fixture
 def client(tmp_path):
     """Flask test client with uploads written to a temporary folder."""
-    from app import create_app
-
     app = create_app({"UPLOAD_DIR": tmp_path / "uploads", "TESTING": True})
     return app.test_client()

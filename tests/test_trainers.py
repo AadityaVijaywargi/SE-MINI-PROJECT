@@ -5,12 +5,12 @@ import pytest
 
 from core.preprocessing import Preprocessor
 from core.trainers import available_models, build_trainers
+from tests.conftest import load_sample
 
 
-@pytest.fixture(scope="module")
-def banking_split():
-    from tests.conftest import load_sample
-
+@pytest.fixture(name="banking_split", scope="module")
+def fixture_banking_split():
+    """The banking sample, preprocessed once for every test in this module."""
     return Preprocessor().fit_split(load_sample("banking"), "Exited")
 
 
@@ -29,7 +29,7 @@ def test_six_ml_models_available():
 def test_each_model_trains_and_predicts(banking_split, key):
     (trainer,) = build_trainers([key], seed=42)
     model, seconds = trainer.train(banking_split)
-    predictions = model.predict(banking_split.X_test)
+    predictions = model.predict(banking_split.x_test)
     assert trainer.paradigm == "ML"
     assert seconds >= 0
     assert predictions.shape == banking_split.y_test.shape
@@ -44,8 +44,8 @@ def test_trainers_follow_catalogue_order():
 def test_same_seed_same_predictions(banking_split):
     (first,) = build_trainers(["random_forest"], seed=42)
     (second,) = build_trainers(["random_forest"], seed=42)
-    a = first.train(banking_split)[0].predict(banking_split.X_test)
-    b = second.train(banking_split)[0].predict(banking_split.X_test)
+    a = first.train(banking_split)[0].predict(banking_split.x_test)
+    b = second.train(banking_split)[0].predict(banking_split.x_test)
     assert np.array_equal(a, b)
 
 

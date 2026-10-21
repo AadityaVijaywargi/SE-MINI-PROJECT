@@ -4,38 +4,37 @@ import numpy as np
 import pandas as pd
 import pytest
 
+from core import jobs
 from core.preprocessing import Preprocessor, PreprocessingError
+from core.trainers import build_trainers
+from tests.conftest import load_sample
 
 
 def test_dense_finite_matrix_for_every_domain(domain_sample):
     _, frame, target = domain_sample
     split = Preprocessor().fit_split(frame, target)
-    for matrix in (split.X_train, split.X_test):
+    for matrix in (split.x_train, split.x_test):
         assert isinstance(matrix, np.ndarray)
         assert matrix.dtype == np.float64
         assert np.isfinite(matrix).all()
-    assert split.X_train.shape[1] == split.X_test.shape[1] == len(split.feature_names)
+    assert split.x_train.shape[1] == split.x_test.shape[1] == len(split.feature_names)
 
 
 def test_identifier_and_constant_dropped_target_kept(banking):
     frame = banking.assign(Bank="Same bank")
     split = Preprocessor().fit_split(frame, "Exited")
-    assert set(split.dropped) == {"CustomerId", "Bank"}
-    assert "Exited" not in split.numeric + split.one_hot + split.ordinal
+    assert set(split.plan.dropped) == {"CustomerId", "Bank"}
+    assert "Exited" not in split.plan.features
 
 
 def test_column_plan_telecom():
-    from tests.conftest import load_sample
-
     split = Preprocessor().fit_split(load_sample("telecom"), "Churn")
-    assert "City" in split.ordinal  # 60 categories > 20
-    assert "Contract" in split.one_hot
-    assert "Tenure" in split.numeric
+    assert "City" in split.plan.ordinal  # 60 categories > 20
+    assert "Contract" in split.plan.one_hot
+    assert "Tenure" in split.plan.numeric
 
 
 def test_string_labels_encoded():
-    from tests.conftest import load_sample
-
     split = Preprocessor().fit_split(load_sample("healthcare"), "Diagnosis")
     assert split.classes == ["Negative", "Positive"]
     assert set(np.unique(split.y_train)) == {0, 1}
@@ -54,15 +53,15 @@ def test_same_seed_same_split_other_seed_differs(banking):
     again = Preprocessor(seed=42).fit_split(banking, "Exited")
     other = Preprocessor(seed=7).fit_split(banking, "Exited")
     assert first.fingerprint == again.fingerprint
-    assert np.array_equal(first.X_test, again.X_test)
-    assert not np.array_equal(first.X_test, other.X_test)
+    assert np.array_equal(first.x_test, again.x_test)
+    assert not np.array_equal(first.x_test, other.x_test)
 
 
 def test_scaler_fitted_on_training_rows_only(banking):
     split = Preprocessor().fit_split(banking, "Exited")
     age = split.feature_names.index("numeric__Age")
-    assert abs(split.X_train[:, age].mean()) < 1e-9
-    assert abs(split.X_test[:, age].mean()) > 1e-6
+    assert abs(split.x_train[:, age].mean()) < 1e-9
+    assert abs(split.x_test[:, age].mean()) > 1e-6
 
 
 def test_rows_with_missing_target_removed(banking):
@@ -81,7 +80,7 @@ def test_unseen_category_in_test_does_not_break():
         }
     )
     split = Preprocessor().fit_split(frame, "label")
-    assert np.isfinite(split.X_test).all()
+    assert np.isfinite(split.x_test).all()
 
 
 def test_metadata_records_columns_and_fingerprint(banking):
@@ -103,9 +102,6 @@ def test_no_features_left_raises():
 
 
 def test_preprocessing_runs_once_per_job(banking, monkeypatch):
-    from core import jobs
-    from core.trainers import build_trainers
-
     calls = []
     original = jobs.Preprocessor.fit_split
 
@@ -116,6 +112,7 @@ def test_preprocessing_runs_once_per_job(banking, monkeypatch):
     monkeypatch.setattr(jobs.Preprocessor, "fit_split", counting)
     trainers = build_trainers(["logistic_regression", "decision_tree", "naive_bayes"], 42)
     job = jobs.Job(trainers)
-    jobs.JobRunner(job, banking, "Exited", trainers, {"seed": 42, "test_ratio": 0.2}).run()
+    settings = {"target": "Exited", "seed": 42, "test_ratio": 0.2}
+    jobs.JobRunner(job, banking, trainers, settings).run()
     assert job.status == "complete"
     assert calls == ["Exited"]

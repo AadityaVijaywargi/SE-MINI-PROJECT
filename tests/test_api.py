@@ -9,11 +9,13 @@ ALL_ML = ["logistic_regression", "decision_tree", "random_forest", "svm", "naive
 
 
 def upload(client, name="banking.csv", content=None):
+    """POST a sample file (or ``content``) to /api/upload."""
     data = content if content is not None else (SAMPLES_DIR / name).read_bytes()
     return client.post("/api/upload", data={"file": (io.BytesIO(data), name)})
 
 
 def wait_for(client, job_id, timeout=60):
+    """Poll /api/status until the job completes or fails; return the last status."""
     deadline = time.time() + timeout
     while time.time() < deadline:
         body = client.get(f"/api/status/{job_id}").get_json()

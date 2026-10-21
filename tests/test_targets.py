@@ -59,7 +59,7 @@ def test_multiclass_task(three_class):
 def test_imbalance_warning():
     analysis = analyse_task(pd.Series([0] * 40 + [1] * 10, name="t"))
     assert analysis["imbalance_ratio"] == 4.0
-    assert "F1" in analysis["warning"]
+    assert "F1" in str(analysis["warning"])
     assert analysis["trainable"]
 
 
@@ -67,7 +67,7 @@ def test_regression_target_blocked():
     analysis = analyse_task(pd.Series(range(100), name="price"))
     assert analysis["task"] == "unsupported"
     assert not analysis["trainable"]
-    assert "regression" in analysis["reason"]
+    assert "regression" in str(analysis["reason"])
 
 
 def test_single_class_blocked():
@@ -77,4 +77,4 @@ def test_single_class_blocked():
 def test_class_with_one_row_blocked():
     analysis = analyse_task(pd.Series(["a"] * 49 + ["b"], name="t"))
     assert not analysis["trainable"]
-    assert "stratified" in analysis["reason"]
+    assert "stratified" in str(analysis["reason"])

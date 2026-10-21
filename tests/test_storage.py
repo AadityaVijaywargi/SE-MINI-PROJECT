@@ -9,10 +9,12 @@ from core.storage import DatasetStore, UploadError, check_extension
 
 
 def make_upload(text, filename):
+    """A Werkzeug FileStorage holding ``text``, as Flask passes an uploaded file."""
     return FileStorage(stream=io.BytesIO(text.encode()), filename=filename)
 
 
 def csv_text(rows, columns=2):
+    """A numeric CSV with a header row, ``rows`` data rows and ``columns`` columns."""
     header = ",".join(f"c{i}" for i in range(columns))
     body = "\n".join(",".join(str(r + c) for c in range(columns)) for r in range(rows))
     return f"{header}\n{body}\n"
@@ -42,7 +44,7 @@ def test_too_few_rows_rejected_and_deleted(tmp_path):
     store = DatasetStore(tmp_path)
     with pytest.raises(UploadError, match="at least 50"):
         store.save(make_upload(csv_text(10), "small.csv"))
-    assert list(tmp_path.iterdir()) == []
+    assert not list(tmp_path.iterdir())
 
 
 def test_too_few_columns_rejected(tmp_path):
@@ -54,7 +56,7 @@ def test_unparseable_file_rejected_and_deleted(tmp_path):
     store = DatasetStore(tmp_path)
     with pytest.raises(UploadError, match="could not be read"):
         store.save(FileStorage(stream=io.BytesIO(b"PK\x03\x04garbage"), filename="bad.xlsx"))
-    assert list(tmp_path.iterdir()) == []
+    assert not list(tmp_path.iterdir())
 
 
 @pytest.mark.parametrize("dataset_id", ["../secret", "abc", None, "0" * 32])
