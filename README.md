@@ -38,9 +38,13 @@ gunicorn -c gunicorn.conf.py
 pytest
 black --check .
 flake8 .
+bandit -c pyproject.toml -r .
+pylint app.py config.py gunicorn.conf.py core tools tests
 ```
 
-GitHub Actions runs all three on every push and pull request (`.github/workflows/ci.yml`).
+GitHub Actions runs pytest, black, flake8 and bandit on every push and pull request
+(`.github/workflows/ci.yml`). Static-analysis reports from before and after the lint fixes
+are in `reports/before/` and `reports/after/`.
 
 ## How it works
 
