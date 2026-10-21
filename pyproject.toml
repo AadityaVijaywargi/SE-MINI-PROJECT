@@ -11,3 +11,11 @@ markers = [
 [tool.pylint.basic]
 # A test's name says what it checks; a docstring would only repeat it.
 no-docstring-rgx = "^(_|test_)"
+
+[tool.bandit]
+exclude_dirs = [".venv", "venv"]
+
+[tool.bandit.assert_used]
+# pytest checks results with plain assert statements, so B101 is expected in tests.
+# It still applies to application code, where an assert can vanish under python -O.
+skips = ["*/tests/*"]

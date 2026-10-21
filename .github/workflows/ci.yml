@@ -27,5 +27,8 @@ jobs:
       - name: Lint (flake8)
         run: flake8 .
 
+      - name: Security scan (bandit)
+        run: bandit -c pyproject.toml -r .
+
       - name: Test (pytest, excluding slow tests)
         run: pytest -m "not slow" -q
