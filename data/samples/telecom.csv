@@ -1,0 +1,201 @@
+Tenure,MonthlyCharges,Contract,InternetService,PaymentMethod,City,Churn
+48,44.0,Month-to-month,No,Card,City_17,Yes
+8,73.3,Month-to-month,No,Card,City_19,Yes
+58,68.68,Two year,No,Card,City_59,No
+18,102.4,Month-to-month,Fiber optic,Card,City_27,Yes
+47,78.52,Month-to-month,No,Card,City_18,No
+29,39.77,Month-to-month,DSL,UPI,City_40,Yes
+6,38.38,Month-to-month,No,Bank transfer,City_26,Yes
+69,46.93,Two year,DSL,Bank transfer,City_51,No
+38,20.12,Two year,DSL,Card,City_52,No
+11,18.01,Month-to-month,DSL,UPI,City_06,Yes
+71,121.62,Two year,Fiber optic,Cheque,City_18,No
+61,49.94,One year,Fiber optic,UPI,City_42,No
+1,101.55,One year,Fiber optic,UPI,City_53,Yes
+11,52.13,Two year,Fiber optic,UPI,City_58,Yes
+7,60.31,One year,Fiber optic,UPI,City_59,No
+24,28.55,Month-to-month,No,Cheque,City_44,Yes
+28,101.06,Month-to-month,DSL,UPI,City_00,Yes
+48,60.64,Two year,Fiber optic,Card,City_18,No
+52,110.97,Month-to-month,DSL,UPI,City_33,Yes
+44,53.08,Month-to-month,DSL,Card,City_07,Yes
+31,101.68,Month-to-month,Fiber optic,Cheque,City_03,Yes
+68,106.64,Month-to-month,DSL,Card,City_09,No
+26,33.47,One year,Fiber optic,Bank transfer,City_59,No
+29,81.38,Two year,No,Cheque,City_12,No
+28,44.97,Month-to-month,No,Card,City_18,No
+67,41.89,Month-to-month,Fiber optic,UPI,City_19,No
+71,73.11,One year,Fiber optic,Card,City_00,No
+66,90.07,Month-to-month,DSL,UPI,City_55,No
+42,103.28,Month-to-month,No,Cheque,City_53,Yes
+51,61.75,One year,No,Card,City_02,No
+29,94.46,Month-to-month,Fiber optic,Bank transfer,City_50,Yes
+1,83.91,Month-to-month,Fiber optic,Bank transfer,City_45,Yes
+42,69.81,Month-to-month,DSL,Card,City_02,No
+57,46.81,One year,Fiber optic,Card,City_12,No
+7,71.03,Month-to-month,No,Card,City_31,Yes
+64,156.58,Month-to-month,No,Bank transfer,City_18,Yes
+39,47.02,Month-to-month,Fiber optic,UPI,City_09,No
+37,65.79,One year,DSL,Bank transfer,City_20,No
+61,47.97,One year,No,Bank transfer,City_24,No
+14,103.85,One year,No,Bank transfer,City_06,Yes
+69,114.45,One year,DSL,UPI,City_49,No
+13,102.98,Month-to-month,No,UPI,City_32,Yes
+53,118.81,Month-to-month,Fiber optic,Card,City_06,Yes
+60,68.01,Month-to-month,DSL,UPI,City_55,No
+47,111.26,Month-to-month,No,Cheque,City_43,Yes
+6,49.51,Two year,Fiber optic,Bank transfer,City_55,Yes
+49,108.25,Month-to-month,DSL,Cheque,City_35,Yes
+39,106.64,One year,Fiber optic,Bank transfer,City_35,Yes
+71,54.41,Month-to-month,DSL,Cheque,City_46,No
+14,93.16,Month-to-month,DSL,UPI,City_43,Yes
+15,43.12,Two year,No,Cheque,City_54,No
+21,35.09,Two year,Fiber optic,Card,City_36,No
+60,35.31,Month-to-month,No,Bank transfer,City_08,No
+70,42.39,Month-to-month,No,UPI,City_20,No
+69,41.45,Two year,No,Bank transfer,City_07,No
+19,66.92,One year,DSL,Card,City_13,No
+51,112.85,Two year,No,UPI,City_27,No
+49,63.31,Two year,DSL,Card,City_57,No
+22,48.54,Month-to-month,DSL,UPI,City_54,Yes
+55,86.49,One year,Fiber optic,UPI,City_04,No
+47,63.42,Month-to-month,No,Card,City_51,No
+20,71.82,Month-to-month,DSL,Card,City_21,Yes
+24,79.38,One year,DSL,Card,City_38,Yes
+10,80.38,Two year,DSL,Bank transfer,City_02,Yes
+28,52.47,Month-to-month,Fiber optic,Bank transfer,City_49,Yes
+55,63.38,Month-to-month,Fiber optic,Bank transfer,City_19,No
+42,92.71,Month-to-month,No,Card,City_47,Yes
+32,60.15,Month-to-month,No,Card,City_35,Yes
+60,63.51,One year,DSL,UPI,City_25,No
+20,77.12,One year,DSL,Bank transfer,City_00,Yes
+13,79.98,Month-to-month,No,UPI,City_12,Yes
+15,61.6,One year,DSL,Cheque,City_01,Yes
+31,83.49,Month-to-month,No,Bank transfer,City_45,No
+70,69.33,One year,DSL,Cheque,City_11,No
+39,36.83,Two year,No,UPI,City_10,No
+46,85.67,One year,No,Card,City_59,No
+60,47.81,One year,DSL,Card,City_54,No
+37,145.97,Two year,No,Bank transfer,City_05,Yes
+41,76.77,Month-to-month,Fiber optic,Cheque,City_36,Yes
+8,62.54,Month-to-month,DSL,Cheque,City_09,Yes
+21,90.81,One year,Fiber optic,UPI,City_31,Yes
+65,106.16,Month-to-month,Fiber optic,Bank transfer,City_55,Yes
+53,107.43,Month-to-month,DSL,Cheque,City_27,No
+23,77.23,Two year,Fiber optic,UPI,City_52,Yes
+43,96.4,Month-to-month,No,UPI,City_43,Yes
+56,87.28,Two year,No,Bank transfer,City_31,No
+3,71.97,Two year,DSL,Card,City_13,Yes
+65,31.95,Month-to-month,Fiber optic,Cheque,City_20,No
+19,70.31,Month-to-month,DSL,Bank transfer,City_45,Yes
+14,18.0,Two year,DSL,Card,City_23,Yes
+64,47.61,Month-to-month,DSL,Cheque,City_44,No
+70,103.78,One year,No,UPI,City_05,No
+12,74.23,Month-to-month,No,Card,City_42,Yes
+64,68.68,Two year,Fiber optic,Cheque,City_26,No
+39,47.94,Month-to-month,No,UPI,City_33,Yes
+40,48.4,Month-to-month,Fiber optic,UPI,City_16,Yes
+33,52.64,Month-to-month,DSL,Card,City_01,Yes
+52,34.98,One year,No,Card,City_04,No
+42,18.0,Two year,No,Cheque,City_50,No
+19,95.49,One year,Fiber optic,UPI,City_08,No
+9,111.05,Month-to-month,DSL,Cheque,City_12,Yes
+52,53.76,One year,No,Bank transfer,City_47,No
+26,88.87,Month-to-month,Fiber optic,UPI,City_43,Yes
+31,38.88,Month-to-month,DSL,Bank transfer,City_52,Yes
+69,78.43,Two year,No,Cheque,City_27,No
+23,35.04,Month-to-month,DSL,Cheque,City_21,No
+6,92.41,Two year,DSL,Cheque,City_55,No
+50,70.98,Month-to-month,Fiber optic,Cheque,City_46,Yes
+58,37.77,Month-to-month,DSL,Cheque,City_02,No
+27,83.36,Month-to-month,Fiber optic,UPI,City_52,Yes
+62,110.91,Two year,Fiber optic,UPI,City_10,No
+50,69.78,Two year,No,Card,City_50,No
+16,68.61,One year,Fiber optic,Cheque,City_11,No
+61,69.9,Month-to-month,DSL,Card,City_03,No
+36,72.76,Two year,Fiber optic,Cheque,City_44,No
+19,100.88,Month-to-month,DSL,Card,City_16,Yes
+48,101.91,Month-to-month,Fiber optic,Bank transfer,City_38,No
+14,18.0,Month-to-month,No,Cheque,City_42,Yes
+24,99.83,Month-to-month,Fiber optic,Card,City_08,Yes
+23,64.53,Month-to-month,No,Bank transfer,City_20,Yes
+16,111.3,One year,DSL,Cheque,City_50,Yes
+30,81.13,Month-to-month,DSL,Cheque,City_33,Yes
+71,93.69,Month-to-month,Fiber optic,Bank transfer,City_09,No
+52,56.75,Two year,DSL,UPI,City_54,No
+47,36.11,One year,DSL,Bank transfer,City_49,No
+31,75.61,Month-to-month,DSL,Bank transfer,City_00,Yes
+46,93.73,One year,No,Bank transfer,City_48,No
+49,88.02,Month-to-month,Fiber optic,Cheque,City_57,Yes
+12,89.19,One year,DSL,Bank transfer,City_31,Yes
+71,75.25,One year,DSL,Card,City_31,No
+11,87.58,Month-to-month,No,Bank transfer,City_46,Yes
+16,48.93,One year,Fiber optic,UPI,City_57,No
+27,65.99,Month-to-month,DSL,UPI,City_10,Yes
+54,30.61,One year,DSL,Card,City_33,No
+11,68.21,One year,DSL,Card,City_35,No
+34,61.79,One year,DSL,UPI,City_33,No
+66,70.89,One year,DSL,Cheque,City_54,No
+30,95.66,Month-to-month,DSL,UPI,City_45,Yes
+63,71.14,Month-to-month,No,UPI,City_45,No
+43,18.0,Month-to-month,Fiber optic,UPI,City_43,No
+58,103.87,Month-to-month,No,Card,City_45,Yes
+8,73.38,Month-to-month,Fiber optic,Card,City_12,Yes
+28,89.0,One year,DSL,Bank transfer,City_30,Yes
+22,49.72,Month-to-month,No,UPI,City_47,No
+29,90.26,Month-to-month,Fiber optic,UPI,City_50,Yes
+19,107.95,Month-to-month,Fiber optic,Cheque,City_20,Yes
+28,29.05,Month-to-month,Fiber optic,Card,City_40,Yes
+43,100.33,Two year,Fiber optic,Cheque,City_44,No
+33,46.13,One year,No,Bank transfer,City_04,No
+16,50.27,Month-to-month,Fiber optic,Card,City_11,Yes
+17,69.59,One year,DSL,UPI,City_37,Yes
+3,121.81,One year,No,UPI,City_42,Yes
+0,24.26,One year,No,UPI,City_13,Yes
+2,53.54,Month-to-month,DSL,UPI,City_30,Yes
+19,70.59,One year,No,Cheque,City_07,Yes
+55,85.87,Two year,DSL,Cheque,City_11,No
+69,66.7,Month-to-month,No,Cheque,City_53,No
+49,80.31,Month-to-month,No,Card,City_33,Yes
+14,43.6,Two year,DSL,Cheque,City_26,Yes
+61,88.92,One year,No,Card,City_06,No
+10,95.98,One year,No,Card,City_06,Yes
+48,41.92,Month-to-month,No,Cheque,City_23,No
+7,49.8,One year,No,Cheque,City_31,Yes
+3,79.52,One year,Fiber optic,Card,City_39,Yes
+24,77.92,Two year,No,Bank transfer,City_31,No
+50,82.85,Month-to-month,DSL,Cheque,City_14,No
+43,38.93,Month-to-month,DSL,Cheque,City_46,No
+39,59.73,Month-to-month,DSL,Cheque,City_53,No
+11,57.28,Month-to-month,Fiber optic,UPI,City_39,Yes
+69,103.71,Month-to-month,DSL,Card,City_44,No
+61,67.25,Month-to-month,DSL,Bank transfer,City_28,No
+16,56.94,Month-to-month,DSL,Cheque,City_03,Yes
+58,46.84,Two year,No,UPI,City_45,No
+5,69.65,Month-to-month,DSL,Cheque,City_29,Yes
+14,99.64,Month-to-month,DSL,Card,City_37,Yes
+59,30.57,Two year,DSL,Bank transfer,City_46,No
+55,72.54,Two year,No,UPI,City_32,No
+30,82.46,Month-to-month,Fiber optic,Card,City_05,Yes
+24,119.76,One year,Fiber optic,UPI,City_44,Yes
+33,86.79,Month-to-month,Fiber optic,Card,City_13,Yes
+57,103.75,Two year,Fiber optic,Card,City_01,No
+51,70.77,Two year,No,Cheque,City_19,No
+40,34.63,Month-to-month,No,Card,City_27,No
+13,33.8,Month-to-month,Fiber optic,Cheque,City_21,Yes
+5,51.52,Two year,Fiber optic,Card,City_15,Yes
+32,73.05,Month-to-month,No,Bank transfer,City_01,Yes
+38,62.38,Month-to-month,No,UPI,City_19,No
+57,57.85,Two year,No,Card,City_23,No
+39,115.23,Two year,DSL,UPI,City_05,Yes
+42,18.0,Two year,DSL,UPI,City_30,No
+15,43.16,Month-to-month,DSL,UPI,City_51,Yes
+65,129.95,Two year,No,Card,City_19,No
+23,77.39,One year,Fiber optic,Card,City_52,Yes
+62,52.69,Month-to-month,No,Card,City_15,No
+49,41.28,Month-to-month,No,Bank transfer,City_12,No
+19,89.91,Month-to-month,DSL,Bank transfer,City_08,Yes
+36,87.23,Month-to-month,No,Bank transfer,City_46,Yes
+57,90.05,Two year,No,UPI,City_46,No
+8,36.91,Two year,No,Bank transfer,City_05,Yes
+45,73.0,Two year,Fiber optic,Bank transfer,City_44,No
