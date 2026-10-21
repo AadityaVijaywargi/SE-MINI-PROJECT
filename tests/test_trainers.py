@@ -3,9 +3,11 @@
 import numpy as np
 import pytest
 
+from core.evaluator import evaluate
 from core.preprocessing import Preprocessor
 from core.trainers import available_models, build_trainers
 from tests.conftest import load_sample
+from tests.test_evaluator import METRIC_KEYS
 
 
 @pytest.fixture(name="banking_split", scope="module")
@@ -34,6 +36,15 @@ def test_each_model_trains_and_predicts(banking_split, key):
     assert seconds >= 0
     assert predictions.shape == banking_split.y_test.shape
     assert set(np.unique(predictions)) <= {0, 1}
+
+
+@pytest.mark.parametrize("key", available_models())
+def test_each_model_result_has_every_metric_key(banking_split, key):
+    (trainer,) = build_trainers([key], seed=42)
+    model, seconds = trainer.train(banking_split)
+    result = evaluate(model, banking_split, trainer, seconds)
+    assert set(result) == METRIC_KEYS
+    assert result["roc_auc"] is not None
 
 
 def test_trainers_follow_catalogue_order():

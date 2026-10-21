@@ -11,17 +11,19 @@ const COLUMNS = [
   { key: "precision", label: "Precision", type: "metric", best: "max" },
   { key: "recall", label: "Recall", type: "metric", best: "max" },
   { key: "f1", label: "F1", type: "metric", best: "max" },
-  { key: "roc_auc", label: "ROC-AUC", type: "metric", best: "max" },
+  { key: "roc_auc", label: "ROC-AUC", type: "score", best: "max" },
   { key: "train_time", label: "Train time", type: "time", best: "min" },
 ];
 
 let sort = { key: "accuracy", descending: true };
 
 const pct = (value) => (value === null || value === undefined ? "—" : `${(value * 100).toFixed(1)}%`);
+const score = (value) => (value === null || value === undefined ? "—" : value.toFixed(3));
 const seconds = (value) => (value < 1 ? `${(value * 1000).toFixed(0)} ms` : `${value.toFixed(2)} s`);
 
 function format(column, value) {
   if (column.type === "metric") return pct(value);
+  if (column.type === "score") return score(value);
   if (column.type === "time") return seconds(value);
   return value;
 }
@@ -40,7 +42,7 @@ function renderWinner(done, summary) {
       el("span", {}, [el("strong", { text: pct(winner.accuracy) }), " accuracy"]),
       el("span", {}, [el("strong", { text: pct(winner.f1) }), " F1"]),
       winner.roc_auc !== null
-        ? el("span", {}, [el("strong", { text: winner.roc_auc.toFixed(3) }), " ROC-AUC"])
+        ? el("span", {}, [el("strong", { text: score(winner.roc_auc) }), " ROC-AUC"])
         : null,
     ]),
   );

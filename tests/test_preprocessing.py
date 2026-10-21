@@ -34,6 +34,13 @@ def test_column_plan_telecom():
     assert "Tenure" in split.plan.numeric
 
 
+def test_all_missing_column_dropped():
+    frame = load_sample("banking").assign(Notes=np.nan)
+    split = Preprocessor().fit_split(frame, "Exited")
+    assert "Notes" in split.plan.dropped
+    assert np.isfinite(split.x_train).all()
+
+
 def test_string_labels_encoded():
     split = Preprocessor().fit_split(load_sample("healthcare"), "Diagnosis")
     assert split.classes == ["Negative", "Positive"]
