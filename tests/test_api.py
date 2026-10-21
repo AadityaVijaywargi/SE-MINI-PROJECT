@@ -3,6 +3,7 @@
 import io
 import time
 
+from app import create_app
 from tests.conftest import SAMPLES_DIR
 
 ALL_ML = ["logistic_regression", "decision_tree", "random_forest", "svm", "naive_bayes", "xgboost"]
@@ -47,6 +48,20 @@ def test_upload_rejects_bad_extension(client):
 
 def test_upload_without_file(client):
     assert client.post("/api/upload").status_code == 400
+
+
+def test_upload_rejects_oversized_file(tmp_path):
+    app = create_app({"UPLOAD_DIR": tmp_path / "uploads", "MAX_CONTENT_LENGTH": 1024})
+    response = upload(app.test_client(), "big.csv", b"a,b\n" + b"1,2\n" * 1000)
+    assert response.status_code == 413
+    assert "larger than" in response.get_json()["error"]
+
+
+def test_upload_rejects_malformed_file_and_deletes_it(client, tmp_path):
+    response = upload(client, "broken.csv", b"\x00\xff\x00 not a table")
+    assert response.status_code == 400
+    assert response.get_json()["error"]
+    assert not list((tmp_path / "uploads").glob("*"))
 
 
 def test_configure(client):
@@ -95,3 +110,18 @@ def test_full_flow(client):
     assert body["summary"]["best_overall"] in {result["model"] for result in body["results"]}
     assert body["metadata"]["dataset"] == "banking.csv"
     assert body["metadata"]["split_fingerprint"]
+
+
+def test_full_flow_multiclass(client):
+    dataset_id = upload(client, "three_class.csv").get_json()["dataset_id"]
+    response = client.post(
+        "/api/train", json={"dataset_id": dataset_id, "target": "Segment", "models": ALL_ML}
+    )
+    status = wait_for(client, response.get_json()["job_id"])
+    assert status["status"] == "complete", status["error"]
+
+    body = client.get(f"/api/results/{response.get_json()['job_id']}").get_json()
+    assert body["metadata"]["task"] == "multiclass"
+    assert all(result["status"] == "done" for result in body["results"])
+    assert all(result["roc_auc"] is None for result in body["results"])
+    assert all(len(result["confusion_matrix"]) == 3 for result in body["results"])
