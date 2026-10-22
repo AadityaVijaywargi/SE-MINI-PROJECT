@@ -7,7 +7,7 @@ import { setState, showScreen, state } from "./state.js";
 import { renderResults } from "./results.js";
 
 const POLL_MS = 2000;
-const STATUS_ICONS = { pending: "○", running: "◐", done: "✓", failed: "✕" };
+const STATUS_ICONS = { pending: "○", running: "◐", testing: "◑", done: "✓", failed: "✕" };
 
 let pollTimer = null;
 let clockTimer = null;
