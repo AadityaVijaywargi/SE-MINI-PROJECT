@@ -161,12 +161,20 @@ class JobRunner:
             job.update("Failed", message=f"Job failed: {job.error}")
 
     def train_one(self, split, trainer, index):
-        """Train and evaluate a single model. One model failing does not stop the job."""
+        """Train a single model, then test it on the held-out rows. One model failing does
+        not stop the job."""
         job = self.job
+        position = f"({index} of {len(self.trainers)})"
         job.set_model_status(trainer.key, "running")
-        job.update(f"Training {trainer.name} ({index} of {len(self.trainers)})")
+        job.update(f"Training {trainer.name} {position}")
         try:
             model, train_time = trainer.train(split)
+            job.set_model_status(trainer.key, "testing")
+            job.update(
+                f"Testing {trainer.name} {position}",
+                message=f"{trainer.name} trained in {train_time:.2f}s, testing on "
+                f"{split.x_test.shape[0]} held-out rows",
+            )
             result = evaluate(model, split, trainer, train_time)
         # REQ-TR-8 requires one model's failure, whatever it is, not to stop the job.
         except Exception as exc:  # pylint: disable=broad-exception-caught
@@ -180,6 +188,6 @@ class JobRunner:
         job.set_model_status(trainer.key, "done")
         job.update(
             job.stage,
-            message=f"{trainer.name} done in {train_time:.2f}s, accuracy "
-            f"{result['accuracy']:.3f}",
+            message=f"{trainer.name} tested in {result['test_time']:.2f}s: test accuracy "
+            f"{result['accuracy']:.3f}, F1 {result['f1']:.3f}",
         )

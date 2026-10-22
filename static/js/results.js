@@ -13,6 +13,7 @@ const COLUMNS = [
   { key: "f1", label: "F1", type: "metric", best: "max" },
   { key: "roc_auc", label: "ROC-AUC", type: "score", best: "max" },
   { key: "train_time", label: "Train time", type: "time", best: "min" },
+  { key: "test_time", label: "Test time", type: "time", best: "min" },
 ];
 
 let sort = { key: "accuracy", descending: true };
@@ -92,7 +93,8 @@ function sortedRows(rows) {
 }
 
 function onSortClick(key) {
-  sort = { key, descending: sort.key === key ? !sort.descending : key !== "train_time" };
+  const column = COLUMNS.find((entry) => entry.key === key);
+  sort = { key, descending: sort.key === key ? !sort.descending : column.best !== "min" };
   renderTable();
 }
 
