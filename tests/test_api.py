@@ -104,12 +104,17 @@ def test_full_flow(client):
     assert status["status"] == "complete", status["error"]
     assert status["progress"] == 100
     assert all(model["status"] == "done" for model in status["models"])
+    assert sum("testing on" in line for line in status["log"]) == 6
+    assert sum("tested in" in line for line in status["log"]) == 6
 
     body = client.get(f"/api/results/{job_id}").get_json()
     assert len(body["results"]) == 6
     assert body["summary"]["best_overall"] in {result["model"] for result in body["results"]}
     assert body["metadata"]["dataset"] == "banking.csv"
     assert body["metadata"]["split_fingerprint"]
+    test_rows = body["metadata"]["test_rows"]
+    assert all(result["test_rows"] == test_rows for result in body["results"])
+    assert all(result["test_time"] >= 0 for result in body["results"])
 
 
 def test_full_flow_multiclass(client):
