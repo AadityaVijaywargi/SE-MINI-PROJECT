@@ -1,7 +1,10 @@
 """Unified evaluation (SM-52, SM-53).
 
-Implements REQ-EV-1 and REQ-EV-2: one function scores every model, whatever its paradigm.
+Implements REQ-EV-1 and REQ-EV-2: one function tests every model on the held-out test set,
+whatever its paradigm.
 """
+
+import time
 
 import numpy as np
 from sklearn.metrics import (
@@ -27,11 +30,13 @@ def positive_scores(model, features):
 
 
 def evaluate(model, split, trainer, train_time):
-    """Score a fitted model on the shared test set (REQ-EV-1, REQ-EV-2).
+    """Test a fitted model on the shared held-out test set (REQ-EV-1, REQ-EV-2).
 
-    Binary targets use binary averaging; multi-class targets use weighted averaging;
-    zero division counts as 0. ROC-AUC is computed for binary targets only.
+    The test rows are never seen during training. Binary targets use binary averaging;
+    multi-class targets use weighted averaging; zero division counts as 0. ROC-AUC is
+    computed for binary targets only. ``test_time`` is how long predicting took.
     """
+    start = time.perf_counter()
     predictions = model.predict(split.x_test)
     binary = split.n_classes == 2
     average = "binary" if binary else "weighted"
@@ -41,6 +46,7 @@ def evaluate(model, split, trainer, train_time):
         scores = positive_scores(model, split.x_test)
         if scores is not None:
             roc_auc = float(roc_auc_score(split.y_test, scores))
+    test_time = time.perf_counter() - start
 
     matrix = confusion_matrix(split.y_test, predictions, labels=list(range(split.n_classes)))
     return {
@@ -56,6 +62,8 @@ def evaluate(model, split, trainer, train_time):
         "f1": float(f1_score(split.y_test, predictions, average=average, zero_division=0)),
         "roc_auc": roc_auc,
         "train_time": float(train_time),
+        "test_time": float(test_time),
+        "test_rows": int(len(split.y_test)),
         "confusion_matrix": matrix.tolist(),
     }
 

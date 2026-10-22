@@ -19,6 +19,8 @@ METRIC_KEYS = {
     "f1",
     "roc_auc",
     "train_time",
+    "test_time",
+    "test_rows",
     "confusion_matrix",
 }
 
@@ -80,6 +82,13 @@ def test_confusion_matrix_includes_classes_never_predicted():
     split = make_split([0, 1, 2], ["a", "b", "c"])
     result = evaluate(FixedModel([0, 0, 0]), split, FAKE_TRAINER, 0.1)
     assert result["confusion_matrix"] == [[1, 0, 0], [1, 0, 0], [1, 0, 0]]
+
+
+def test_records_test_time_and_test_rows():
+    split = make_split([0, 1, 1], ["no", "yes"])
+    result = evaluate(FixedModel([0, 1, 1], [[1, 0], [0, 1], [0, 1]]), split, FAKE_TRAINER, 0.1)
+    assert result["test_rows"] == 3
+    assert result["test_time"] >= 0
 
 
 def test_summary_best_overall_and_per_paradigm():

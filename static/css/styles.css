@@ -230,7 +230,7 @@ select {
 .checklist li { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--surface-2); }
 .check-icon { width: 18px; text-align: center; font-weight: 700; }
 .check-pending { color: var(--muted); }
-.check-running .check-icon { color: var(--accent); }
+.check-running .check-icon, .check-testing .check-icon { color: var(--accent); }
 .check-done .check-icon { color: var(--good); }
 .check-failed .check-icon, .check-error { color: var(--bad); }
 .check-error { flex-basis: 100%; font-size: 13px; padding-left: 28px; }
