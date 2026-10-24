@@ -3,7 +3,8 @@
 Implements REQ-TR-1 and REQ-TR-2. Every trainer takes the shared Split and returns a fitted
 model with ``predict`` and ``predict_proba``, so the evaluator treats all paradigms alike.
 The DNN lives in core/dnn.py and the quantum classifier in core/qml.py; each imports its
-heavy library only when it trains.
+heavy library only when it trains. XGBoost trains on the GPU when CUDA is usable; the
+scikit-learn models have no GPU support and stay on the CPU.
 """
 
 from sklearn.ensemble import RandomForestClassifier
@@ -14,6 +15,7 @@ from sklearn.tree import DecisionTreeClassifier
 from xgboost import XGBClassifier
 
 import config
+from core import gpu
 from core.base import Trainer, no_report, stratified_sample
 
 __all__ = ["Trainer", "MLTrainer", "no_report", "stratified_sample", "build_trainers"]
@@ -46,7 +48,24 @@ class MLTrainer(Trainer):
             self.details["Subsampled"] = f"from {len(split.y_train)} rows"
         model = self.factory(self.seed)
         model.fit(features, labels)
+        cuda = model.get_params().get("device") == "cuda"
+        self.details["Device"] = gpu.device_label(cuda)
+        if cuda:
+            # The test rows are NumPy arrays in host memory; predicting on the CPU avoids
+            # XGBoost's device-mismatch warning on every call and is fast at this size.
+            model.set_params(device="cpu")
         return model
+
+
+def xgboost_classifier(seed):
+    """XGBoost on the GPU when CUDA is usable (core/gpu.py), otherwise on every CPU core."""
+    return XGBClassifier(
+        eval_metric="logloss",
+        random_state=seed,
+        n_jobs=-1,
+        tree_method="hist",
+        device="cuda" if gpu.use_cuda() else "cpu",
+    )
 
 
 ML_MODELS = {
@@ -70,10 +89,7 @@ ML_MODELS = {
         "Naive Bayes",
         lambda seed: GaussianNB(),
     ),
-    "xgboost": (
-        "XGBoost",
-        lambda seed: XGBClassifier(eval_metric="logloss", random_state=seed, n_jobs=-1),
-    ),
+    "xgboost": ("XGBoost", xgboost_classifier),
 }
 DL_MODELS = ("dnn",)
 QML_MODELS = ("vqc",)

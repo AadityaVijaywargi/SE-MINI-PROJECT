@@ -38,6 +38,21 @@ In production (Linux) the app runs under Gunicorn with one worker and four threa
 the job store is held in memory: `gunicorn -c gunicorn.conf.py`. The Docker image does this
 already.
 
+### NVIDIA GPU (optional)
+
+With an NVIDIA GPU and its driver, XGBoost trains on the GPU automatically, on Windows
+too. The DNN also uses the GPU on Linux or WSL2 once the GPU build of TensorFlow is in
+place of the CPU one:
+
+```bash
+pip uninstall -y tensorflow-cpu
+pip install -r requirements-gpu.txt
+```
+
+Each model's details show `Device: GPU (CUDA)` or `CPU`. Set `COMPUTE_DEVICE=cpu` to keep
+everything on the CPU. The scikit-learn models have no GPU support, and the quantum
+simulator stays on the CPU because 2 to 8 qubits are too small to gain from a GPU.
+
 ## What it does
 
 1. **Upload:** drag and drop a `.csv` or `.xlsx` file (up to 100 MB), or click one of four
@@ -126,7 +141,8 @@ seed, test ratio, split fingerprint, column lists, `qml_subsampled_to` and
 | `SVM_MAX_ROWS` | `20000` | SVM subsampling threshold |
 | `DNN_EPOCHS` | `100` | default DNN epoch limit (early stopping usually ends sooner) |
 | `QML_MAX_ROWS`, `QML_EPOCHS`, `QML_QUBITS` | `2000`, `20`, `4` | quantum model defaults |
-| `QML_DEVICE` | `default.qubit` | PennyLane simulator; `lightning.qubit` also works but is about 5x slower for 4 qubits |
+| `QML_DEVICE` | `default.qubit` | PennyLane simulator; `lightning.qubit` also works but is about 5x slower for 4 qubits; `lightning.gpu` needs Linux and `requirements-gpu.txt` |
+| `COMPUTE_DEVICE` | `auto` | `auto` trains XGBoost and the DNN on an NVIDIA GPU when CUDA is usable; `cpu` never uses the GPU |
 
 ## Tests, lint and CI
 

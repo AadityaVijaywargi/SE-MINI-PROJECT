@@ -17,6 +17,7 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import MinMaxScaler
 
 import config
+from core import gpu
 from core.base import Trainer, stratified_sample
 
 EPSILON = 1e-7
@@ -154,6 +155,7 @@ class QMLTrainer(Trainer):  # pylint: disable=too-many-instance-attributes
                 "PCA variance retained": round(feature_map.variance_retained, 4),
                 "Trainable parameters": int(np.prod(self.weight_shape)),
                 "Simulator": config.QML_DEVICE,
+                "Device": gpu.device_label(config.QML_DEVICE == "lightning.gpu"),
             }
         )
         return VQCModel(circuit, weights, feature_map)

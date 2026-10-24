@@ -33,6 +33,10 @@ MIN_COLUMNS = 2
 UPLOAD_TTL_SECONDS = env_int("UPLOAD_TTL_SECONDS", 3600)
 UPLOAD_DIR_MAX_MB = env_int("UPLOAD_DIR_MAX_MB", 500)
 
+# "auto" trains XGBoost and the DNN on an NVIDIA GPU when CUDA is usable and on the CPU
+# otherwise; "cpu" never uses the GPU (core/gpu.py, docs/deviations.md).
+COMPUTE_DEVICE = os.environ.get("COMPUTE_DEVICE", "auto").strip().lower()
+
 DEFAULT_SEED = 42
 DEFAULT_TEST_RATIO = 0.2
 ALLOWED_TEST_RATIOS = (0.1, 0.2, 0.3)
@@ -62,6 +66,8 @@ QML_LEARNING_RATE = 0.05
 # PennyLane simulator. default.qubit simulates a whole batch of rows at once and is about
 # 5x faster than lightning.qubit for 4 qubits, which keeps a default run inside PERF-4's
 # 1 to 3 minutes; set QML_DEVICE=lightning.qubit to use Lightning (docs/deviations.md).
+# lightning.gpu (Linux, requirements-gpu.txt) simulates on a CUDA GPU, but at 2 to 8
+# qubits copying to the GPU costs more than it saves, so it is never picked automatically.
 QML_DEVICE = os.environ.get("QML_DEVICE", "default.qubit")
 
 PORT = env_int("PORT", 5000)
