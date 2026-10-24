@@ -1,6 +1,6 @@
-"""Unified evaluation (SM-52, SM-53).
+"""Unified evaluation (SM-52 to SM-55).
 
-Implements REQ-EV-1 and REQ-EV-2: one function tests every model on the held-out test set,
+Implements REQ-EV-1 to REQ-EV-4: one function tests every model on the held-out test set,
 whatever its paradigm.
 """
 
@@ -14,9 +14,27 @@ from sklearn.metrics import (
     precision_score,
     recall_score,
     roc_auc_score,
+    roc_curve,
 )
 
 PARADIGMS = ("ML", "DL", "QML")
+ROC_POINTS = 100
+
+
+def downsampled_roc(y_true, scores, points=ROC_POINTS):
+    """ROC curve as ``{fpr, tpr}`` lists of at most ``points`` points (REQ-EV-3, PERF-5).
+
+    The first and last points are always kept, so the curve still runs from (0, 0) to
+    (1, 1).
+    """
+    fpr, tpr, _ = roc_curve(y_true, scores)
+    if len(fpr) > points:
+        keep = np.unique(np.linspace(0, len(fpr) - 1, points).round().astype(int))
+        fpr, tpr = fpr[keep], tpr[keep]
+    return {
+        "fpr": [round(float(value), 4) for value in fpr],
+        "tpr": [round(float(value), 4) for value in tpr],
+    }
 
 
 def positive_scores(model, features):
@@ -34,18 +52,20 @@ def evaluate(model, split, trainer, train_time):
 
     The test rows are never seen during training. Binary targets use binary averaging;
     multi-class targets use weighted averaging; zero division counts as 0. ROC-AUC is
-    computed for binary targets only. ``test_time`` is how long predicting took.
+    computed for binary targets only, with the ROC curve (REQ-EV-3). ``test_time`` is how
+    long predicting took.
     """
     start = time.perf_counter()
-    predictions = model.predict(split.x_test)
+    predictions = np.asarray(model.predict(split.x_test))
     binary = split.n_classes == 2
     average = "binary" if binary else "weighted"
 
-    roc_auc = None
+    roc_auc, curve = None, None
     if binary:
         scores = positive_scores(model, split.x_test)
         if scores is not None:
             roc_auc = float(roc_auc_score(split.y_test, scores))
+            curve = downsampled_roc(split.y_test, scores)
     test_time = time.perf_counter() - start
 
     matrix = confusion_matrix(split.y_test, predictions, labels=list(range(split.n_classes)))
@@ -61,10 +81,12 @@ def evaluate(model, split, trainer, train_time):
         "recall": float(recall_score(split.y_test, predictions, average=average, zero_division=0)),
         "f1": float(f1_score(split.y_test, predictions, average=average, zero_division=0)),
         "roc_auc": roc_auc,
+        "roc_curve": curve,
         "train_time": float(train_time),
         "test_time": float(test_time),
         "test_rows": int(len(split.y_test)),
         "confusion_matrix": matrix.tolist(),
+        "details": dict(getattr(trainer, "details", None) or {}),
     }
 
 
