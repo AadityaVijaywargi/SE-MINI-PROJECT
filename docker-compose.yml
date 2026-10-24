@@ -1,0 +1,18 @@
+# SM-75: local fallback for the demo (SRS 5.4, Availability): docker compose up
+services:
+  app:
+    build: .
+    image: prediction-platform:local
+    ports:
+      - "5000:5000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      APP_ENV: production
+    volumes:
+      - uploads:/app/uploads
+    restart: unless-stopped
+
+volumes:
+  uploads:
