@@ -1,6 +1,8 @@
-// Results screen: winner banner, paradigm cards and the sortable metrics table
-// (REQ-RS-1 to REQ-RS-3). Charts and CSV export arrive in Sprint 2.
+// Results screen: winner banner, paradigm cards, the sortable metrics table, charts,
+// confusion matrices, run metadata and CSV export (REQ-RS-1 to REQ-RS-9).
 
+import { resultsCsvUrl, toast } from "./api.js";
+import { destroyCharts, paradigmColour, renderCharts } from "./charts.js";
 import { clear, el, paradigmBadge, PARADIGM_NAMES } from "./dom.js";
 import { showScreen, state } from "./state.js";
 
@@ -29,7 +31,11 @@ function format(column, value) {
   return value;
 }
 
-function renderWinner(done, summary) {
+function doneResults() {
+  return state.results.results.filter((result) => result.status === "done");
+}
+
+function renderWinner(done, summary, cancelled) {
   const banner = clear(document.getElementById("winner-banner"));
   const winner = done.find((result) => result.model === summary.best_overall);
   if (!winner) {
@@ -37,7 +43,11 @@ function renderWinner(done, summary) {
     return;
   }
   banner.append(
-    el("div", { class: "winner-kicker", text: "Best model" }),
+    el("span", { class: "stamp", "aria-hidden": "true", text: "Best" }),
+    el("div", {
+      class: "winner-kicker",
+      text: cancelled ? "Best model · run cancelled, partial results" : "Best model",
+    }),
     el("div", { class: "winner-name" }, [winner.model, " ", paradigmBadge(winner.paradigm)]),
     el("div", { class: "winner-stats" }, [
       el("span", {}, [el("strong", { text: pct(winner.accuracy) }), " accuracy"]),
@@ -45,11 +55,26 @@ function renderWinner(done, summary) {
       winner.roc_auc !== null
         ? el("span", {}, [el("strong", { text: score(winner.roc_auc) }), " ROC-AUC"])
         : null,
+      el("span", {}, [el("strong", { text: seconds(winner.train_time) }), " to train"]),
     ]),
   );
 }
 
+const PARADIGM_OF = { dnn: "DL", vqc: "QML" };
+
+function emptyCardNote(paradigm, results, metadata) {
+  const entry = results.find((result) => result.paradigm === paradigm);
+  if (entry && entry.status === "failed") return `Failed: ${entry.error}`;
+  if (paradigm === "QML" && metadata && metadata.task !== "binary") {
+    return "Binary targets only; not run for this target.";
+  }
+  const selected = state.selectedModels.some((key) => (PARADIGM_OF[key] || "ML") === paradigm);
+  if (selected && state.results.status === "cancelled") return "Cancelled before it finished.";
+  return "Not selected in this run.";
+}
+
 function renderParadigmCards(done, summary) {
+  const { results, metadata } = state.results;
   const cards = clear(document.getElementById("paradigm-cards"));
   ["ML", "DL", "QML"].forEach((paradigm) => {
     const bestName = summary[`best_${paradigm.toLowerCase()}`];
@@ -62,10 +87,10 @@ function renderParadigmCards(done, summary) {
               el("div", { class: "card-value", text: best.model }),
               el("div", {
                 class: "card-note",
-                text: `${pct(best.accuracy)} accuracy · ${seconds(best.train_time)}`,
+                text: `${pct(best.accuracy)} accuracy · ${seconds(best.train_time)} to train`,
               }),
             ])
-          : el("div", { class: "card-note", text: "Not run in this release (Sprint 2)." }),
+          : el("div", { class: "card-note", text: emptyCardNote(paradigm, results, metadata) }),
       ]),
     );
   });
@@ -144,21 +169,136 @@ function renderTable() {
   table.append(el("thead", {}, header), el("tbody", {}, [...rows, ...failedRows]));
 }
 
+function detailText(value) {
+  if (value === true) return "yes";
+  if (value === false) return "no";
+  return String(value);
+}
+
+// REQ-RS-6: one heatmap per model. Cell shade is the share of the true class's rows.
+function renderConfusion(done, classes) {
+  const grid = clear(document.getElementById("confusion-grid"));
+  done.forEach((result) => {
+    const matrix = result.confusion_matrix;
+    const head = el("tr", {}, [
+      el("th", { scope: "col", class: "corner", text: "true ↓ / predicted →" }),
+      ...classes.map((label) => el("th", { scope: "col", text: label })),
+    ]);
+    const body = matrix.map((row, i) => {
+      const total = row.reduce((sum, count) => sum + count, 0) || 1;
+      return el("tr", {}, [
+        el("th", { scope: "row", text: classes[i] }),
+        ...row.map((count, j) => {
+          const share = count / total;
+          return el("td", {
+            class: `cm-cell ${i === j ? "cm-diag" : ""} ${share > 0.55 ? "cm-dark" : ""}`,
+            style: `background:${paradigmColour(result.paradigm, 0.08 + 0.85 * share)}`,
+            title: `${count} of ${total} rows (${(share * 100).toFixed(0)}%)`,
+            text: count,
+          });
+        }),
+      ]);
+    });
+    const details = Object.entries(result.details || {});
+    grid.append(
+      el("figure", { class: "cm-card" }, [
+        el("figcaption", {}, [paradigmBadge(result.paradigm), ` ${result.model}`]),
+        el("div", { class: "table-wrap" }, [
+          el("table", { class: "cm-table", "aria-label": `Confusion matrix for ${result.model}` }, [
+            el("thead", {}, head),
+            el("tbody", {}, body),
+          ]),
+        ]),
+        details.length
+          ? el(
+              "p",
+              { class: "muted small cm-details" },
+              details.map(([key, value]) => `${key}: ${detailText(value)}`).join(" · "),
+            )
+          : null,
+      ]),
+    );
+  });
+}
+
+// REQ-RS-8: the REQ-EV-5 fields plus what the preprocessing did.
+function renderMetadata(metadata) {
+  const list = clear(document.getElementById("run-meta"));
+  if (!metadata) return;
+  const listOrNone = (items) => (items && items.length ? items.join(", ") : "none");
+  const entries = [
+    ["Dataset", metadata.dataset],
+    ["Rows", metadata.rows],
+    ["Target", `${metadata.target} (${metadata.task})`],
+    ["Classes", listOrNone(metadata.classes)],
+    ["Features after encoding", metadata.features],
+    ["Train / test rows", `${metadata.train_rows} / ${metadata.test_rows} (test split ${metadata.test_ratio * 100}%)`],
+    ["Seed", metadata.seed],
+    ["Split fingerprint", metadata.split_fingerprint],
+    ["QML subsampled to", metadata.qml_subsampled_to ?? "QML not run"],
+    [
+      "PCA variance retained",
+      metadata.pca_variance_retained === null || metadata.pca_variance_retained === undefined
+        ? "QML not run"
+        : `${(metadata.pca_variance_retained * 100).toFixed(1)}%`,
+    ],
+    ["DNN epochs (max) / QML epochs / qubits", `${metadata.dnn_epochs} / ${metadata.qml_epochs} / ${metadata.qubits}`],
+    ["Dropped columns", listOrNone(metadata.dropped_columns)],
+    ["Numeric columns", listOrNone(metadata.numeric_columns)],
+    ["One-hot columns", listOrNone(metadata.one_hot_columns)],
+    ["Ordinal columns", listOrNone(metadata.ordinal_columns)],
+  ];
+  entries.forEach(([label, value]) => {
+    list.append(el("div", { class: "meta-item" }, [el("dt", { text: label }), el("dd", { text: value })]));
+  });
+}
+
+// REQ-RS-9: the server builds the CSV and escapes formula characters (SEC-2).
+function exportCsv() {
+  const link = el("a", { href: resultsCsvUrl(state.jobId), download: "" });
+  document.body.append(link);
+  link.click();
+  link.remove();
+}
+
+function renderChartsSection(done, metadata) {
+  const binary = metadata?.task === "binary";
+  document.getElementById("roc-panel").classList.toggle("hidden", !binary);
+  document.getElementById("roc-hidden").classList.toggle("hidden", binary);
+  const ok = renderCharts(done, binary);
+  const notice = document.getElementById("charts-unavailable");
+  notice.classList.toggle("hidden", ok || !done.length);
+  notice.textContent = ok
+    ? ""
+    : "Charts could not be drawn because Chart.js did not load. Check the internet connection and reload; the table above has every score.";
+  document.querySelector(".chart-grid").classList.toggle("hidden", !ok);
+}
+
 export function renderResults() {
-  const { results, summary, metadata } = state.results;
-  const done = results.filter((result) => result.status === "done");
+  const { summary, metadata, status } = state.results;
+  const done = doneResults();
   sort = { key: "accuracy", descending: true };
-  renderWinner(done, summary);
+  renderWinner(done, summary, status === "cancelled");
   renderParadigmCards(done, summary);
   renderTable();
-  document.getElementById("run-meta").textContent = metadata
-    ? `${metadata.dataset} · target “${metadata.target}” (${metadata.task}) · ` +
-      `${metadata.train_rows} train / ${metadata.test_rows} test rows · ` +
-      `${metadata.features} features · seed ${metadata.seed} · split ${metadata.split_fingerprint}`
-    : "";
+  renderConfusion(done, metadata?.classes || []);
+  renderMetadata(metadata);
+  // Charts are drawn after the screen is visible so Chart.js can measure the canvases.
+  requestAnimationFrame(() => renderChartsSection(done, metadata));
 }
 
 export function initResults() {
-  document.getElementById("retrain").addEventListener("click", () => showScreen("configure"));
-  document.getElementById("new-run").addEventListener("click", () => showScreen("upload"));
+  document.getElementById("export-csv").addEventListener("click", () => {
+    if (!state.results) return;
+    exportCsv();
+    toast("Downloading the metrics table as CSV.", "info");
+  });
+  document.getElementById("retrain").addEventListener("click", () => {
+    destroyCharts();
+    showScreen("configure");
+  });
+  document.getElementById("new-run").addEventListener("click", () => {
+    destroyCharts();
+    showScreen("upload");
+  });
 }
