@@ -1,0 +1,21 @@
+# Keep the build context small and free of local data and secrets.
+.git
+.github
+.venv
+venv
+__pycache__
+*.py[cod]
+.pytest_cache
+.coverage
+htmlcov
+uploads
+reports
+tests
+docs
+tools
+.env
+*.log
+*.md
+Dockerfile
+docker-compose.yml
+render.yaml
