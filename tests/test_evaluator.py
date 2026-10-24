@@ -1,11 +1,11 @@
-"""Unified evaluator (SM-52, SM-53, SM-93)."""
+"""Unified evaluator (SM-52 to SM-55, SM-93)."""
 
 from types import SimpleNamespace
 
 import numpy as np
 import pytest
 
-from core.evaluator import evaluate, failed_result, summarise
+from core.evaluator import ROC_POINTS, downsampled_roc, evaluate, failed_result, summarise
 from core.preprocessing import Split
 
 METRIC_KEYS = {
@@ -18,10 +18,12 @@ METRIC_KEYS = {
     "recall",
     "f1",
     "roc_auc",
+    "roc_curve",
     "train_time",
     "test_time",
     "test_rows",
     "confusion_matrix",
+    "details",
 }
 
 
@@ -66,6 +68,7 @@ def test_multiclass_uses_weighted_average_and_no_roc():
     split = make_split([0, 1, 2, 2], ["a", "b", "c"])
     result = evaluate(FixedModel([0, 1, 2, 1]), split, FAKE_TRAINER, 0.1)
     assert result["roc_auc"] is None
+    assert result["roc_curve"] is None
     assert result["accuracy"] == 0.75
     expected_f1 = (1 * 1 + 1 * (2 / 3) + 2 * (2 / 3)) / 4
     assert result["f1"] == pytest.approx(expected_f1)
@@ -108,3 +111,30 @@ def test_summary_best_overall_and_per_paradigm():
 
 def test_summary_with_nothing_done():
     assert summarise([failed_result(FAKE_TRAINER, "boom")])["best_overall"] is None
+
+
+def test_binary_result_has_roc_curve_from_origin_to_corner():
+    split = make_split([0, 0, 1, 1], ["no", "yes"])
+    proba = [[0.9, 0.1], [0.4, 0.6], [0.3, 0.7], [0.2, 0.8]]
+    curve = evaluate(FixedModel([0, 1, 1, 1], proba), split, FAKE_TRAINER, 0.5)["roc_curve"]
+    assert curve["fpr"][0] == 0 and curve["tpr"][0] == 0
+    assert curve["fpr"][-1] == 1 and curve["tpr"][-1] == 1
+
+
+def test_roc_curve_is_downsampled_to_about_100_points():
+    rng = np.random.default_rng(0)
+    labels = rng.integers(0, 2, 5000)
+    scores = labels + rng.normal(0, 1, 5000)
+    curve = downsampled_roc(labels, scores)
+    assert 2 < len(curve["fpr"]) <= ROC_POINTS
+    assert len(curve["fpr"]) == len(curve["tpr"])
+    assert (curve["fpr"][0], curve["tpr"][0]) == (0.0, 0.0)
+    assert (curve["fpr"][-1], curve["tpr"][-1]) == (1.0, 1.0)
+    assert curve["fpr"] == sorted(curve["fpr"])
+
+
+def test_trainer_details_are_reported():
+    trainer = SimpleNamespace(key="k", name="K", paradigm="DL", details={"Epochs run": 7})
+    split = make_split([0, 1], ["no", "yes"])
+    result = evaluate(FixedModel([0, 1], [[1, 0], [0, 1]]), split, trainer, 0.1)
+    assert result["details"] == {"Epochs run": 7}

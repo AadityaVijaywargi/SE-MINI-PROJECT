@@ -1,13 +1,16 @@
-"""ML trainers (SM-36)."""
+"""ML trainers and the model catalogue (SM-36, SM-37)."""
 
 import numpy as np
 import pytest
 
+import config
 from core.evaluator import evaluate
 from core.preprocessing import Preprocessor
-from core.trainers import available_models, build_trainers
+from core.trainers import ML_MODELS, available_models, build_trainers, stratified_sample
 from tests.conftest import load_sample
 from tests.test_evaluator import METRIC_KEYS
+
+ML_KEYS = list(ML_MODELS)
 
 
 @pytest.fixture(name="banking_split", scope="module")
@@ -16,7 +19,7 @@ def fixture_banking_split():
     return Preprocessor().fit_split(load_sample("banking"), "Exited")
 
 
-def test_six_ml_models_available():
+def test_eight_models_available_in_paradigm_order():
     assert available_models() == [
         "logistic_regression",
         "decision_tree",
@@ -24,10 +27,17 @@ def test_six_ml_models_available():
         "svm",
         "naive_bayes",
         "xgboost",
+        "dnn",
+        "vqc",
     ]
 
 
-@pytest.mark.parametrize("key", available_models())
+def test_paradigms_of_the_catalogue():
+    trainers = build_trainers(available_models(), seed=42)
+    assert [trainer.paradigm for trainer in trainers] == ["ML"] * 6 + ["DL", "QML"]
+
+
+@pytest.mark.parametrize("key", ML_KEYS)
 def test_each_model_trains_and_predicts(banking_split, key):
     (trainer,) = build_trainers([key], seed=42)
     model, seconds = trainer.train(banking_split)
@@ -38,18 +48,19 @@ def test_each_model_trains_and_predicts(banking_split, key):
     assert set(np.unique(predictions)) <= {0, 1}
 
 
-@pytest.mark.parametrize("key", available_models())
+@pytest.mark.parametrize("key", ML_KEYS)
 def test_each_model_result_has_every_metric_key(banking_split, key):
     (trainer,) = build_trainers([key], seed=42)
     model, seconds = trainer.train(banking_split)
     result = evaluate(model, banking_split, trainer, seconds)
     assert set(result) == METRIC_KEYS
     assert result["roc_auc"] is not None
+    assert result["roc_curve"] is not None
 
 
 def test_trainers_follow_catalogue_order():
-    keys = [trainer.key for trainer in build_trainers(["xgboost", "svm"], seed=1)]
-    assert keys == ["svm", "xgboost"]
+    keys = [trainer.key for trainer in build_trainers(["vqc", "xgboost", "dnn", "svm"], seed=1)]
+    assert keys == ["svm", "xgboost", "dnn", "vqc"]
 
 
 def test_same_seed_same_predictions(banking_split):
@@ -61,5 +72,50 @@ def test_same_seed_same_predictions(banking_split):
 
 
 def test_unknown_model_rejected():
-    with pytest.raises(ValueError, match="dnn"):
-        build_trainers(["svm", "dnn"], seed=42)
+    with pytest.raises(ValueError, match="nope"):
+        build_trainers(["svm", "nope"], seed=42)
+
+
+def test_options_reach_dl_and_qml_trainers():
+    dnn, vqc = build_trainers(["dnn", "vqc"], seed=3, options={"dnn_epochs": 7, "qubits": 3})
+    assert dnn.epochs == 7
+    assert vqc.qubits == 3
+    assert vqc.epochs == config.QML_EPOCHS
+
+
+def test_stratified_sample_keeps_class_shares():
+    labels = np.array([0] * 900 + [1] * 100)
+    features = np.arange(1000).reshape(-1, 1)
+    sample_x, sample_y = stratified_sample(features, labels, 200, seed=0)
+    assert len(sample_y) == 200
+    assert sample_x.shape == (200, 1)
+    assert int(sample_y.sum()) == 20
+
+
+def test_stratified_sample_returns_small_inputs_unchanged():
+    labels = np.array([0, 1, 0, 1])
+    features = np.zeros((4, 2))
+    sample_x, sample_y = stratified_sample(features, labels, 10, seed=0)
+    assert sample_x is features and sample_y is labels
+
+
+def test_svm_is_subsampled_above_the_row_cap(banking_split, monkeypatch):
+    monkeypatch.setattr(config, "SVM_MAX_ROWS", 60)
+    (trainer,) = build_trainers(["svm"], seed=42)
+    model, _ = trainer.train(banking_split)
+    assert trainer.details["Training rows"] == 60
+    assert len(model.support_) <= 60
+    assert model.predict(banking_split.x_test).shape == banking_split.y_test.shape
+
+
+def test_svm_not_subsampled_below_the_cap(banking_split):
+    (trainer,) = build_trainers(["svm"], seed=42)
+    trainer.train(banking_split)
+    assert "Training rows" not in trainer.details
+
+
+def test_other_models_are_never_subsampled(banking_split, monkeypatch):
+    monkeypatch.setattr(config, "SVM_MAX_ROWS", 60)
+    (trainer,) = build_trainers(["random_forest"], seed=42)
+    trainer.train(banking_split)
+    assert trainer.details == {}
