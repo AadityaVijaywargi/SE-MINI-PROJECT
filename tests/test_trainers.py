@@ -118,4 +118,4 @@ def test_other_models_are_never_subsampled(banking_split, monkeypatch):
     monkeypatch.setattr(config, "SVM_MAX_ROWS", 60)
     (trainer,) = build_trainers(["random_forest"], seed=42)
     trainer.train(banking_split)
-    assert trainer.details == {}
+    assert trainer.details == {"Device": "CPU"}

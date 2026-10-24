@@ -1,8 +1,9 @@
 """Deep neural network trainer (SM-38, SM-39).
 
-Implements REQ-TR-3 and REQ-TR-4: a Keras dense network on TensorFlow-CPU with batch
-normalisation, dropout, Adam at 1e-3, early stopping (patience 10, best weights restored)
-and a validation split taken from the training rows only.
+Implements REQ-TR-3 and REQ-TR-4: a Keras dense network with batch normalisation,
+dropout, Adam at 1e-3, early stopping (patience 10, best weights restored) and a
+validation split taken from the training rows only. It runs on TensorFlow-CPU by default
+and on a CUDA GPU when a GPU build of TensorFlow is installed (requirements-gpu.txt).
 """
 
 import os
@@ -11,6 +12,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 import config
+from core import gpu
 from core.base import Trainer
 
 # TensorFlow's start-up banner and oneDNN notices would flood the server log.
@@ -19,10 +21,30 @@ os.environ.setdefault("TF_ENABLE_ONEDNN_OPTS", "0")
 
 # The environment variables above must be set before Keras loads TensorFlow.
 import keras  # noqa: E402  pylint: disable=wrong-import-position,wrong-import-order
+import tensorflow as tf  # noqa: E402  pylint: disable=wrong-import-position,wrong-import-order
 
 VALIDATION_RATIO = 0.2
 PATIENCE = 10
 LEARNING_RATE = 1e-3
+
+
+def configure_gpus():
+    """GPUs TensorFlow will train on, after applying COMPUTE_DEVICE.
+
+    ``cpu`` hides every GPU. Otherwise each GPU grows its memory as needed instead of
+    reserving all of it, so XGBoost can share the card. TensorFlow allows both settings
+    only before it first uses a GPU; later calls keep the earlier choice.
+    """
+    gpus = tf.config.list_physical_devices("GPU")
+    try:
+        if config.COMPUTE_DEVICE == "cpu":
+            tf.config.set_visible_devices([], "GPU")
+            return []
+        for device in gpus:
+            tf.config.experimental.set_memory_growth(device, True)
+    except RuntimeError:
+        pass
+    return tf.config.get_visible_devices("GPU")
 
 
 def build_network(n_features, n_classes):
@@ -113,6 +135,7 @@ class DNNTrainer(Trainer):
         self.batch_size = batch_size
 
     def fit(self, split, report):
+        cuda = bool(configure_gpus())
         keras.utils.set_random_seed(self.seed)
         features = np.asarray(split.x_train, dtype=np.float32)
         x_fit, x_val, y_fit, y_val = validation_split(features, split.y_train, self.seed)
@@ -139,6 +162,7 @@ class DNNTrainer(Trainer):
                 "Stopped early": epochs_run < self.epochs,
                 "Validation rows": int(len(y_val)),
                 "Parameters": int(network.count_params()),
+                "Device": gpu.device_label(cuda),
             }
         )
         return DNNModel(network, split.n_classes)

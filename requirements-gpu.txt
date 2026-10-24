@@ -1,0 +1,10 @@
+# NVIDIA GPU extras for Linux or WSL2 with a CUDA 12 driver. Install over requirements.txt,
+# after removing the CPU-only TensorFlow, which would otherwise shadow the GPU build:
+#   pip install -r requirements.txt
+#   pip uninstall -y tensorflow-cpu
+#   pip install -r requirements-gpu.txt
+# XGBoost's standard wheel already includes CUDA, on Windows too. Native Windows has no
+# TensorFlow GPU build after 2.10, so there only XGBoost uses the GPU.
+tensorflow[and-cuda]==2.16.1; sys_platform == "linux"
+# Only used with QML_DEVICE=lightning.gpu (see config.py).
+pennylane-lightning-gpu==0.37.0; sys_platform == "linux"
