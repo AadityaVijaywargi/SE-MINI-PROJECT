@@ -4,13 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ML vs DL vs QML Prediction Platform</title>
+  <!-- Herbarium typefaces. Georgia, system-ui and Consolas stand in if the font CDN is unreachable. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;1,400&display=swap">
   <link rel="stylesheet" href="css/styles.css">
+  <!-- Chart.js from the CDN (SRS 2.1, ASM-4). charts.js shows a notice if it fails to load. -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
   <header class="topbar">
     <div class="brand">
       <span class="brand-mark" aria-hidden="true">◆</span>
-      <span>Prediction Platform <small>ML vs DL vs QML</small></span>
+      <span>Prediction Platform <em>ML · DL · QML</em></span>
     </div>
     <ol class="stepper" aria-label="Progress through the four steps">
       <li data-step="upload">Upload</li>
@@ -20,18 +27,28 @@
     </ol>
   </header>
 
-  <main>
-    <!-- Screen 1: Upload (REQ-UP-1 to REQ-UP-8) -->
+  <main id="main">
+    <!-- Screen 1: Upload (REQ-UP-1 to REQ-UP-9) -->
     <section data-screen="upload" aria-labelledby="upload-title">
-      <h1 id="upload-title" tabindex="-1">Upload a dataset</h1>
-      <p class="lede">A CSV or Excel file with one row per record and a column to predict.</p>
+      <p class="eyebrow">Sheet 01 · Collect the specimens</p>
+      <h1 id="upload-title" tabindex="-1">Upload a <em>dataset</em></h1>
+      <p class="lede">A CSV or Excel file with one row per record and a column to predict. Every model is then trained and tested on exactly the same split.</p>
 
       <label class="dropzone" id="dropzone" for="file-input">
-        <input type="file" id="file-input" accept=".csv,.xlsx" class="visually-hidden">
+        <!-- The drop zone itself takes focus and opens the picker with Enter or Space. -->
+        <input type="file" id="file-input" accept=".csv,.xlsx" class="visually-hidden" tabindex="-1">
         <span class="dropzone-icon" aria-hidden="true">⇪</span>
         <span class="dropzone-text"><strong>Drop a file here</strong> or click to choose one</span>
         <span class="dropzone-hint">.csv or .xlsx, up to 100 MB</span>
       </label>
+
+      <div class="samples" aria-labelledby="samples-title">
+        <h2 id="samples-title" class="samples-title">No file to hand? Try a sample dataset</h2>
+        <div id="sample-buttons" class="sample-buttons">
+          <span class="spinner" aria-label="Loading sample datasets"></span>
+        </div>
+      </div>
+
       <div id="upload-progress" class="hidden upload-progress">
         <span class="spinner" aria-hidden="true"></span>
         <span id="upload-progress-text">Uploading…</span>
@@ -53,9 +70,11 @@
       </div>
     </section>
 
-    <!-- Screen 2: Configure (REQ-TG-1 to REQ-TG-6, REQ-MS-1) -->
+    <!-- Screen 2: Configure (REQ-TG-1 to REQ-TG-6, REQ-MS-1 to REQ-MS-5) -->
     <section data-screen="configure" class="hidden" aria-labelledby="configure-title">
-      <h1 id="configure-title" tabindex="-1">Choose a target and models</h1>
+      <p class="eyebrow">Sheet 02 · Label the collection</p>
+      <h1 id="configure-title" tabindex="-1">Choose a target and <em>models</em></h1>
+      <p class="lede">Pick the column to predict, then the classifiers to compare. The defaults work; the Advanced settings are optional.</p>
 
       <div class="panel">
         <label for="target-select" class="field-label">Column to predict (target)</label>
@@ -69,6 +88,37 @@
         <div id="model-grid" class="model-grid"></div>
       </div>
 
+      <details class="panel advanced" id="advanced">
+        <summary>Advanced settings <span class="muted">optional, the defaults work</span></summary>
+        <div class="advanced-grid">
+          <div class="field">
+            <label for="opt-test-ratio" class="field-label">Test split</label>
+            <select id="opt-test-ratio">
+              <option value="0.1">10% of rows</option>
+              <option value="0.2" selected>20% of rows</option>
+              <option value="0.3">30% of rows</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="opt-seed" class="field-label">Random seed</label>
+            <input type="number" id="opt-seed" value="42" min="0" step="1" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label for="opt-dnn-epochs" class="field-label">DNN epochs <span class="muted">max, early stopping</span></label>
+            <input type="number" id="opt-dnn-epochs" value="100" min="1" max="500" step="1" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label for="opt-qml-epochs" class="field-label">QML epochs</label>
+            <input type="number" id="opt-qml-epochs" value="20" min="1" max="100" step="1" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label for="opt-qubits" class="field-label">Qubits</label>
+            <input type="number" id="opt-qubits" value="4" min="2" max="8" step="1" inputmode="numeric">
+          </div>
+        </div>
+        <p id="advanced-error" class="blocked hidden" role="alert"></p>
+      </details>
+
       <div class="actions">
         <button type="button" class="btn" id="back-to-upload">← Back</button>
         <button type="button" class="btn btn-primary" id="start-training">Start training</button>
@@ -76,19 +126,24 @@
       <p id="train-blocked" class="blocked hidden" role="alert"></p>
     </section>
 
-    <!-- Screen 3: Train (REQ-JB-3, REQ-JB-5) -->
+    <!-- Screen 3: Train (REQ-JB-3, REQ-JB-5, REQ-JB-6) -->
     <section data-screen="train" class="hidden" aria-labelledby="train-title">
-      <h1 id="train-title" tabindex="-1">Training</h1>
+      <p class="eyebrow">Sheet 03 · Press the specimens</p>
+      <h1 id="train-title" tabindex="-1"><em>Training</em></h1>
+      <p class="lede">Each model trains on the same rows, then is tested on the held-out rows. The bar shows the server's real progress.</p>
       <div class="panel">
         <div class="stage-row">
-          <span id="stage-label" class="stage-label">Starting…</span>
+          <span id="stage-label" class="stage-label" aria-live="polite">Starting…</span>
           <span id="elapsed" class="muted">0s</span>
         </div>
         <div class="progress" id="progress-bar" role="progressbar" aria-label="Training progress"
              aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
           <div class="progress-fill" id="progress-fill"></div>
         </div>
-        <span id="progress-text" class="muted">0%</span>
+        <div class="stage-row stage-foot">
+          <span id="progress-text" class="muted">0%</span>
+          <button type="button" class="btn btn-danger btn-small" id="cancel-job">Cancel training</button>
+        </div>
       </div>
       <div class="train-grid">
         <div class="panel">
@@ -100,27 +155,76 @@
           <ol id="job-log" class="log" aria-live="polite"></ol>
         </div>
       </div>
+      <div id="results-loading" class="upload-progress hidden">
+        <span class="spinner" aria-hidden="true"></span><span>Loading results…</span>
+      </div>
       <div class="actions hidden" id="train-failed-actions">
         <button type="button" class="btn" id="back-to-configure">← Back to configure</button>
       </div>
     </section>
 
-    <!-- Screen 4: Results (REQ-RS-1 to REQ-RS-3) -->
+    <!-- Screen 4: Results (REQ-RS-1 to REQ-RS-9) -->
     <section data-screen="results" class="hidden" aria-labelledby="results-title">
+      <!-- REQ-RS-1: the winner banner, not the heading, is the largest element here. -->
       <h1 id="results-title" tabindex="-1" class="visually-hidden">Results</h1>
+      <p class="eyebrow results-eyebrow">Sheet 04 · The comparison · scored on held-out test rows no model saw while training</p>
       <div id="winner-banner" class="winner"></div>
       <div id="paradigm-cards" class="cards cards-3"></div>
+
       <div class="panel">
-        <h2 class="section-title">All models <span class="muted">scores on the held-out test set · click a column to sort</span></h2>
+        <div class="panel-head">
+          <h2 class="section-title">All models <span class="muted">scores on the held-out test set · click a column to sort</span></h2>
+          <button type="button" class="btn btn-small" id="export-csv">⬇ Export CSV</button>
+        </div>
         <div class="table-wrap"><table id="metrics-table" class="data-table metrics"></table></div>
-        <p id="run-meta" class="muted small"></p>
       </div>
+
+      <p id="charts-unavailable" class="warning hidden" role="status"></p>
+      <div class="chart-grid">
+        <figure class="panel chart-panel chart-wide">
+          <figcaption class="section-title">Accuracy, precision, recall and F1 per model</figcaption>
+          <div class="chart-box"><canvas id="chart-metrics" role="img" aria-label="Grouped bar chart of accuracy, precision, recall and F1 for each model"></canvas></div>
+        </figure>
+        <figure class="panel chart-panel" id="roc-panel">
+          <figcaption class="section-title">ROC curves <span class="muted">dashed diagonal = random guessing</span></figcaption>
+          <div class="chart-box"><canvas id="chart-roc" role="img" aria-label="ROC curves of every model with a random-baseline diagonal"></canvas></div>
+        </figure>
+        <figure class="panel chart-panel hidden" id="roc-hidden">
+          <figcaption class="section-title">ROC curves</figcaption>
+          <p class="muted">ROC curves are drawn for binary targets only. This target has more than two classes.</p>
+        </figure>
+        <figure class="panel chart-panel">
+          <figcaption class="section-title">Training time <span class="muted">log scale</span></figcaption>
+          <div class="chart-box"><canvas id="chart-time" role="img" aria-label="Horizontal bar chart of training time per model on a logarithmic axis"></canvas></div>
+        </figure>
+        <figure class="panel chart-panel">
+          <figcaption class="section-title">Accuracy versus training time <span class="muted">up and left is better</span></figcaption>
+          <div class="chart-box"><canvas id="chart-tradeoff" role="img" aria-label="Scatter chart of test accuracy against training time"></canvas></div>
+        </figure>
+      </div>
+
+      <div class="panel">
+        <h2 class="section-title">Confusion matrices <span class="muted">rows = true class, columns = predicted class</span></h2>
+        <div id="confusion-grid" class="confusion-grid"></div>
+      </div>
+
+      <div class="panel">
+        <h2 class="section-title">Run metadata</h2>
+        <dl id="run-meta" class="meta-grid"></dl>
+      </div>
+
       <div class="actions">
         <button type="button" class="btn" id="retrain">← Change models</button>
         <button type="button" class="btn btn-primary" id="new-run">Upload another dataset</button>
       </div>
     </section>
   </main>
+
+  <!-- SRS 5.2 (TBD-6 wording) -->
+  <footer class="notice" role="note">
+    ◆ Results are for comparative study only. Do not use them for clinical, credit or
+    underwriting decisions.
+  </footer>
 
   <div id="toasts" class="toasts" aria-live="assertive"></div>
 

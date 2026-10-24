@@ -11,6 +11,7 @@ export const state = {
   target: null,
   analysis: null,
   selectedModels: [],
+  settings: null,
   jobId: null,
   results: null,
 };

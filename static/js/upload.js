@@ -1,7 +1,7 @@
-// Upload screen: drop zone, client-side checks, summary cards, preview and column table
-// (REQ-UP-1, REQ-UP-2, REQ-UP-8).
+// Upload screen: drop zone, sample-dataset buttons, client-side checks, summary cards,
+// preview and column table (REQ-UP-1, REQ-UP-2, REQ-UP-8, REQ-UP-9).
 
-import { toast, uploadFile } from "./api.js";
+import { listSamples, loadSample, toast, uploadFile } from "./api.js";
 import { clear, el, formatBytes } from "./dom.js";
 import { setState, showScreen, state } from "./state.js";
 import { prepareConfigure } from "./config.js";
@@ -36,24 +36,71 @@ export async function onUploadDrop(file) {
       progressText.textContent =
         percent < 100 ? `Uploading ${file.name}… ${percent}%` : "Profiling columns…";
     });
-    setState({
-      datasetId: body.dataset_id,
-      datasetName: body.name,
-      profile: body.profile,
-      suggestions: body.suggested_targets,
-      preview: body.preview,
-      target: null,
-      analysis: null,
-      jobId: null,
-      results: null,
-    });
-    renderProfile();
+    applyDataset(body);
   } catch {
     // api.js has already shown the error.
   } finally {
     progress.classList.add("hidden");
     document.getElementById("file-input").value = "";
   }
+}
+
+// Same profile view for an uploaded file and a bundled sample (REQ-UP-9).
+function applyDataset(body) {
+  setState({
+    datasetId: body.dataset_id,
+    datasetName: body.name,
+    profile: body.profile,
+    suggestions: body.suggested_targets,
+    preview: body.preview,
+    target: null,
+    analysis: null,
+    jobId: null,
+    results: null,
+  });
+  renderProfile();
+}
+
+async function onSampleClick(sample, button) {
+  const progress = document.getElementById("upload-progress");
+  document.getElementById("upload-progress-text").textContent = `Loading the ${sample.label} sample…`;
+  progress.classList.remove("hidden");
+  document.querySelectorAll("#sample-buttons button").forEach((item) => {
+    item.disabled = true;
+  });
+  try {
+    applyDataset(await loadSample(sample.name));
+  } catch {
+    // api.js has already shown the error.
+  } finally {
+    progress.classList.add("hidden");
+    document.querySelectorAll("#sample-buttons button").forEach((item) => {
+      item.disabled = false;
+    });
+    button.blur();
+  }
+}
+
+async function renderSampleButtons() {
+  const box = document.getElementById("sample-buttons");
+  let samples = [];
+  try {
+    samples = await listSamples();
+  } catch {
+    clear(box).append(el("span", { class: "muted", text: "Sample datasets are unavailable." }));
+    return;
+  }
+  clear(box).append(
+    ...samples.map((sample) => {
+      const button = el("button", {
+        type: "button",
+        class: "btn sample-button",
+        title: `Predict ${sample.target}`,
+      }, [el("strong", { text: sample.label }), el("span", { class: "muted", text: ` · ${sample.target}` })]);
+      button.addEventListener("click", () => onSampleClick(sample, button));
+      return button;
+    }),
+  );
 }
 
 function summaryCard(label, value, note) {
@@ -169,4 +216,5 @@ export function initUpload() {
     prepareConfigure();
     showScreen("configure");
   });
+  renderSampleButtons();
 }

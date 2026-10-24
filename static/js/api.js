@@ -87,4 +87,12 @@ export const startTraining = (payload) => postJson("/api/train", payload);
 
 export const getStatus = (jobId) => request(`/api/status/${jobId}`);
 
+export const cancelJob = (jobId) => postJson(`/api/cancel/${jobId}`, {});
+
 export const getResults = (jobId) => request(`/api/results/${jobId}`);
+
+export const resultsCsvUrl = (jobId) => `/api/results/${encodeURIComponent(jobId)}/csv`;
+
+export const listSamples = () => request("/api/samples");
+
+export const loadSample = (name) => postJson(`/api/samples/${encodeURIComponent(name)}`, {});
