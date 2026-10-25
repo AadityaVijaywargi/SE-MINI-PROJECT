@@ -121,8 +121,9 @@ def analyse_task(series):
         return analysis
     if ratio > IMBALANCE_WARNING_RATIO:
         analysis["warning"] = (
-            f"The classes are imbalanced ({ratio:.1f}:1). Accuracy may be misleading; compare "
-            "F1 and ROC-AUC instead."
+            f"The classes are imbalanced ({ratio:.1f}:1). Accuracy is misleading here: a model "
+            "that always predicts the larger class scores high. Compare PR-AUC, recall and F1; "
+            "models are trained with balanced class weights and ranked by PR-AUC."
         )
     analysis["trainable"] = True
     return analysis

@@ -195,6 +195,11 @@ def test_train_refuses_qml_on_multiclass_target(client):
         {"qml_epochs": 2.5},
         {"qubits": 1},
         {"qubits": 9},
+        {"threshold": 0},
+        {"threshold": 1.5},
+        {"threshold": "high"},
+        {"threshold": True},
+        {"balance_classes": "yes"},
     ],
 )
 def test_train_validates_settings(client, extra):
@@ -333,3 +338,18 @@ def test_csv_export_downloads_the_metrics_table(client):
     rows = list(csv.reader(io.StringIO(response.get_data(as_text=True))))
     assert rows[0][:4] == ["Model", "Paradigm", "Status", "Accuracy"]
     assert {row[0] for row in rows[1:]} == {"SVM", "Naive Bayes"}
+
+
+def test_fixed_threshold_and_unbalanced_run_are_reported(client):
+    response = train(
+        client, dataset_id_of(client), ["naive_bayes"], threshold=0.3, balance_classes=False
+    )
+    assert response.status_code == 202
+    job_id = response.get_json()["job_id"]
+    assert wait_for(client, job_id)["status"] == "complete"
+    body = client.get(f"/api/results/{job_id}").get_json()
+    result = body["results"][0]
+    assert result["threshold"] == 0.3 and result["threshold_source"] == "fixed"
+    assert body["metadata"]["threshold_mode"] == 0.3
+    assert body["metadata"]["balance_classes"] is False
+    assert result["details"]["Class weights"] == "none"

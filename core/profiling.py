@@ -4,11 +4,13 @@ Implements REQ-UP-5 to REQ-UP-7.
 """
 
 import json
+import re
 
 import pandas as pd
-from pandas.api.types import is_bool_dtype, is_numeric_dtype
+from pandas.api.types import is_bool_dtype, is_integer_dtype, is_numeric_dtype
 
 IDENTIFIER_UNIQUE_RATIO = 0.95
+ID_NAME = re.compile(r"(^|[^a-z])id([^a-z]|$)|[a-z]Id($|[^a-z])|^ID|ID$")
 PREVIEW_ROWS = 10
 SAMPLE_VALUES = 3
 
@@ -21,15 +23,20 @@ def is_numeric(series):
 def column_role(series):
     """Classify a column as 'constant', 'identifier' or 'feature' (REQ-UP-5).
 
-    Constant: at most one distinct non-null value. Identifier: non-numeric with a
-    unique ratio above 0.95. Everything else is a feature.
+    Constant: at most one distinct non-null value. Identifier: a unique ratio above 0.95
+    and either non-numeric, or whole numbers in a column named like an ID (TransactionID,
+    customer_id). A numeric ID is just a row counter and would otherwise be a feature.
+    Everything else is a feature.
     """
     unique = series.nunique(dropna=True)
     if unique <= 1:
         return "constant"
     present = int(series.notna().sum())
-    if not is_numeric(series) and unique / max(present, 1) > IDENTIFIER_UNIQUE_RATIO:
-        return "identifier"
+    if unique / max(present, 1) > IDENTIFIER_UNIQUE_RATIO:
+        if not is_numeric(series):
+            return "identifier"
+        if is_integer_dtype(series) and ID_NAME.search(str(series.name)):
+            return "identifier"
     return "feature"
 
 

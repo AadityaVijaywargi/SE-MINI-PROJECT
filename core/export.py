@@ -19,6 +19,8 @@ COLUMNS = (
     ("Recall", "recall"),
     ("F1", "f1"),
     ("ROC-AUC", "roc_auc"),
+    ("PR-AUC", "pr_auc"),
+    ("Threshold", "threshold"),
     ("Train time (s)", "train_time"),
     ("Test time (s)", "test_time"),
     ("Test rows", "test_rows"),

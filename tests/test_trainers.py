@@ -1,6 +1,7 @@
 """ML trainers and the model catalogue (SM-36, SM-37)."""
 
 import numpy as np
+import pandas as pd
 import pytest
 
 import config
@@ -118,4 +119,22 @@ def test_other_models_are_never_subsampled(banking_split, monkeypatch):
     monkeypatch.setattr(config, "SVM_MAX_ROWS", 60)
     (trainer,) = build_trainers(["random_forest"], seed=42)
     trainer.train(banking_split)
-    assert trainer.details == {"Device": "CPU"}
+    assert trainer.details == {"Device": "CPU", "Class weights": "balanced"}
+
+
+@pytest.mark.parametrize("key", ML_KEYS)
+def test_balanced_models_find_a_rare_class(key):
+    rng = np.random.default_rng(0)
+    rows = 3000
+    signal = rng.normal(size=rows)
+    fraud = rng.random(rows) < 1 / (1 + np.exp(-(-5.5 + 2.5 * signal)))
+    frame = pd.DataFrame(
+        {"Signal": signal, "Noise": rng.normal(size=rows), "Fraud": np.where(fraud, "yes", "no")}
+    )
+    split = Preprocessor().fit_split(frame, "Fraud")
+    trainer = build_trainers([key], seed=0)[0]
+    model, seconds = trainer.train(split)
+    result = evaluate(model, split, trainer, seconds)
+    assert trainer.details["Class weights"] == "balanced"
+    assert result["confusion_matrix"][1][1] > 0, "the model never flagged the rare class"
+    assert result["pr_auc"] > split.metadata()["test_positive_rate"]

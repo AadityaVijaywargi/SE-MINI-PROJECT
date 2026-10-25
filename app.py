@@ -16,6 +16,7 @@ from flask_cors import CORS
 from werkzeug.exceptions import HTTPException
 
 import config
+from core.evaluator import THRESHOLD_AUTO
 from core.export import results_csv
 from core.jobs import Job, JobRunner, JobStore
 from core.profiling import preview, profile_dataframe
@@ -66,25 +67,41 @@ def whole_number(value):
     return isinstance(value, int) and not isinstance(value, bool)
 
 
+def parse_threshold(value):
+    """``"auto"`` (tune on the validation rows) or a fixed probability for binary targets."""
+    if value == THRESHOLD_AUTO:
+        return value
+    low, high = config.MIN_THRESHOLD, config.MAX_THRESHOLD
+    if isinstance(value, bool) or not isinstance(value, (int, float)) or not low <= value <= high:
+        raise RequestError(f'Decision threshold must be "auto" or a number from {low} to {high}.')
+    return float(value)
+
+
 def parse_settings(body):
-    """Validate seed and test ratio from a /api/train body; returns a settings dict."""
+    """Validate seed, test ratio and decision threshold from a /api/train body; returns a
+    settings dict."""
     seed = body.get("seed", config.DEFAULT_SEED)
     test_ratio = body.get("test_ratio", config.DEFAULT_TEST_RATIO)
     if not whole_number(seed) or seed < 0:
         raise RequestError("Seed must be a non-negative whole number.")
     if test_ratio not in config.ALLOWED_TEST_RATIOS:
         raise RequestError("Test split must be 0.1, 0.2 or 0.3.")
-    return {"seed": seed, "test_ratio": float(test_ratio)}
+    threshold = parse_threshold(body.get("threshold", THRESHOLD_AUTO))
+    return {"seed": seed, "test_ratio": float(test_ratio), "threshold": threshold}
 
 
 def parse_options(body):
-    """Validate the DNN epochs, QML epochs and qubit count (REQ-MS-5)."""
+    """Validate the DNN epochs, QML epochs, qubit count (REQ-MS-5) and class balancing."""
     options = default_options()
     for key, (low, high, label) in OPTION_LIMITS.items():
         value = body.get(key, options[key])
         if not whole_number(value) or not low <= value <= high:
             raise RequestError(f"{label} must be a whole number from {low} to {high}.")
         options[key] = value
+    balance = body.get("balance_classes", options["balance_classes"])
+    if not isinstance(balance, bool):
+        raise RequestError("Balance classes must be true or false.")
+    options["balance_classes"] = balance
     return options
 
 

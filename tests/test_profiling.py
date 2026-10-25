@@ -12,7 +12,10 @@ def test_roles():
     assert column_role(pd.Series(["x"] * 10)) == "constant"
     assert column_role(pd.Series([np.nan] * 10)) == "constant"
     assert column_role(pd.Series([f"id{i}" for i in range(100)])) == "identifier"
-    assert column_role(pd.Series(range(100))) == "feature"  # numeric is never an identifier
+    assert column_role(pd.Series(range(100))) == "feature"  # a plain counter may be a feature
+    assert column_role(pd.Series(range(100), name="TransactionID")) == "identifier"
+    assert column_role(pd.Series(range(100), name="customer_id")) == "identifier"
+    assert column_role(pd.Series(np.linspace(0, 1, 100), name="Amount")) == "feature"
     assert column_role(pd.Series(["a", "b"] * 50)) == "feature"
 
 

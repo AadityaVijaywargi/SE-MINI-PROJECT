@@ -129,6 +129,55 @@ function rocChart(done) {
   });
 }
 
+// Precision against recall. A model that guesses at random sits on the horizontal line at
+// the positive-class rate, so on rare-class data this shows real skill where ROC flatters.
+function prChart(done, positiveRate) {
+  const counts = {};
+  const datasets = done
+    .filter((result) => result.pr_curve)
+    .map((result) => {
+      const index = counts[result.paradigm] || 0;
+      counts[result.paradigm] = index + 1;
+      return {
+        label: `${modelLabel(result)} PR-AUC ${result.pr_auc.toFixed(3)}`,
+        data: result.pr_curve.recall.map((recall, i) => ({ x: recall, y: result.pr_curve.precision[i] })),
+        borderColor: paradigmColour(result.paradigm),
+        backgroundColor: paradigmColour(result.paradigm),
+        borderDash: DASHES[index % DASHES.length],
+        borderWidth: 2,
+        pointRadius: 0,
+        showLine: true,
+        fill: false,
+      };
+    });
+  if (positiveRate !== null && positiveRate !== undefined) {
+    datasets.push({
+      label: `Random baseline (${(positiveRate * 100).toFixed(1)}% positive)`,
+      data: [
+        { x: 0, y: positiveRate },
+        { x: 1, y: positiveRate },
+      ],
+      borderColor: "rgba(29, 56, 41, 0.6)",
+      borderDash: [5, 5],
+      borderWidth: 1,
+      pointRadius: 0,
+      showLine: true,
+    });
+  }
+  make("chart-pr", {
+    type: "scatter",
+    data: { datasets },
+    options: {
+      maintainAspectRatio: false,
+      scales: {
+        x: { ...percentAxis, title: { display: true, text: "Recall (share of positive rows found)" } },
+        y: { ...percentAxis, title: { display: true, text: "Precision (share of flags that are right)" } },
+      },
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 18 } } },
+    },
+  });
+}
+
 function timeChart(done) {
   const sorted = [...done].sort((a, b) => a.train_time - b.train_time);
   make("chart-time", {
@@ -162,18 +211,22 @@ function timeChart(done) {
   });
 }
 
-function tradeoffChart(done) {
+// The ranking metric (PR-AUC for binary targets, F1 otherwise) against training time.
+// Accuracy is not plotted: on imbalanced data it rewards predicting the majority class.
+function tradeoffChart(done, rankKey, rankName) {
   const paradigms = ["ML", "DL", "QML"].filter((p) => done.some((r) => r.paradigm === p));
+  const asPercent = rankKey === "accuracy" || rankKey === "f1";
+  const shown = (value) => (asPercent ? `${(value * 100).toFixed(1)}%` : value.toFixed(3));
   make("chart-tradeoff", {
     type: "scatter",
     data: {
       datasets: paradigms.map((paradigm) => ({
         label: paradigm,
         data: done
-          .filter((result) => result.paradigm === paradigm)
+          .filter((result) => result.paradigm === paradigm && result[rankKey] !== null && result[rankKey] !== undefined)
           .map((result) => ({
             x: Math.max(result.train_time, 1e-4),
-            y: result.accuracy,
+            y: result[rankKey],
             model: result.model,
           })),
         backgroundColor: paradigmColour(paradigm, 0.85),
@@ -190,14 +243,19 @@ function tradeoffChart(done) {
           title: { display: true, text: "Training time (log scale)" },
           ticks: { callback: (value) => secondsLabel(Number(value)) },
         },
-        y: { ...percentAxis, min: undefined, title: { display: true, text: "Test accuracy" } },
+        y: {
+          min: 0,
+          max: 1,
+          ticks: { callback: (value) => (asPercent ? `${Math.round(value * 100)}%` : Number(value).toFixed(1)) },
+          title: { display: true, text: `Test ${rankName}` },
+        },
       },
       plugins: {
         legend: { position: "bottom", labels: { usePointStyle: true } },
         tooltip: {
           callbacks: {
             label: (item) =>
-              `${item.raw.model} (${item.dataset.label}): ${(item.raw.y * 100).toFixed(1)}%, ${secondsLabel(item.raw.x)}`,
+              `${item.raw.model} (${item.dataset.label}): ${rankName} ${shown(item.raw.y)}, ${secondsLabel(item.raw.x)}`,
           },
         },
       },
@@ -210,7 +268,8 @@ export function destroyCharts() {
 }
 
 // Returns false when Chart.js could not be loaded (for example, no internet access).
-export function renderCharts(done, binary) {
+// ``rank`` holds the ranking metric's key and name and the test rows' positive-class rate.
+export function renderCharts(done, binary, rank = { rankKey: "accuracy", rankName: "accuracy" }) {
   destroyCharts();
   if (!window.Chart || !done.length) return false;
   // Herbarium styling: mono labels, ink text, rule-coloured gridlines, ink tooltips.
@@ -223,8 +282,11 @@ export function renderCharts(done, binary) {
   defaults.plugins.tooltip.cornerRadius = 0;
   defaults.elements.bar.borderRadius = 0;
   metricsChart(done);
-  if (binary) rocChart(done);
+  if (binary) {
+    rocChart(done);
+    prChart(done, rank.positiveRate);
+  }
   timeChart(done);
-  tradeoffChart(done);
+  tradeoffChart(done, rank.rankKey, rank.rankName);
   return true;
 }

@@ -40,6 +40,10 @@ COMPUTE_DEVICE = os.environ.get("COMPUTE_DEVICE", "auto").strip().lower()
 DEFAULT_SEED = 42
 DEFAULT_TEST_RATIO = 0.2
 ALLOWED_TEST_RATIOS = (0.1, 0.2, 0.3)
+# A fixed decision threshold for binary targets must lie in this range; "auto" picks the
+# best-F1 threshold on the validation rows instead (core/evaluator.py).
+MIN_THRESHOLD = 0.01
+MAX_THRESHOLD = 0.99
 
 # REQ-JB-7: finished jobs are forgotten after this many seconds.
 JOB_TTL_SECONDS = env_int("JOB_TTL_SECONDS", 3600)

@@ -102,8 +102,9 @@ class Job:  # pylint: disable=too-many-instance-attributes
 
     def finish(self, status, stage, message=None):
         """Move to a final status and record when, for TTL eviction (REQ-JB-7)."""
-        self.status = status
-        self.finished = time.time()
+        with self._lock:
+            self.status = status
+            self.finished = time.time()
         self.update(stage, 100 if status == COMPLETE else None, message)
 
     def status_payload(self):
@@ -184,7 +185,8 @@ class JobRunner:
     """Runs preprocessing once, then each trainer and the evaluator, for one job."""
 
     def __init__(self, job, frame, trainers, settings):
-        """``settings`` holds target, seed, test_ratio and dataset_name for this run."""
+        """``settings`` holds target, seed, test_ratio, threshold and dataset_name for this
+        run."""
         self.job = job
         self.frame = frame
         self.trainers = trainers
@@ -278,6 +280,7 @@ class JobRunner:
             "task": "binary" if split.n_classes == 2 else "multiclass",
             "seed": self.settings["seed"],
             "test_ratio": self.settings["test_ratio"],
+            "threshold_mode": self.settings.get("threshold", "auto"),
             "models_requested": len(self.trainers),
             **self.settings.get("options", {}),
             **split.metadata(),
@@ -316,7 +319,9 @@ class JobRunner:
                 message=f"{trainer.name} trained in {train_time:.2f}s, testing on "
                 f"{split.x_test.shape[0]} held-out rows",
             )
-            result = evaluate(model, split, trainer, train_time)
+            result = evaluate(
+                model, split, trainer, train_time, self.settings.get("threshold", "auto")
+            )
         except JobCancelled:
             raise
         # REQ-TR-8 requires one model's failure, whatever it is, not to stop the job.
@@ -336,8 +341,11 @@ class JobRunner:
             train_time,
             result["accuracy"],
         )
+        extra = ""
+        if result["pr_auc"] is not None:
+            extra = f", PR-AUC {result['pr_auc']:.3f} at threshold {result['threshold']:.3f}"
         job.update(
             job.stage,
             message=f"{trainer.name} tested in {result['test_time']:.2f}s: test accuracy "
-            f"{result['accuracy']:.3f}, F1 {result['f1']:.3f}",
+            f"{result['accuracy']:.3f}, F1 {result['f1']:.3f}{extra}",
         )

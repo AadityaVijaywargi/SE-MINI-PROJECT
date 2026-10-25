@@ -27,6 +27,8 @@ const OPTIONS = [
   { id: "opt-qml-epochs", key: "qml_epochs", label: "QML epochs", min: 1, max: 100 },
   { id: "opt-qubits", key: "qubits", label: "Qubits", min: 2, max: 8 },
 ];
+const THRESHOLD_MIN = 0.01;
+const THRESHOLD_MAX = 0.99;
 
 // QML is unticked automatically for multi-class targets; remember that so it can be ticked
 // again when the user goes back to a binary target.
@@ -82,8 +84,22 @@ function selectedModels() {
   return [...document.querySelectorAll("#model-grid input:checked")].map((input) => input.value);
 }
 
+// "auto" tunes each binary model's threshold on validation rows; "fixed" uses one value.
+function readThreshold() {
+  if (document.getElementById("opt-threshold-mode").value === "auto") return { threshold: "auto" };
+  const raw = document.getElementById("opt-threshold").value.trim();
+  const value = Number(raw);
+  if (raw === "" || !Number.isFinite(value) || value < THRESHOLD_MIN || value > THRESHOLD_MAX) {
+    return { error: `Fixed threshold must be a number from ${THRESHOLD_MIN} to ${THRESHOLD_MAX}.` };
+  }
+  return { threshold: value };
+}
+
 function readOptions() {
-  const settings = { test_ratio: Number(document.getElementById("opt-test-ratio").value) };
+  const settings = {
+    test_ratio: Number(document.getElementById("opt-test-ratio").value),
+    balance_classes: document.getElementById("opt-balance").checked,
+  };
   for (const option of OPTIONS) {
     const raw = document.getElementById(option.id).value.trim();
     const value = Number(raw);
@@ -93,6 +109,9 @@ function readOptions() {
     }
     settings[option.key] = value;
   }
+  const { threshold, error } = readThreshold();
+  if (error) return { error };
+  settings.threshold = threshold;
   return { settings };
 }
 
@@ -243,4 +262,9 @@ export function initConfigure() {
       if (option.key === "qubits") updateQmlAvailability();
     }),
   );
+  document.getElementById("opt-threshold-mode").addEventListener("change", (event) => {
+    document.getElementById("threshold-field").classList.toggle("hidden", event.target.value !== "fixed");
+    updateTrainButton();
+  });
+  document.getElementById("opt-threshold").addEventListener("input", updateTrainButton);
 }

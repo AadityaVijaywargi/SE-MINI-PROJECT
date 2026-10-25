@@ -9,11 +9,10 @@ and on a CUDA GPU when a GPU build of TensorFlow is installed (requirements-gpu.
 import os
 
 import numpy as np
-from sklearn.model_selection import train_test_split
 
 import config
 from core import gpu
-from core.base import Trainer
+from core.base import Trainer, balanced_weights, stratified_holdout
 
 # TensorFlow's start-up banner and oneDNN notices would flood the server log.
 os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
@@ -77,13 +76,16 @@ def validation_split(features, labels, seed):
     """Hold out 20% of the training rows for early stopping (REQ-TR-4).
 
     The held-out test rows are never touched. Stratified when every class has enough rows.
+    Used only when the split carries no shared validation rows.
     """
-    try:
-        return train_test_split(
-            features, labels, test_size=VALIDATION_RATIO, random_state=seed, stratify=labels
-        )
-    except ValueError:
-        return train_test_split(features, labels, test_size=VALIDATION_RATIO, random_state=seed)
+    return stratified_holdout(features, labels, VALIDATION_RATIO, seed)
+
+
+def class_weights(labels):
+    """Keras ``class_weight``: each class weighted so all classes count equally."""
+    labels = np.asarray(labels)
+    weights = balanced_weights(labels)
+    return {int(label): float(weights[labels == label][0]) for label in np.unique(labels)}
 
 
 class DNNModel:
@@ -128,8 +130,10 @@ class DNNTrainer(Trainer):
     name = "Deep Neural Network"
     paradigm = "DL"
 
-    def __init__(self, seed, epochs=config.DNN_EPOCHS, batch_size=config.DNN_BATCH_SIZE):
-        super().__init__()
+    def __init__(
+        self, seed, epochs=config.DNN_EPOCHS, batch_size=config.DNN_BATCH_SIZE, balance=True
+    ):
+        super().__init__(balance)
         self.seed = seed
         self.epochs = epochs
         self.batch_size = batch_size
@@ -138,7 +142,11 @@ class DNNTrainer(Trainer):
         cuda = bool(configure_gpus())
         keras.utils.set_random_seed(self.seed)
         features = np.asarray(split.x_train, dtype=np.float32)
-        x_fit, x_val, y_fit, y_val = validation_split(features, split.y_train, self.seed)
+        if split.y_val is not None and len(split.y_val):
+            x_fit, y_fit = features, split.y_train
+            x_val, y_val = np.asarray(split.x_val, dtype=np.float32), split.y_val
+        else:
+            x_fit, x_val, y_fit, y_val = validation_split(features, split.y_train, self.seed)
 
         network = build_network(features.shape[1], split.n_classes)
         stopper = keras.callbacks.EarlyStopping(
@@ -150,6 +158,7 @@ class DNNTrainer(Trainer):
             validation_data=(x_val, y_val),
             epochs=self.epochs,
             batch_size=self.batch_size,
+            class_weight=class_weights(y_fit) if self.balance else None,
             callbacks=[stopper, ProgressCallback(report, self.epochs)],
             verbose=0,
         )
@@ -161,6 +170,7 @@ class DNNTrainer(Trainer):
                 "Best epoch": best_epoch,
                 "Stopped early": epochs_run < self.epochs,
                 "Validation rows": int(len(y_val)),
+                "Class weights": "balanced" if self.balance else "none",
                 "Parameters": int(network.count_params()),
                 "Device": gpu.device_label(cuda),
             }
