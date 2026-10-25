@@ -16,7 +16,7 @@ from xgboost import XGBClassifier
 
 import config
 from core import gpu
-from core.base import Trainer, no_report, stratified_sample
+from core.base import Trainer, balanced_weights, no_report, stratified_sample
 
 __all__ = ["Trainer", "MLTrainer", "no_report", "stratified_sample", "build_trainers"]
 
@@ -25,15 +25,16 @@ class MLTrainer(Trainer):
     """A scikit-learn style classifier built from a factory that takes the seed.
 
     ``max_rows`` caps the training rows. It is set for SVM, whose training time grows
-    roughly with the square of the row count.
+    roughly with the square of the row count. With ``balance`` every model is fitted with
+    balanced sample weights.
     """
 
     paradigm = "ML"
 
     def __init__(
-        self, key, name, factory, seed, *, max_rows=None
+        self, key, name, factory, seed, *, max_rows=None, balance=True
     ):  # pylint: disable=too-many-arguments
-        super().__init__()
+        super().__init__(balance)
         self.key = key
         self.name = name
         self.factory = factory
@@ -47,7 +48,9 @@ class MLTrainer(Trainer):
             self.details["Training rows"] = int(len(labels))
             self.details["Subsampled"] = f"from {len(split.y_train)} rows"
         model = self.factory(self.seed)
-        model.fit(features, labels)
+        weights = balanced_weights(labels) if self.balance else None
+        model.fit(features, labels, sample_weight=weights)
+        self.details["Class weights"] = "balanced" if self.balance else "none"
         cuda = model.get_params().get("device") == "cuda"
         self.details["Device"] = gpu.device_label(cuda)
         if cuda:
@@ -106,23 +109,25 @@ def default_options():
         "dnn_epochs": config.DNN_EPOCHS,
         "qml_epochs": config.QML_EPOCHS,
         "qubits": config.QML_QUBITS,
+        "balance_classes": True,
     }
 
 
 def build_one(key, seed, options):
     """The trainer for one known model key."""
+    balance = options["balance_classes"]
     if key in ML_MODELS:
         name, factory = ML_MODELS[key]
         max_rows = config.SVM_MAX_ROWS if key == "svm" else None
-        return MLTrainer(key, name, factory, seed, max_rows=max_rows)
+        return MLTrainer(key, name, factory, seed, max_rows=max_rows, balance=balance)
     # Imported here so a run without DL or QML never loads TensorFlow or PennyLane.
     if key in DL_MODELS:
         from core.dnn import DNNTrainer  # pylint: disable=import-outside-toplevel
 
-        return DNNTrainer(seed, epochs=options["dnn_epochs"])
+        return DNNTrainer(seed, epochs=options["dnn_epochs"], balance=balance)
     from core.qml import QMLTrainer  # pylint: disable=import-outside-toplevel
 
-    return QMLTrainer(seed, epochs=options["qml_epochs"], qubits=options["qubits"])
+    return QMLTrainer(seed, epochs=options["qml_epochs"], qubits=options["qubits"], balance=balance)
 
 
 def build_trainers(model_keys, seed, options=None):

@@ -115,7 +115,26 @@
             <label for="opt-qubits" class="field-label">Qubits</label>
             <input type="number" id="opt-qubits" value="4" min="2" max="8" step="1" inputmode="numeric">
           </div>
+          <div class="field">
+            <label for="opt-threshold-mode" class="field-label">Decision threshold <span class="muted">binary targets</span></label>
+            <select id="opt-threshold-mode">
+              <option value="auto" selected>Tune on validation rows (best F1)</option>
+              <option value="fixed">Fixed value</option>
+            </select>
+          </div>
+          <div class="field hidden" id="threshold-field">
+            <label for="opt-threshold" class="field-label">Fixed threshold <span class="muted">0.01 to 0.99</span></label>
+            <input type="number" id="opt-threshold" value="0.5" min="0.01" max="0.99" step="0.01" inputmode="decimal">
+          </div>
+          <div class="field">
+            <span class="field-label">Class imbalance</span>
+            <div class="check">
+              <input type="checkbox" id="opt-balance" checked>
+              <label for="opt-balance">Balance class weights</label>
+            </div>
+          </div>
         </div>
+        <p class="hint">The threshold is chosen on validation rows split off the training rows, never on the test rows. Balanced weights stop models from ignoring a rare class such as fraud.</p>
         <p id="advanced-error" class="blocked hidden" role="alert"></p>
       </details>
 
@@ -190,21 +209,26 @@
           <div class="chart-box"><canvas id="chart-roc" role="img" aria-label="ROC curves of every model with a random-baseline diagonal"></canvas></div>
         </figure>
         <figure class="panel chart-panel hidden" id="roc-hidden">
-          <figcaption class="section-title">ROC curves</figcaption>
-          <p class="muted">ROC curves are drawn for binary targets only. This target has more than two classes.</p>
+          <figcaption class="section-title">ROC and precision-recall curves</figcaption>
+          <p class="muted">ROC and precision-recall curves are drawn for binary targets only. This target has more than two classes.</p>
+        </figure>
+        <figure class="panel chart-panel" id="pr-panel">
+          <figcaption class="section-title">Precision-recall curves <span class="muted">dashed line = random guessing; best for rare classes</span></figcaption>
+          <div class="chart-box"><canvas id="chart-pr" role="img" aria-label="Precision-recall curves of every model with the positive-class rate as the random baseline"></canvas></div>
         </figure>
         <figure class="panel chart-panel">
           <figcaption class="section-title">Training time <span class="muted">log scale</span></figcaption>
           <div class="chart-box"><canvas id="chart-time" role="img" aria-label="Horizontal bar chart of training time per model on a logarithmic axis"></canvas></div>
         </figure>
         <figure class="panel chart-panel">
-          <figcaption class="section-title">Accuracy versus training time <span class="muted">up and left is better</span></figcaption>
-          <div class="chart-box"><canvas id="chart-tradeoff" role="img" aria-label="Scatter chart of test accuracy against training time"></canvas></div>
+          <figcaption class="section-title"><span id="tradeoff-metric">Ranking score</span> versus training time <span class="muted">up and left is better</span></figcaption>
+          <div class="chart-box"><canvas id="chart-tradeoff" role="img" aria-label="Scatter chart of each model's ranking score against training time"></canvas></div>
         </figure>
       </div>
 
       <div class="panel">
         <h2 class="section-title">Confusion matrices <span class="muted">rows = true class, columns = predicted class</span></h2>
+        <p id="confusion-note" class="hint hidden"></p>
         <div id="confusion-grid" class="confusion-grid"></div>
       </div>
 

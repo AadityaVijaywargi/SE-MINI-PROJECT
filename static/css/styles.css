@@ -338,7 +338,7 @@ select, input[type="number"] {
 .advanced summary { cursor: pointer; font: 400 22px var(--serif); }
 .advanced summary .muted { font: 11px var(--mono); margin-left: 6px; }
 .advanced[open] summary { margin-bottom: 14px; }
-.advanced-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+.advanced-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
 .field input, .field select { width: 100%; min-width: 0; }
 
 /* ---------- Train ---------- */
@@ -462,6 +462,8 @@ select, input[type="number"] {
 .chart-panel figcaption { margin: 0 0 12px; }
 .chart-box { position: relative; height: 300px; }
 .chart-wide .chart-box { height: 340px; }
+/* ROC and precision-recall charts list every model in the legend below the plot. */
+#roc-panel .chart-box, #pr-panel .chart-box { height: 440px; }
 
 /* Confusion matrices (REQ-RS-6) */
 .confusion-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
@@ -482,6 +484,8 @@ select, input[type="number"] {
 .cm-diag { font-weight: 600; }
 .cm-dark { color: #fff; }
 .cm-details { margin: 10px 0 0; padding-top: 8px; border-top: 1px dashed var(--rule); font: 11px/1.6 var(--mono); }
+.cm-counts { margin: 0 0 10px; font: 12px/1.5 var(--mono); color: var(--ink-2); }
+.cm-counts strong { color: var(--ink); font-weight: 600; }
 
 /* Run metadata (REQ-RS-8): a collection label. */
 .meta-grid {
@@ -539,6 +543,7 @@ select, input[type="number"] {
   select, input[type="number"] { min-width: 0; width: 100%; }
   .distribution li { grid-template-columns: 90px 1fr 44px; }
   .chart-box, .chart-wide .chart-box { height: 260px; }
+  #roc-panel .chart-box, #pr-panel .chart-box { height: 420px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

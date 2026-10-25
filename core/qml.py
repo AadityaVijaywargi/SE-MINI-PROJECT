@@ -2,9 +2,10 @@
 
 Implements REQ-TR-5 to REQ-TR-7, CON-4 and CON-5. The pipeline is: the shared encoded
 features, PCA down to the qubit count, scaling to [0, pi], angle encoding, a 2-layer
-variational circuit, the expectation of Z on qubit 0, and a 0.5 threshold on the class-1
-probability (1 - <Z>) / 2. It runs on a PennyLane simulator (config.QML_DEVICE), binary
-targets only, on at most QML_MAX_ROWS training rows. The held-out test rows are never
+variational circuit, the expectation of Z on qubit 0, and the class-1 probability
+(1 - <Z>) / 2, which the evaluator thresholds like every other binary model. It runs on a
+PennyLane simulator (config.QML_DEVICE), binary targets only, on at most QML_MAX_ROWS
+training rows. The held-out test rows are never
 subsampled, so the quantum model is scored on exactly the same rows as every other model.
 """
 
@@ -18,7 +19,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 import config
 from core import gpu
-from core.base import Trainer, stratified_sample
+from core.base import Trainer, balanced_weights, stratified_sample
 
 EPSILON = 1e-7
 
@@ -50,12 +51,16 @@ def class_one_probability(circuit, weights, x):
     return (1 - circuit(weights, x)) / 2
 
 
-def bce_loss(circuit, weights, x, y):
-    """Mean binary cross-entropy of the circuit's class-1 probability."""
+def bce_loss(circuit, weights, x, y, row_weights=None):  # pylint: disable=too-many-arguments
+    """Binary cross-entropy of the circuit's class-1 probability, averaged over the rows
+    with ``row_weights`` (all 1 when omitted)."""
     # pennylane.numpy wraps NumPy's functions at import time, so pylint cannot see them.
     # pylint: disable=no-member
     prob = pnp.clip(class_one_probability(circuit, weights, x), EPSILON, 1 - EPSILON)
-    return -pnp.mean(y * pnp.log(prob) + (1 - y) * pnp.log(1 - prob))
+    losses = y * pnp.log(prob) + (1 - y) * pnp.log(1 - prob)
+    if row_weights is None:
+        return -pnp.mean(losses)
+    return -pnp.sum(row_weights * losses) / pnp.sum(row_weights)
 
 
 class QuantumFeatureMap:
@@ -121,8 +126,9 @@ class QMLTrainer(Trainer):  # pylint: disable=too-many-instance-attributes
         max_rows=config.QML_MAX_ROWS,
         batch_size=config.QML_BATCH_SIZE,
         learning_rate=config.QML_LEARNING_RATE,
+        balance=True,
     ):
-        super().__init__()
+        super().__init__(balance)
         self.seed = seed
         self.epochs = epochs
         self.qubits = qubits
@@ -154,6 +160,7 @@ class QMLTrainer(Trainer):  # pylint: disable=too-many-instance-attributes
                 "Subsampled": len(targets) < len(split.y_train),
                 "PCA variance retained": round(feature_map.variance_retained, 4),
                 "Trainable parameters": int(np.prod(self.weight_shape)),
+                "Class weights": "balanced" if self.balance else "none",
                 "Simulator": config.QML_DEVICE,
                 "Device": gpu.device_label(config.QML_DEVICE == "lightning.gpu"),
             }
@@ -172,18 +179,30 @@ class QMLTrainer(Trainer):  # pylint: disable=too-many-instance-attributes
             yield order[start : start + self.batch_size]
 
     def optimise(self, circuit, angles, targets, report):
-        """Mini-batch Adam on the binary cross-entropy; reports the loss after each epoch."""
+        """Mini-batch Adam on the (class-weighted, with ``balance``) binary cross-entropy;
+        reports the loss after each epoch."""
         rng = np.random.default_rng(self.seed)
         weights = pnp.array(rng.uniform(0, 2 * math.pi, self.weight_shape), requires_grad=True)
+        row_weights = balanced_weights(targets) if self.balance else np.ones(len(targets))
         optimiser = qml.AdamOptimizer(stepsize=self.learning_rate)
         for epoch in range(self.epochs):
             for batch in self.batches(rng, len(targets)):
                 x_batch = pnp.array(angles[batch], requires_grad=False)
                 y_batch = pnp.array(targets[batch], requires_grad=False)
+                w_batch = pnp.array(row_weights[batch], requires_grad=False)
                 weights = optimiser.step(
-                    lambda w, xb=x_batch, yb=y_batch: bce_loss(circuit, w, xb, yb), weights
+                    lambda w, xb=x_batch, yb=y_batch, wb=w_batch: bce_loss(circuit, w, xb, yb, wb),
+                    weights,
                 )
-            loss = float(bce_loss(circuit, weights, pnp.array(angles), pnp.array(targets)))
+            loss = float(
+                bce_loss(
+                    circuit,
+                    weights,
+                    pnp.array(angles),
+                    pnp.array(targets),
+                    pnp.array(row_weights, requires_grad=False),
+                )
+            )
             report(
                 (epoch + 1) / self.epochs, f"epoch {epoch + 1} of {self.epochs}, loss {loss:.3f}"
             )

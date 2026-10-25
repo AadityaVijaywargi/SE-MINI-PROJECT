@@ -13,12 +13,36 @@ from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder, OrdinalEncoder, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
 
 import config
+from core.base import stratified_holdout
 from core.profiling import column_role, is_numeric
 
 ONE_HOT_MAX_UNIQUE = 20
+# Share of the training rows held out as validation rows. They pick each binary model's
+# decision threshold and stop the DNN early; the test rows are never used for either.
+VALIDATION_RATIO = 0.2
+# Labels that mean "nothing happened". In a binary target the other label is the positive
+# class, so precision and recall describe fraud, churn or disease rather than its absence.
+NEGATIVE_LABELS = frozenset(
+    {
+        "0",
+        "0.0",
+        "n",
+        "no",
+        "f",
+        "false",
+        "neg",
+        "negative",
+        "none",
+        "normal",
+        "legit",
+        "legitimate",
+        "genuine",
+        "benign",
+    }
+)
 
 
 class PreprocessingError(ValueError):
@@ -56,8 +80,10 @@ def split_fingerprint(y_test):
 
 
 @dataclass
-class Split:
-    """The shared train/test arrays plus what was done to produce them (REQ-PP-10)."""
+class Split:  # pylint: disable=too-many-instance-attributes
+    """The shared train, validation and test arrays plus what was done to produce them
+    (REQ-PP-10). The validation rows come from the training rows; models never train on
+    them."""
 
     x_train: np.ndarray
     x_test: np.ndarray
@@ -66,11 +92,18 @@ class Split:
     classes: list
     feature_names: list
     plan: ColumnPlan = field(default_factory=ColumnPlan)
+    x_val: np.ndarray = None
+    y_val: np.ndarray = None
 
     @property
     def n_classes(self):
         """Number of target classes."""
         return len(self.classes)
+
+    @property
+    def positive_class(self):
+        """The class precision, recall and F1 describe for a binary target (label 1)."""
+        return str(self.classes[1]) if self.n_classes == 2 else None
 
     @property
     def fingerprint(self):
@@ -81,9 +114,14 @@ class Split:
         """JSON-safe description of the split for the results payload."""
         return {
             "train_rows": int(len(self.y_train)),
+            "validation_rows": 0 if self.y_val is None else int(len(self.y_val)),
             "test_rows": int(len(self.y_test)),
             "features": int(self.x_train.shape[1]),
             "classes": [str(label) for label in self.classes],
+            "positive_class": self.positive_class,
+            "test_positive_rate": (
+                float(np.mean(self.y_test == 1)) if self.n_classes == 2 else None
+            ),
             **self.plan.metadata(),
             "split_fingerprint": self.fingerprint,
         }
@@ -95,6 +133,27 @@ def as_text(data, columns):
     for name in columns:
         column = data[name]
         data[name] = column.where(column.isna(), column.astype(str))
+
+
+def class_order(labels):
+    """Target classes in label order. For a binary target the positive class comes second.
+
+    The positive class is the label that is not a "nothing happened" value such as 0, No
+    or legit; failing that, the rarer class. Sorting alone would make "legit" the positive
+    class of a fraud/legit target and report how well models find legitimate rows.
+    """
+    counts = labels.value_counts()
+    names = sorted(counts.index)
+    if len(names) != 2:
+        return names
+    negatives = [name for name in names if name.strip().lower() in NEGATIVE_LABELS]
+    if len(negatives) == 1:
+        negative = negatives[0]
+    elif counts[names[0]] != counts[names[1]]:
+        negative = counts.idxmax()
+    else:
+        negative = names[0]
+    return [negative] + [name for name in names if name != negative]
 
 
 def to_dense(matrix):
@@ -184,8 +243,10 @@ class Preprocessor:
         """Turn a raw table into a Split (REQ-PP-1 to REQ-PP-10).
 
         Rows with a missing target are removed, the target is label-encoded from its
-        string form, the split is stratified with a fixed seed, and the transformer is
-        fitted on the training rows only.
+        string form (binary: positive class = 1, see ``class_order``), the split is
+        stratified with a fixed seed, VALIDATION_RATIO of the training rows are held out
+        as validation rows, and the transformer is fitted on the remaining training rows
+        only.
         """
         if target not in frame.columns:
             raise PreprocessingError(f"Target column '{target}' is not in the dataset.")
@@ -199,9 +260,15 @@ class Preprocessor:
             )
         as_text(data, plan.one_hot + plan.ordinal)
 
-        encoder = LabelEncoder()
-        labels = encoder.fit_transform(data[target].astype(str))
-        x_train, x_test, y_train, y_test = self.stratified_split(data[plan.features], labels)
+        text_labels = data[target].astype(str)
+        classes = class_order(text_labels)
+        labels = text_labels.map({name: index for index, name in enumerate(classes)})
+        x_train, x_test, y_train, y_test = self.stratified_split(
+            data[plan.features], labels.to_numpy(dtype=np.int64)
+        )
+        x_train, x_val, y_train, y_val = stratified_holdout(
+            x_train, y_train, VALIDATION_RATIO, self.seed
+        )
 
         transformer = self.build_transformer(plan)
         return Split(
@@ -209,7 +276,9 @@ class Preprocessor:
             x_test=to_dense(transformer.transform(x_test)),
             y_train=y_train,
             y_test=y_test,
-            classes=list(encoder.classes_),
+            classes=classes,
             feature_names=[str(name) for name in transformer.get_feature_names_out()],
             plan=plan,
+            x_val=to_dense(transformer.transform(x_val)),
+            y_val=y_val,
         )

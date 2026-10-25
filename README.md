@@ -61,13 +61,15 @@ simulator stays on the CPU because 2 to 8 qubits are too small to gain from a GP
 2. **Configure:** the most likely target column is preselected. The task is labelled
    binary, multi-class or unsupported, and an imbalance warning appears above 3:1. All
    eight models are ticked. The Advanced panel sets the test split, seed, DNN epochs,
-   QML epochs and qubit count.
+   QML epochs, qubit count, the decision threshold (tuned on validation rows, or a fixed
+   value) and whether classes are weighted equally (on by default).
 3. **Train:** the job runs in the background. The progress bar, stage label, model
    checklist and log show real server progress, epoch by epoch for the DNN and the
    quantum model. The job can be cancelled at any time.
 4. **Results:** a winner banner, the best model of each paradigm, a sortable metrics table,
-   grouped metric bars, ROC curves, training time on a log scale, accuracy against time,
-   one confusion matrix per model, the run metadata and a CSV export.
+   grouped metric bars, ROC and precision-recall curves, training time on a log scale, the
+   ranking metric against time, one confusion matrix per model (binary targets also name
+   TP, FP, FN and TN), the run metadata and a CSV export.
 
 ### The models
 
@@ -77,8 +79,24 @@ simulator stays on the CPU because 2 to 8 qubits are too small to gain from a GP
 | DL | Dense network: 128 (BatchNorm, Dropout 0.3), 64 (Dropout 0.2), 32, output | Keras on TensorFlow-CPU, Adam 1e-3, early stopping (patience 10, best weights) on a 20% validation split of the training rows. |
 | QML | Variational quantum classifier | PCA to 4 features, scaling to [0, pi], angle encoding, 2 strongly entangling layers, <Z> on qubit 0. PennyLane simulator, binary targets only, at most 2,000 training rows. |
 
-Every model is tested on the same held-out rows. Binary targets use binary averaging and
-get ROC curves; multi-class targets use weighted averaging. The split fingerprint in the
+Every model is tested on the same held-out rows. Binary targets use binary averaging for
+the positive class and get ROC and precision-recall curves; multi-class targets use
+weighted averaging.
+
+**Imbalanced targets (for example 1% fraud).** A model that predicts the majority class for
+every row scores 99% accuracy and 0% recall, so:
+
+- The positive class (label 1) is the event, not its absence: for 0/1, No/Yes,
+  False/True, Negative/Positive or legit/fraud it is the second value; otherwise the rarer
+  class. Precision, recall and F1 describe that class.
+- Every model trains with balanced class weights (`balance_classes`, on by default).
+- 20% of the training rows are held out as validation rows. Each binary model's decision
+  threshold is the one with the best F1 on them (0.01 to 0.99), unless a fixed `threshold`
+  is given. The DNN also early-stops on them. The test rows are never used for either.
+- The best model is the one with the highest PR-AUC, then F1, for binary targets, and the
+  highest F1, then accuracy, for multi-class targets (`summary.ranked_by`).
+- Integer columns named like an ID (`TransactionID`, `customer_id`) are dropped like
+  text IDs. The split fingerprint in the
 run metadata is a hash of the test labels, so two runs can be checked for the same split.
 
 ## Architecture
@@ -112,7 +130,7 @@ Errors are always JSON: `{error: "message"}`.
 | `/api/samples/<name>` | POST | 201, same body as `/api/upload` |
 | `/api/upload` | POST (multipart `file`) | 201 `{dataset_id, name, profile, suggested_targets, preview}` |
 | `/api/configure` | POST `{dataset_id, target}` | `{task, n_classes, classes, distribution, imbalance_ratio, warning, trainable, reason}` |
-| `/api/train` | POST `{dataset_id, target, models[], seed?, test_ratio?, dnn_epochs?, qml_epochs?, qubits?}` | 202 `{job_id}`; 409 if this browser already has a job running |
+| `/api/train` | POST `{dataset_id, target, models[], seed?, test_ratio?, dnn_epochs?, qml_epochs?, qubits?, threshold?, balance_classes?}` (`threshold` is `"auto"` or 0.01 to 0.99) | 202 `{job_id}`; 409 if this browser already has a job running |
 | `/api/status/<job_id>` | GET | `{status, progress, stage, models[], log[], elapsed, error, cancel_requested}`; 404 if unknown or expired |
 | `/api/cancel/<job_id>` | POST | 202 with the status body; 409 if the job has already finished |
 | `/api/results/<job_id>` | GET | `{status, results[], summary, metadata}` |
@@ -121,10 +139,13 @@ Errors are always JSON: `{error: "message"}`.
 Model keys: `logistic_regression`, `decision_tree`, `random_forest`, `svm`, `naive_bayes`,
 `xgboost`, `dnn`, `vqc`. Job status is `queued`, `running`, `complete`, `failed` or
 `cancelled`. Each result holds `model`, `paradigm`, `status`, `accuracy`, `precision`,
-`recall`, `f1`, `roc_auc`, `roc_curve {fpr, tpr}` (at most 100 points, binary only),
+`recall`, `f1`, `roc_auc`, `roc_curve {fpr, tpr}`, `pr_auc`, `pr_curve {recall, precision}`
+(at most 100 points each), `threshold` and `threshold_source` (binary only),
 `train_time`, `test_time`, `test_rows`, `confusion_matrix` and `details` (for example epochs
-run, qubits, training rows). `metadata` holds the dataset, rows, features, target, task,
-seed, test ratio, split fingerprint, column lists, `qml_subsampled_to` and
+run, qubits, training rows). `summary` holds `best_overall`, `best_ml`, `best_dl`, `best_qml` and `ranked_by`.
+`metadata` holds the dataset, rows, features, target, task, positive class, test
+positive rate, train/validation/test rows, threshold mode, class balancing, seed, test
+ratio, split fingerprint, column lists, `qml_subsampled_to` and
 `pca_variance_retained`.
 
 ## Configuration

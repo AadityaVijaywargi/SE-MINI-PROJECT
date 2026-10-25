@@ -5,7 +5,7 @@ import pandas as pd
 import pytest
 
 from core import jobs
-from core.preprocessing import Preprocessor, PreprocessingError
+from core.preprocessing import Preprocessor, PreprocessingError, class_order
 from core.trainers import build_trainers
 from tests.conftest import load_sample
 
@@ -75,7 +75,7 @@ def test_rows_with_missing_target_removed(banking):
     frame = banking.copy()
     frame.loc[:9, "Exited"] = np.nan
     split = Preprocessor().fit_split(frame, "Exited")
-    assert len(split.y_train) + len(split.y_test) == 190
+    assert len(split.y_train) + len(split.y_val) + len(split.y_test) == 190
 
 
 def test_unseen_category_in_test_does_not_break():
@@ -94,7 +94,7 @@ def test_metadata_records_columns_and_fingerprint(banking):
     meta = Preprocessor().fit_split(banking, "Exited").metadata()
     assert meta["dropped_columns"] == ["CustomerId"]
     assert len(meta["split_fingerprint"]) == 16
-    assert meta["train_rows"] + meta["test_rows"] == 200
+    assert meta["train_rows"] + meta["validation_rows"] + meta["test_rows"] == 200
 
 
 def test_unknown_target_raises(banking):
@@ -123,3 +123,38 @@ def test_preprocessing_runs_once_per_job(banking, monkeypatch):
     jobs.JobRunner(job, banking, trainers, settings).run()
     assert job.status == "complete"
     assert calls == ["Exited"]
+
+
+@pytest.mark.parametrize(
+    "values, positive",
+    [
+        (["legit"] * 9 + ["fraud"], "fraud"),
+        (["fraud"] * 9 + ["legit"], "fraud"),  # a known negative label wins over rarity
+        (["No"] * 3 + ["Yes"] * 7, "Yes"),
+        (["0"] * 9 + ["1"], "1"),
+        (["Negative"] * 2 + ["Positive"] * 8, "Positive"),
+        (["cat"] * 9 + ["dog"], "dog"),  # no known label: the rarer class
+    ],
+)
+def test_positive_class_is_the_event_not_its_absence(values, positive):
+    assert class_order(pd.Series(values))[1] == positive
+
+
+def test_fraud_text_labels_make_fraud_label_one():
+    rng = np.random.default_rng(1)
+    frame = pd.DataFrame(
+        {"Amount": rng.normal(size=300), "Label": ["fraud"] * 30 + ["legit"] * 270}
+    )
+    split = Preprocessor().fit_split(frame, "Label")
+    assert split.classes == ["legit", "fraud"]
+    assert split.positive_class == "fraud"
+    assert split.metadata()["positive_class"] == "fraud"
+    assert split.metadata()["test_positive_rate"] == pytest.approx(0.1)
+
+
+def test_validation_rows_are_split_from_training_rows(banking):
+    split = Preprocessor().fit_split(banking, "Exited")
+    assert (len(split.y_train), len(split.y_val), len(split.y_test)) == (128, 32, 40)
+    assert split.x_val.shape[1] == split.x_train.shape[1]
+    val_rows = {row.tobytes() for row in split.x_val}
+    assert not val_rows & {row.tobytes() for row in split.x_test}
