@@ -88,7 +88,7 @@ function renderWinner(done, summary, cancelled) {
   );
 }
 
-const PARADIGM_OF = { dnn: "DL", vqc: "QML" };
+const PARADIGM_OF = { dnn: "DL", vqc: "QML", qsvm: "QML" };
 
 function emptyCardNote(paradigm, results, metadata) {
   const entry = results.find((result) => result.paradigm === paradigm);

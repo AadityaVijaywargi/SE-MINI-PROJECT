@@ -95,7 +95,7 @@ ML_MODELS = {
     "xgboost": ("XGBoost", xgboost_classifier),
 }
 DL_MODELS = ("dnn",)
-QML_MODELS = ("vqc",)
+QML_MODELS = ("vqc", "qsvm")
 
 
 def available_models():
@@ -125,6 +125,10 @@ def build_one(key, seed, options):
         from core.dnn import DNNTrainer  # pylint: disable=import-outside-toplevel
 
         return DNNTrainer(seed, epochs=options["dnn_epochs"], balance=balance)
+    if key == "qsvm":
+        from core.qkernel import QuantumKernelSVMTrainer  # pylint: disable=import-outside-toplevel
+
+        return QuantumKernelSVMTrainer(seed, qubits=options["qubits"], balance=balance)
     from core.qml import QMLTrainer  # pylint: disable=import-outside-toplevel
 
     return QMLTrainer(seed, epochs=options["qml_epochs"], qubits=options["qubits"], balance=balance)

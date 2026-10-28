@@ -20,7 +20,7 @@ def fixture_banking_split():
     return Preprocessor().fit_split(load_sample("banking"), "Exited")
 
 
-def test_eight_models_available_in_paradigm_order():
+def test_nine_models_available_in_paradigm_order():
     assert available_models() == [
         "logistic_regression",
         "decision_tree",
@@ -30,12 +30,13 @@ def test_eight_models_available_in_paradigm_order():
         "xgboost",
         "dnn",
         "vqc",
+        "qsvm",
     ]
 
 
 def test_paradigms_of_the_catalogue():
     trainers = build_trainers(available_models(), seed=42)
-    assert [trainer.paradigm for trainer in trainers] == ["ML"] * 6 + ["DL", "QML"]
+    assert [trainer.paradigm for trainer in trainers] == ["ML"] * 6 + ["DL", "QML", "QML"]
 
 
 @pytest.mark.parametrize("key", ML_KEYS)

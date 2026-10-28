@@ -1,8 +1,9 @@
 # Full-Stack Prediction Platform: ML vs DL vs QML
 
-Upload a tabular dataset, pick the column to predict, and train eight classifiers from
+Upload a tabular dataset, pick the column to predict, and train nine classifiers from
 three paradigms on exactly the same train/test split: six classical machine learning
-models, one deep neural network and one variational quantum classifier. The dashboard
+models, one deep neural network and two quantum models (a variational quantum classifier
+and a quantum kernel SVM). The dashboard
 ranks every model on the same held-out test rows and shows what each paradigm costs in
 accuracy and time.
 
@@ -60,7 +61,7 @@ simulator stays on the CPU because 2 to 8 qubits are too small to gain from a GP
    a preview.
 2. **Configure:** the most likely target column is preselected. The task is labelled
    binary, multi-class or unsupported, and an imbalance warning appears above 3:1. All
-   eight models are ticked. The Advanced panel sets the test split, seed, DNN epochs,
+   nine models are ticked. The Advanced panel sets the test split, seed, DNN epochs,
    QML epochs, qubit count, the decision threshold (tuned on validation rows, or a fixed
    value) and whether classes are weighted equally (on by default).
 3. **Train:** the job runs in the background. The progress bar, stage label, model
@@ -78,6 +79,7 @@ simulator stays on the CPU because 2 to 8 qubits are too small to gain from a GP
 | ML | Logistic Regression, Decision Tree, Random Forest (200 trees), SVM (RBF), Gaussian Naive Bayes, XGBoost | SVM trains on a stratified sample of 20,000 rows when the training set is larger. |
 | DL | Dense network: 128 (BatchNorm, Dropout 0.3), 64 (Dropout 0.2), 32, output | Keras on TensorFlow-CPU, Adam 1e-3, early stopping (patience 10, best weights) on a 20% validation split of the training rows. |
 | QML | Variational quantum classifier | PCA to 4 features, scaling to [0, pi], angle encoding, 2 strongly entangling layers, <Z> on qubit 0. PennyLane simulator, binary targets only, at most 2,000 training rows. |
+| QML | Quantum kernel SVM | Same PCA and scaling (angles shrunk by a bandwidth of 0.25), IQP feature map with 2 repeats, fidelity kernel \|<phi(x)\|phi(x')>\|^2, scikit-learn SVC on the precomputed Gram matrix. Same limits as the VQC. |
 
 Every model is tested on the same held-out rows. Binary targets use binary averaging for
 the positive class and get ROC and precision-recall curves; multi-class targets use
@@ -137,7 +139,7 @@ Errors are always JSON: `{error: "message"}`.
 | `/api/results/<job_id>/csv` | GET | the metrics table as a CSV download |
 
 Model keys: `logistic_regression`, `decision_tree`, `random_forest`, `svm`, `naive_bayes`,
-`xgboost`, `dnn`, `vqc`. Job status is `queued`, `running`, `complete`, `failed` or
+`xgboost`, `dnn`, `vqc`, `qsvm`. Job status is `queued`, `running`, `complete`, `failed` or
 `cancelled`. Each result holds `model`, `paradigm`, `status`, `accuracy`, `precision`,
 `recall`, `f1`, `roc_auc`, `roc_curve {fpr, tpr}`, `pr_auc`, `pr_curve {recall, precision}`
 (at most 100 points each), `threshold` and `threshold_source` (binary only),

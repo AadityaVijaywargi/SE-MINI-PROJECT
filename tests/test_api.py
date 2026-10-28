@@ -14,8 +14,8 @@ from core.trainers import ML_MODELS
 from tests.conftest import SAMPLES_DIR
 
 ALL_ML = ["logistic_regression", "decision_tree", "random_forest", "svm", "naive_bayes", "xgboost"]
-ALL_MODELS = [*ALL_ML, "dnn", "vqc"]
-# Small DL and QML settings so the full eight-model flow stays quick.
+ALL_MODELS = [*ALL_ML, "dnn", "vqc", "qsvm"]
+# Small DL and QML settings so the full nine-model flow stays quick.
 FAST_OPTIONS = {"dnn_epochs": 5, "qml_epochs": 1, "qubits": 2}
 
 
@@ -284,16 +284,16 @@ def test_full_flow(client):
     assert all(len(result["roc_curve"]["fpr"]) <= 100 for result in body["results"])
 
 
-def test_full_flow_all_eight_models(client):
+def test_full_flow_all_nine_models(client):
     job_id = train(client, dataset_id_of(client), ALL_MODELS, **FAST_OPTIONS).get_json()["job_id"]
     status = wait_for(client, job_id, timeout=300)
     assert status["status"] == "complete", status["error"]
-    assert [model["status"] for model in status["models"]] == ["done"] * 8
+    assert [model["status"] for model in status["models"]] == ["done"] * 9
 
     body = client.get(f"/api/results/{job_id}").get_json()
-    assert [result["paradigm"] for result in body["results"]] == ["ML"] * 6 + ["DL", "QML"]
+    assert [result["paradigm"] for result in body["results"]] == ["ML"] * 6 + ["DL", "QML", "QML"]
     assert body["summary"]["best_dl"] == "Deep Neural Network"
-    assert body["summary"]["best_qml"] == "Variational Quantum Classifier"
+    assert body["summary"]["best_qml"] in {"Variational Quantum Classifier", "Quantum Kernel SVM"}
     metadata = body["metadata"]
     assert metadata["qml_subsampled_to"] == metadata["train_rows"]
     assert 0 < metadata["pca_variance_retained"] <= 1

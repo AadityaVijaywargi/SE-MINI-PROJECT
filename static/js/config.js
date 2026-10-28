@@ -16,6 +16,7 @@ export const MODEL_CATALOG = [
   { key: "xgboost", name: "XGBoost", paradigm: "ML" },
   { key: "dnn", name: "Deep Neural Network", paradigm: "DL" },
   { key: "vqc", name: "Variational Quantum Classifier", paradigm: "QML" },
+  { key: "qsvm", name: "Quantum Kernel SVM", paradigm: "QML" },
 ];
 
 // Server limits, mirrored here so mistakes show before a request is sent.
@@ -30,9 +31,9 @@ const OPTIONS = [
 const THRESHOLD_MIN = 0.01;
 const THRESHOLD_MAX = 0.99;
 
-// QML is unticked automatically for multi-class targets; remember that so it can be ticked
-// again when the user goes back to a binary target.
-let qmlAutoUnchecked = false;
+// QML models are unticked automatically for multi-class targets; remember which so they can
+// be ticked again when the user goes back to a binary target.
+const qmlAutoUnchecked = new Set();
 
 function renderTargetOptions() {
   const select = clear(document.getElementById("target-select"));
@@ -144,21 +145,21 @@ function qmlNoteText() {
 
 // REQ-MS-2 and REQ-MS-3: the QML note is always shown; multi-class targets disable QML.
 function updateQmlAvailability() {
-  const input = document.getElementById("model-vqc");
   const note = document.getElementById("qml-note");
-  if (!input || !note) return;
+  if (!note) return;
   const multiclass = state.analysis && state.analysis.task === "multiclass";
-  if (multiclass && !input.disabled) {
-    qmlAutoUnchecked = input.checked;
-    input.checked = false;
-  } else if (!multiclass && input.disabled && qmlAutoUnchecked) {
-    input.checked = true;
-    qmlAutoUnchecked = false;
-  }
-  input.disabled = Boolean(multiclass);
-  document.getElementById("label-vqc").textContent = multiclass
-    ? "Variational Quantum Classifier *"
-    : "Variational Quantum Classifier";
+  MODEL_CATALOG.filter((model) => model.paradigm === "QML").forEach((model) => {
+    const input = document.getElementById(`model-${model.key}`);
+    if (!input) return;
+    if (multiclass && !input.disabled) {
+      if (input.checked) qmlAutoUnchecked.add(model.key);
+      input.checked = false;
+    } else if (!multiclass && input.disabled && qmlAutoUnchecked.delete(model.key)) {
+      input.checked = true;
+    }
+    input.disabled = Boolean(multiclass);
+    document.getElementById(`label-${model.key}`).textContent = multiclass ? `${model.name} *` : model.name;
+  });
   clear(note).append(
     ...(multiclass
       ? [el("span", { class: "warn-text", text: "* Binary targets only. This target has more than two classes. " })]
@@ -218,7 +219,7 @@ function renderModelGrid() {
 }
 
 export function prepareConfigure() {
-  qmlAutoUnchecked = false;
+  qmlAutoUnchecked.clear();
   renderModelGrid();
   const target = renderTargetOptions();
   onTargetChange(target);
