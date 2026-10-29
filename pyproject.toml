@@ -6,6 +6,7 @@ target-version = ["py310", "py311"]
 testpaths = ["tests"]
 markers = [
     "slow: long-running tests (QML), excluded from CI",
+    "system: end-to-end runs on the preloaded datasets (System Validation Report)",
 ]
 
 [tool.pylint.basic]

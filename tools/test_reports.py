@@ -1,0 +1,470 @@
+"""Write the Part 3 test reports in docs/test-reports/ from one recorded pytest run.
+
+Run the suite first (full run, slow QML test included), then this script:
+
+    pytest -o junit_family=xunit1 --junitxml=docs/test-reports/raw/junit.xml \
+        --cov=core --cov=app --cov-branch \
+        --cov-report=json:docs/test-reports/raw/coverage.json \
+        --cov-report=xml:docs/test-reports/raw/coverage.xml \
+        --cov-report=html:docs/test-reports/coverage-html
+    python tools/test_reports.py
+
+Writes unit-test-report.md, system-validation-report.md, code-coverage-report.md and
+branch-coverage-report.md. Nothing is measured here; every number comes from the run.
+"""
+
+import json
+import platform
+import subprocess  # nosec B404: fixed git command, no user input
+import sys
+import xml.etree.ElementTree as ET  # nosec B405: parses our own pytest output
+from collections import defaultdict
+from datetime import datetime
+from importlib import metadata
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+OUT = ROOT / "docs" / "test-reports"
+RAW = OUT / "raw"
+
+# Test Plan 8.1: which test modules belong to which level. Everything else is a unit test.
+INTEGRATION = {"test_api", "test_jobs", "test_security"}
+SYSTEM = {"test_system"}
+LINE_TARGET = 80  # Test Plan 8.5: proposed line coverage target for core/
+APP_CODE = ("app.py", "config.py", "core", "static", "data")
+PACKAGES = ("flask", "scikit-learn", "xgboost", "tensorflow-cpu", "pennylane", "pytest", "coverage")
+
+
+def git(*args):
+    """Output of a git command in the project root, or "" when git is unavailable."""
+    command = ["git", *args]
+    try:
+        # nosec B603: a fixed git command with our own arguments, no shell.
+        done = subprocess.run(  # nosec B603
+            command, cwd=ROOT, capture_output=True, text=True, check=True
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return ""
+    return done.stdout.strip()
+
+
+def environment():
+    """Markdown table of where and on what the run happened."""
+    versions = []
+    for name in PACKAGES:
+        try:
+            versions.append(f"{name} {metadata.version(name)}")
+        except metadata.PackageNotFoundError:
+            continue
+    # The reports only add tests and docs, so say whether the code under test is main's.
+    base = git("rev-parse", "--short", "main")
+    same = git("diff", "--name-only", "main", "--", *APP_CODE) == ""
+    rows = [
+        ("Branch", git("rev-parse", "--abbrev-ref", "HEAD")),
+        ("Commit", f"`{git('rev-parse', '--short', 'HEAD')}`"),
+        ("Application code", f"same as `main` (`{base}`)" if same else "differs from `main`"),
+        ("Python", platform.python_version()),
+        ("OS", f"{platform.system()} {platform.version()}"),
+        ("Libraries", ", ".join(versions)),
+    ]
+    return table(("Field", "Value"), rows)
+
+
+def table(header, rows):
+    """A Markdown table."""
+    lines = ["| " + " | ".join(header) + " |", "|" + "---|" * len(header)]
+    lines += ["| " + " | ".join(str(cell) for cell in row) + " |" for row in rows]
+    return "\n".join(lines)
+
+
+def pct(part, whole):
+    """Percentage with one decimal, or n/a for an empty whole."""
+    return f"{100 * part / whole:.1f}%" if whole else "n/a"
+
+
+def level_of(module):
+    """Test level of a test module (Test Plan 8.1)."""
+    if module in SYSTEM:
+        return "System"
+    if module in INTEGRATION:
+        return "Integration/API"
+    return "Unit"
+
+
+def read_junit():
+    """Test cases from the JUnit XML: one dict per test, plus the suite's timestamp."""
+    suite = ET.parse(RAW / "junit.xml").getroot()  # nosec B314: our own pytest output
+    suite = suite if suite.tag == "testsuite" else suite.find("testsuite")
+    cases = []
+    for case in suite.iter("testcase"):
+        module = case.get("classname", "").split(".")[-1]
+        outcome = "passed"
+        message = ""
+        for tag in ("failure", "error", "skipped"):
+            node = case.find(tag)
+            if node is not None:
+                outcome = {"failure": "failed", "error": "error", "skipped": "skipped"}[tag]
+                message = (node.get("message") or "").splitlines()[0][:120]
+        runs = [
+            json.loads(prop.get("value"))
+            for prop in case.iter("property")
+            if prop.get("name") == "system_run"
+        ]
+        cases.append(
+            {
+                "module": module,
+                "name": case.get("name"),
+                "time": float(case.get("time") or 0),
+                "outcome": outcome,
+                "message": message,
+                "runs": runs,
+            }
+        )
+    return cases, suite.get("timestamp", "")
+
+
+def header(title, timestamp):
+    """Title block shared by every report."""
+    run = timestamp.replace("T", " ")[:19] if timestamp else "unknown"
+    return (
+        f"# {title}\n\n"
+        "Full-Stack Prediction Platform (ML vs DL vs QML), Test Plan FSPP-MTP01.1. "
+        f"Test run: {run}. Generated by `tools/test_reports.py` on "
+        f"{datetime.now():%Y-%m-%d}.\n\n## Environment\n\n{environment()}\n"
+    )
+
+
+def counts(cases):
+    """Passed, failed (incl. errors), skipped and total time of some cases."""
+    passed = sum(case["outcome"] == "passed" for case in cases)
+    failed = sum(case["outcome"] in ("failed", "error") for case in cases)
+    skipped = sum(case["outcome"] == "skipped" for case in cases)
+    return passed, failed, skipped, sum(case["time"] for case in cases)
+
+
+def unit_report(cases, timestamp):
+    """Unit Test Report: every non-system test, by level and by module."""
+    tested = [case for case in cases if level_of(case["module"]) != "System"]
+    passed, failed, skipped, seconds = counts(tested)
+    verdict = "PASS" if failed == 0 else "FAIL"
+    parts = [
+        header("Unit Test Report", timestamp),
+        "## Summary\n",
+        table(
+            ("Tests", "Passed", "Failed", "Skipped", "Pass rate", "Time (s)", "Verdict"),
+            [
+                (
+                    len(tested),
+                    passed,
+                    failed,
+                    skipped,
+                    pct(passed, len(tested)),
+                    f"{seconds:.1f}",
+                    f"**{verdict}**",
+                )
+            ],
+        ),
+        "\nUnit and Integration/API levels from Test Plan 8.1. The System level is in "
+        "`system-validation-report.md`. The slow QML test is included (it is skipped in CI "
+        "only).\n",
+        "## By level\n",
+    ]
+    by_level = defaultdict(list)
+    by_module = defaultdict(list)
+    for case in tested:
+        by_level[level_of(case["module"])].append(case)
+        by_module[case["module"]].append(case)
+    parts.append(
+        table(
+            ("Level", "Tests", "Passed", "Failed", "Skipped", "Time (s)"),
+            [
+                (level, len(group), *counts(group)[:3], f"{counts(group)[3]:.1f}")
+                for level, group in sorted(by_level.items())
+            ],
+        )
+    )
+    parts += ["\n## By module\n"]
+    parts.append(
+        table(
+            ("Module", "Level", "Tests", "Passed", "Failed", "Skipped", "Time (s)"),
+            [
+                (
+                    f"`tests/{module}.py`",
+                    level_of(module),
+                    len(group),
+                    *counts(group)[:3],
+                    f"{counts(group)[3]:.1f}",
+                )
+                for module, group in sorted(by_module.items())
+            ],
+        )
+    )
+    problems = [case for case in tested if case["outcome"] != "passed"]
+    parts.append("\n## Failed and skipped tests\n")
+    parts.append(
+        table(
+            ("Test", "Outcome", "Message"),
+            [(f"`{c['module']}::{c['name']}`", c["outcome"], c["message"]) for c in problems],
+        )
+        if problems
+        else "None.\n"
+    )
+    parts.append("\n## Every test\n")
+    for module, group in sorted(by_module.items()):
+        parts.append(f"\n### `tests/{module}.py`\n")
+        parts.append(
+            table(
+                ("Test", "Result", "Time (s)"),
+                [(f"`{c['name']}`", c["outcome"].upper(), f"{c['time']:.2f}") for c in group],
+            )
+        )
+    return "\n".join(parts) + "\n"
+
+
+def metric(value):
+    """A 0..1 metric with three decimals, or a dash when it does not apply."""
+    return "-" if value is None else f"{value:.3f}"
+
+
+def system_report(cases, timestamp):
+    """System Validation Report: the end-to-end runs on the preloaded datasets."""
+    system = [case for case in cases if level_of(case["module"]) == "System"]
+    passed, failed, _, seconds = counts(system)
+    parts = [
+        header("System Validation Report", timestamp),
+        "## Scope\n",
+        "Each preloaded dataset is run end to end through the REST API, the way the browser "
+        "drives it (Test Plan 8.1, System level; Section 9 system pass criteria): load the "
+        "sample, configure the suggested target, train every model, poll `/api/status` to "
+        "completion, read `/api/results` and download the CSV export. The DNN runs 5 epochs "
+        "and the QML model 1 epoch on 2 qubits so the run stays short; the full default QML "
+        "run is covered by the slow test in the Unit Test Report.\n",
+        "## Checks applied to every run\n",
+        "- The sample loads (201) and its suggested target is the expected one (REQ-UP-9, "
+        "REQ-TG-2).\n"
+        "- `/api/configure` gives the right task and allows training (REQ-TG-4).\n"
+        "- `/api/train` answers 202 with a job id (REQ-JB-1); the job completes at 100% "
+        "(REQ-JB-3).\n"
+        "- Every model finishes, and every metric is between 0 and 1 (REQ-EV-1).\n"
+        "- All models share one split fingerprint and one test-row count; each confusion "
+        "matrix sums to the test rows (BR-2, REQ-PP-8).\n"
+        "- The best model is one of the trained models (REQ-EV-4); the CSV has one row per "
+        "model (REQ-RS-9).\n"
+        "- Binary datasets: ROC-AUC exists for every model. Three-class: ROC is hidden and the "
+        "confusion matrices are 3 x 3 (REQ-RS-5, REQ-RS-6).\n",
+        "## Summary\n",
+        table(
+            ("Test", "Result", "Time (s)"),
+            [(f"`{c['name']}`", c["outcome"].upper(), f"{c['time']:.1f}") for c in system],
+        ),
+        f"\n**{passed} of {len(system)} passed, {failed} failed, {seconds:.1f} s.** "
+        f"Verdict: **{'PASS' if failed == 0 and system else 'FAIL'}**.\n",
+    ]
+    for case in system:
+        for run in case["runs"]:
+            meta = run["metadata"]
+            summary = run["summary"]
+            parts.append(f"\n## {run['dataset']}\n")
+            parts.append(
+                table(
+                    (
+                        "Target",
+                        "Task",
+                        "Train rows",
+                        "Test rows",
+                        "Features",
+                        "Seed",
+                        "Split fingerprint",
+                    ),
+                    [
+                        (
+                            meta.get("target"),
+                            meta.get("task"),
+                            meta.get("train_rows"),
+                            meta.get("test_rows"),
+                            meta.get("n_features", "-"),
+                            meta.get("seed"),
+                            f"`{str(meta.get('split_fingerprint'))[:12]}`",
+                        )
+                    ],
+                )
+            )
+            parts.append("")
+            parts.append(
+                table(
+                    (
+                        "Model",
+                        "Paradigm",
+                        "Accuracy",
+                        "Precision",
+                        "Recall",
+                        "F1",
+                        "ROC-AUC",
+                        "PR-AUC",
+                        "Train (s)",
+                        "Test (s)",
+                    ),
+                    [
+                        (
+                            r["model"],
+                            r["paradigm"],
+                            metric(r["accuracy"]),
+                            metric(r["precision"]),
+                            metric(r["recall"]),
+                            metric(r["f1"]),
+                            metric(r["roc_auc"]),
+                            metric(r["pr_auc"]),
+                            f"{r['train_time']:.2f}",
+                            f"{r['test_time']:.3f}",
+                        )
+                        for r in run["results"]
+                    ],
+                )
+            )
+            best = ", ".join(
+                f"{key.removeprefix('best_').upper() if key != 'best_overall' else 'overall'}: "
+                f"{value}"
+                for key, value in summary.items()
+                if key.startswith("best_") and value
+            )
+            parts.append(f"\nBest models ({', '.join(summary.get('ranked_by', []))}): {best}.\n")
+    return "\n".join(parts) + "\n"
+
+
+def coverage_files():
+    """Per-file coverage summaries from coverage.json, sorted by path."""
+    data = json.loads((RAW / "coverage.json").read_text(encoding="utf-8"))
+    files = {path.replace("\\", "/"): info for path, info in data["files"].items()}
+    return dict(sorted(files.items())), data["totals"]
+
+
+def ranges(lines):
+    """Compress sorted line numbers into "3-5, 9"."""
+    out = []
+    for number in sorted(lines):
+        if out and number == out[-1][1] + 1:
+            out[-1][1] = number
+        else:
+            out.append([number, number])
+    return ", ".join(f"{a}" if a == b else f"{a}-{b}" for a, b in out)
+
+
+def line_report(timestamp):
+    """Code Coverage Report: statement (line) coverage per file."""
+    files, totals = coverage_files()
+    core = [info["summary"] for path, info in files.items() if path.startswith("core/")]
+    core_statements = sum(s["num_statements"] for s in core)
+    core_covered = sum(s["covered_lines"] for s in core)
+    core_pct = 100 * core_covered / core_statements
+    rows = [
+        (
+            f"`{path}`",
+            s["num_statements"],
+            s["missing_lines"],
+            s["excluded_lines"],
+            pct(s["covered_lines"], s["num_statements"]),
+        )
+        for path, info in files.items()
+        for s in [info["summary"]]
+    ]
+    rows.append(
+        (
+            "**Total**",
+            totals["num_statements"],
+            totals["missing_lines"],
+            totals["excluded_lines"],
+            f"**{pct(totals['covered_lines'], totals['num_statements'])}**",
+        )
+    )
+    parts = [
+        header("Code Coverage Report", timestamp),
+        "## Summary\n",
+        f"Line (statement) coverage of `core/` and `app.py`, measured with pytest-cov over "
+        f"the full run (unit, integration/API and system tests).\n\n"
+        f"- **All measured code: {pct(totals['covered_lines'], totals['num_statements'])}** "
+        f"({totals['covered_lines']} of {totals['num_statements']} statements).\n"
+        f"- **`core/`: {core_pct:.1f}%** against the Test Plan 8.5 target of {LINE_TARGET}%: "
+        f"**{'met' if core_pct >= LINE_TARGET else 'not met'}**.\n\n"
+        "The browsable report with every line highlighted is in `coverage-html/index.html`; "
+        "the raw data is `raw/coverage.json` and `raw/coverage.xml` (Cobertura).\n",
+        "## By file\n",
+        table(("File", "Statements", "Missed", "Excluded", "Line coverage"), rows),
+        "\n## Lines not executed\n",
+    ]
+    missing = [
+        (f"`{path}`", ranges(info["missing_lines"]))
+        for path, info in files.items()
+        if info["missing_lines"]
+    ]
+    parts.append(table(("File", "Lines"), missing) if missing else "None.")
+    return "\n".join(parts) + "\n"
+
+
+def branch_report(timestamp):
+    """Branch Coverage Report: decision outcomes taken per file."""
+    files, totals = coverage_files()
+    rows = [
+        (
+            f"`{path}`",
+            s["num_branches"],
+            s["covered_branches"],
+            s["num_partial_branches"],
+            s["missing_branches"],
+            pct(s["covered_branches"], s["num_branches"]),
+        )
+        for path, info in files.items()
+        for s in [info["summary"]]
+    ]
+    rows.append(
+        (
+            "**Total**",
+            totals["num_branches"],
+            totals["covered_branches"],
+            totals["num_partial_branches"],
+            totals["missing_branches"],
+            f"**{pct(totals['covered_branches'], totals['num_branches'])}**",
+        )
+    )
+    parts = [
+        header("Branch Coverage Report", timestamp),
+        "## Summary\n",
+        "Branch coverage counts every possible outcome of each decision (both sides of an "
+        "`if`, entering and skipping a loop, and so on). A *partial* branch is a decision "
+        "where at least one outcome was taken and at least one was not.\n\n"
+        f"- **Branch coverage: {pct(totals['covered_branches'], totals['num_branches'])}** "
+        f"({totals['covered_branches']} of {totals['num_branches']} branch outcomes).\n"
+        f"- **Combined line + branch coverage: {totals['percent_covered']:.1f}%** "
+        "(coverage.py's total with `--cov-branch`).\n"
+        f"- Partial decisions: {totals['num_partial_branches']}.\n",
+        "## By file\n",
+        table(("File", "Branches", "Taken", "Partial", "Not taken", "Branch coverage"), rows),
+        "\n## Branch outcomes never taken\n",
+        "Each arc is `line -> line` (a negative target means leaving the function).\n",
+    ]
+    missing = [
+        (f"`{path}`", ", ".join(f"{a}->{b}" for a, b in info["missing_branches"]))
+        for path, info in files.items()
+        if info.get("missing_branches")
+    ]
+    parts.append(table(("File", "Arcs not taken"), missing) if missing else "None.")
+    return "\n".join(parts) + "\n"
+
+
+def main():
+    """Write the four reports."""
+    if not (RAW / "junit.xml").exists() or not (RAW / "coverage.json").exists():
+        sys.exit("Run pytest with --junitxml and --cov-report=json first (see the docstring).")
+    cases, timestamp = read_junit()
+    reports = {
+        "unit-test-report.md": unit_report(cases, timestamp),
+        "system-validation-report.md": system_report(cases, timestamp),
+        "code-coverage-report.md": line_report(timestamp),
+        "branch-coverage-report.md": branch_report(timestamp),
+    }
+    for name, text in reports.items():
+        (OUT / name).write_text(text, encoding="utf-8")
+        print(f"wrote docs/test-reports/{name}")
+
+
+if __name__ == "__main__":
+    main()
