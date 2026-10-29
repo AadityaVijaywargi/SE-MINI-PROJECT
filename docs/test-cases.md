@@ -21,10 +21,10 @@ screen (`/api/samples`); each has one deliberate defect.
 
 | Dataset | Domain | Rows | Target (expected suggestion) | Task | Deliberate defect |
 |---|---|---|---|---|---|
-| `banking.csv` | Financial (bank churn) | 200 | `Exited` | binary | missing `Balance` and `CreditScore`; `CustomerId` identifier |
-| `insurance.csv` | Financial (insurance fraud) | 200 | `Fraud` | binary | high-cardinality `Country`; rare positive class |
-| `healthcare.csv` | Healthcare | 200 | `Diagnosis` | binary | text labels (`Positive`/`Negative`); `PatientId` identifier |
-| `telecom.csv` | Telecom churn | 200 | `Churn` | binary | text labels (`Yes`/`No`); high-cardinality `City` |
+| `banking.csv` | Financial (bank churn) | 200 | `Exited` | binary | missing values in `Balance` and `CreditScore` (plus a `CustomerId` identifier) |
+| `insurance.csv` | Financial (insurance fraud) | 200 | `Fraud` | binary | constant `Country` column |
+| `healthcare.csv` | Healthcare (diabetes screening) | 200 | `Diagnosis` | binary | text labels (`Positive` / `Negative`) |
+| `telecom.csv` | Telecom churn | 200 | `Churn` | binary | high-cardinality `City` column (60 values) |
 | `three_class.csv` | Retail segments | 200 | `Segment` | 3-class | multi-class path (QML and ROC not applicable) |
 
 ## 1. Upload & Validation

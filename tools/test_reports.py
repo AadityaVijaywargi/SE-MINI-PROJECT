@@ -32,6 +32,12 @@ INTEGRATION = {"test_api", "test_jobs", "test_security"}
 SYSTEM = {"test_system"}
 LINE_TARGET = 80  # Test Plan 8.5: proposed line coverage target for core/
 APP_CODE = ("app.py", "config.py", "core", "static", "data")
+BEST_LABELS = (
+    ("best_overall", "overall"),
+    ("best_ml", "ML"),
+    ("best_dl", "DL"),
+    ("best_qml", "QML"),
+)
 PACKAGES = ("flask", "scikit-learn", "xgboost", "tensorflow-cpu", "pennylane", "pytest", "coverage")
 
 
@@ -270,9 +276,10 @@ def system_report(cases, timestamp):
                     (
                         "Target",
                         "Task",
-                        "Train rows",
-                        "Test rows",
+                        "Rows",
+                        "Train / validation / test",
                         "Features",
+                        "Dropped",
                         "Seed",
                         "Split fingerprint",
                     ),
@@ -280,9 +287,11 @@ def system_report(cases, timestamp):
                         (
                             meta.get("target"),
                             meta.get("task"),
-                            meta.get("train_rows"),
-                            meta.get("test_rows"),
-                            meta.get("n_features", "-"),
+                            meta.get("rows"),
+                            f"{meta.get('train_rows')} / {meta.get('validation_rows')} / "
+                            f"{meta.get('test_rows')}",
+                            meta.get("features", "-"),
+                            ", ".join(meta.get("dropped_columns") or []) or "-",
                             meta.get("seed"),
                             f"`{str(meta.get('split_fingerprint'))[:12]}`",
                         )
@@ -321,14 +330,35 @@ def system_report(cases, timestamp):
                     ],
                 )
             )
-            best = ", ".join(
-                f"{key.removeprefix('best_').upper() if key != 'best_overall' else 'overall'}: "
-                f"{value}"
-                for key, value in summary.items()
-                if key.startswith("best_") and value
+            best = "; ".join(
+                f"{label}: **{summary[key]}**" for key, label in BEST_LABELS if summary.get(key)
             )
-            parts.append(f"\nBest models ({', '.join(summary.get('ranked_by', []))}): {best}.\n")
+            ranked = " then ".join(summary.get("ranked_by", []))
+            parts.append(f"\nBest models, ranked by {ranked}: {best}.\n")
+    parts.append(observations([run for case in system for run in case["runs"]]))
     return "\n".join(parts) + "\n"
+
+
+def observations(runs):
+    """Notes a reader of the per-dataset tables would otherwise ask about."""
+    notes = [
+        "Scores come from 40 held-out rows per dataset and from short DNN and QML runs, so "
+        "they show that each paradigm trains and is scored the same way, not how good each "
+        "model can get (Test Plan 7: predictive quality is not a test target)."
+    ]
+    by_fingerprint = defaultdict(list)
+    for run in runs:
+        by_fingerprint[run["metadata"]["split_fingerprint"]].append(run["dataset"])
+    shared = [names for names in by_fingerprint.values() if len(names) > 1]
+    for names in shared:
+        notes.append(
+            f"{', '.join(names)} report the same split fingerprint. The fingerprint hashes "
+            "only the test labels, and these datasets have the same class counts, so the "
+            "seeded stratified split gives the same label sequence. It still proves what "
+            "REQ-PP-10 asks: every model in one run was scored on one split. Hashing the test "
+            "row indices as well would make it unique per dataset (minor, not a defect)."
+        )
+    return "\n## Observations\n\n" + "\n".join(f"- {note}" for note in notes) + "\n"
 
 
 def coverage_files():

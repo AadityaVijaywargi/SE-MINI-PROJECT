@@ -1,0 +1,296 @@
+........................................................................ [ 30%]
+........................................................................ [ 60%]
+........................................................................ [ 90%]
+......................                                                   [100%]
+============================== warnings summary ===============================
+..\SE-MINI-PROJECT\.venv\lib\site-packages\tensorflow\__init__.py:30
+  C:\Users\aadi\SE-MINI-PROJECT\.venv\lib\site-packages\tensorflow\__init__.py:30: DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12. Use setuptools or check PEP 632 for potential alternatives
+    import distutils as _distutils
+
+tests/test_trainers.py::test_each_model_trains_and_predicts[xgboost]
+  C:\Users\aadi\SE-MINI-PROJECT\.venv\lib\site-packages\xgboost\core.py:158: UserWarning: [19:09:49] WARNING: C:\buildkite-agent\builds\buildkite-windows-cpu-autoscaling-group-i-06abd128ca6c1688d-1\xgboost\xgboost-ci-windows\src\context.cc:43: No visible GPU is found, setting device to CPU.
+    warnings.warn(smsg, UserWarning)
+
+tests/test_trainers.py::test_each_model_result_has_every_metric_key[xgboost]
+  C:\Users\aadi\SE-MINI-PROJECT\.venv\lib\site-packages\xgboost\core.py:158: UserWarning: [19:09:51] WARNING: C:\buildkite-agent\builds\buildkite-windows-cpu-autoscaling-group-i-06abd128ca6c1688d-1\xgboost\xgboost-ci-windows\src\context.cc:43: No visible GPU is found, setting device to CPU.
+    warnings.warn(smsg, UserWarning)
+
+tests/test_trainers.py::test_balanced_models_find_a_rare_class[xgboost]
+  C:\Users\aadi\SE-MINI-PROJECT\.venv\lib\site-packages\xgboost\core.py:158: UserWarning: [19:09:59] WARNING: C:\buildkite-agent\builds\buildkite-windows-cpu-autoscaling-group-i-06abd128ca6c1688d-1\xgboost\xgboost-ci-windows\src\context.cc:43: No visible GPU is found, setting device to CPU.
+    warnings.warn(smsg, UserWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: C:\Users\aadi\SE-MINI-PROJECT-part3\docs\test-reports\raw\junit.xml -
+
+---------- coverage: platform win32, python 3.10.4-final-0 -----------
+Name                    Stmts   Miss Branch BrPart  Cover   Missing
+-------------------------------------------------------------------
+app.py                    207     13     46      5    92%   119, 314, 322-333, 347->350, 361, 367
+core\__init__.py            6      2      2      1    62%   5->exit, 11-12
+core\base.py               34      4      2      0    89%   68-69, 83-85
+core\dnn.py                80      6      8      3    90%   40-41, 43-45, 149
+core\evaluator.py          90      6     26      1    91%   77-81, 126
+core\export.py             21      0      8      0   100%
+core\gpu.py                32      5      6      1    84%   24, 27-28, 42-43
+core\jobs.py              188      0     34      1    99%   242->244
+core\preprocessing.py     118      4     24      2    96%   155, 163, 236-237
+core\profiling.py          40      2     14      2    93%   46, 51
+core\qml.py               103      2     10      1    97%   62, 109
+core\storage.py           108      0     20      0   100%
+core\targets.py            57      0     20      0   100%
+core\trainers.py           61      0     10      0   100%
+-------------------------------------------------------------------
+TOTAL                    1145     44    230     17    95%
+Coverage HTML written to dir docs/test-reports/coverage-html
+Coverage XML written to file docs/test-reports/raw/coverage.xml
+Coverage JSON written to file docs/test-reports/raw/coverage.json
+
+============================== slowest durations ==============================
+11.55s call     tests/test_dnn.py::test_early_stopping_restores_the_best_epoch
+8.20s call     tests/test_dnn.py::test_multiclass_dnn_predicts_every_row
+8.02s call     tests/test_qml.py::test_default_vqc_learns_better_than_chance
+7.58s call     tests/test_system.py::test_preloaded_dataset_end_to_end[banking]
+7.57s call     tests/test_dnn.py::test_binary_dnn_trains_and_scores
+7.56s call     tests/test_system.py::test_preloaded_dataset_end_to_end[healthcare]
+7.13s call     tests/test_system.py::test_three_class_dataset_end_to_end
+7.11s call     tests/test_system.py::test_preloaded_dataset_end_to_end[insurance]
+6.92s call     tests/test_system.py::test_preloaded_dataset_end_to_end[telecom]
+6.92s call     tests/test_api.py::test_full_flow_all_eight_models
+6.65s call     tests/test_api.py::test_full_flow_multiclass
+5.51s call     tests/test_dnn.py::test_report_can_stop_training
+5.04s call     tests/test_dnn.py::test_progress_is_reported_every_epoch
+4.78s call     tests/test_api.py::test_cancel_stops_the_job_and_keeps_finished_results
+4.78s call     tests/test_api.py::test_second_job_in_the_same_session_is_refused
+2.59s call     tests/test_trainers.py::test_same_seed_same_predictions
+1.93s call     tests/test_trainers.py::test_balanced_models_find_a_rare_class[random_forest]
+1.55s call     tests/test_api.py::test_full_flow
+1.48s call     tests/test_trainers.py::test_each_model_result_has_every_metric_key[random_forest]
+1.47s call     tests/test_trainers.py::test_each_model_trains_and_predicts[random_forest]
+1.35s call     tests/test_api.py::test_train_returns_202_immediately
+1.22s call     tests/test_trainers.py::test_other_models_are_never_subsampled
+1.13s call     tests/test_trainers.py::test_balanced_models_find_a_rare_class[svm]
+0.93s call     tests/test_api.py::test_xlsx_upload_is_parsed_like_csv
+0.83s call     tests/test_qml.py::test_same_seed_same_predictions
+0.48s call     tests/test_api.py::test_same_seed_gives_same_split_fingerprint
+0.46s call     tests/test_jobs.py::test_progress_moves_inside_a_long_model
+0.43s call     tests/test_qml.py::test_progress_is_reported_every_epoch
+0.31s call     tests/test_jobs.py::test_qml_metadata_recorded_when_vqc_runs
+0.28s call     tests/test_api.py::test_forced_model_failure_is_reported_and_others_finish
+0.27s call     tests/test_api.py::test_upload_returns_profile_suggestions_and_preview
+0.26s call     tests/test_api.py::test_csv_export_downloads_the_metrics_table
+0.26s call     tests/test_trainers.py::test_balanced_models_find_a_rare_class[xgboost]
+0.26s call     tests/test_api.py::test_fixed_threshold_and_unbalanced_run_are_reported
+0.20s call     tests/test_preprocessing.py::test_same_seed_same_split_other_seed_differs
+0.20s call     tests/test_trainers.py::test_balanced_models_find_a_rare_class[decision_tree]
+0.20s call     tests/test_preprocessing.py::test_preprocessing_runs_once_per_job
+0.19s call     tests/test_trainers.py::test_balanced_models_find_a_rare_class[logistic_regression]
+0.17s setup    tests/test_dnn.py::test_multiclass_dnn_predicts_every_row
+0.16s call     tests/test_qml.py::test_vqc_trains_and_scores_on_the_full_test_set
+0.13s setup    tests/test_trainers.py::test_each_model_trains_and_predicts[logistic_regression]
+0.13s call     tests/test_dnn.py::test_multiclass_output_is_softmax
+0.13s call     tests/test_trainers.py::test_each_model_result_has_every_metric_key[xgboost]
+0.13s call     tests/test_trainers.py::test_balanced_models_find_a_rare_class[naive_bayes]
+0.12s call     tests/test_jobs.py::test_cancelled_job_keeps_finished_results
+0.11s call     tests/test_dnn.py::test_binary_architecture_matches_srs
+0.11s call     tests/test_gpu.py::test_ml_models_report_their_device
+0.10s call     tests/test_preprocessing.py::test_rows_with_missing_target_removed
+0.10s call     tests/test_jobs.py::test_metadata_always_has_qml_fields
+0.09s call     tests/test_qml.py::test_rows_are_capped_and_recorded
+0.09s call     tests/test_trainers.py::test_each_model_trains_and_predicts[xgboost]
+0.09s setup    tests/test_api.py::test_cancel_stops_the_job_and_keeps_finished_results
+0.09s call     tests/test_preprocessing.py::test_column_plan_telecom
+0.09s call     tests/test_jobs.py::test_cancel_stops_before_the_next_model
+0.09s call     tests/test_preprocessing.py::test_dense_finite_matrix_for_every_domain[healthcare]
+0.09s call     tests/test_preprocessing.py::test_scaler_fitted_on_training_rows_only
+0.09s call     tests/test_preprocessing.py::test_dense_finite_matrix_for_every_domain[banking]
+0.09s call     tests/test_preprocessing.py::test_string_labels_encoded
+0.09s call     tests/test_jobs.py::test_one_failing_model_does_not_stop_the_job
+0.09s call     tests/test_preprocessing.py::test_metadata_records_columns_and_fingerprint
+0.08s call     tests/test_preprocessing.py::test_all_missing_column_dropped
+0.08s call     tests/test_preprocessing.py::test_dense_finite_matrix_for_every_domain[telecom]
+0.08s call     tests/test_preprocessing.py::test_unseen_category_in_test_does_not_break
+0.07s call     tests/test_trainers.py::test_each_model_result_has_every_metric_key[svm]
+0.07s call     tests/test_security.py::test_sec1_client_filename_never_reaches_the_path[/etc/passwd.csv]
+0.07s call     tests/test_preprocessing.py::test_split_is_stratified_and_sized
+0.07s call     tests/test_preprocessing.py::test_dense_finite_matrix_for_every_domain[insurance]
+0.06s call     tests/test_jobs.py::test_status_elapsed_stops_when_the_job_finishes
+0.06s call     tests/test_security.py::test_sec1_client_filename_never_reaches_the_path[..\\..\\evil.csv]
+0.06s setup    tests/test_qml.py::test_feature_map_compresses_to_qubits_and_scales_to_pi
+0.06s call     tests/test_trainers.py::test_each_model_result_has_every_metric_key[naive_bayes]
+0.06s call     tests/test_api.py::test_train_validates_settings[extra2]
+0.06s call     tests/test_api.py::test_train_validates_settings[extra3]
+0.06s call     tests/test_evaluator.py::test_binary_result_has_pr_curve_and_multiclass_has_none
+0.06s call     tests/test_security.py::test_sec1_client_filename_never_reaches_the_path[../../evil.csv]
+0.06s setup    tests/test_api.py::test_health
+0.06s call     tests/test_api.py::test_train_validates_settings[extra8]
+0.05s setup    tests/test_dnn.py::test_validation_split_comes_from_training_rows_only
+0.05s call     tests/test_security.py::test_sec5_unexpected_errors_are_generic_and_logged
+0.05s call     tests/test_api.py::test_train_validates_settings[extra7]
+0.05s call     tests/test_api.py::test_train_refuses_unsupported_target
+0.05s setup    tests/test_api.py::test_full_flow_all_eight_models
+0.05s call     tests/test_api.py::test_train_validates_settings[extra10]
+0.05s call     tests/test_api.py::test_configure
+0.05s call     tests/test_api.py::test_train_validates_settings[extra6]
+0.05s call     tests/test_api.py::test_train_validates_settings[extra12]
+0.04s call     tests/test_qml.py::test_multiclass_target_is_refused
+0.04s call     tests/test_api.py::test_train_rejects_unknown_model
+0.04s call     tests/test_api.py::test_train_validates_settings[extra4]
+0.04s setup    tests/test_system.py::test_preloaded_dataset_end_to_end[insurance]
+0.04s call     tests/test_api.py::test_train_validates_settings[extra1]
+0.04s call     tests/test_api.py::test_train_validates_settings[extra0]
+0.04s setup    tests/test_api.py::test_unknown_sample_is_404[..]
+0.04s call     tests/test_api.py::test_train_validates_settings[extra5]
+0.04s call     tests/test_trainers.py::test_each_model_result_has_every_metric_key[logistic_regression]
+0.04s call     tests/test_api.py::test_train_requires_a_model
+0.04s setup    tests/test_api.py::test_forced_model_failure_is_reported_and_others_finish
+0.04s call     tests/test_api.py::test_train_validates_settings[extra9]
+0.04s call     tests/test_trainers.py::test_each_model_result_has_every_metric_key[decision_tree]
+0.04s call     tests/test_api.py::test_train_validates_settings[extra13]
+0.04s call     tests/test_preprocessing.py::test_fraud_text_labels_make_fraud_label_one
+0.04s call     tests/test_security.py::test_sec1_dataset_ids_must_be_uuids
+0.04s call     tests/test_preprocessing.py::test_identifier_and_constant_dropped_target_kept
+0.04s call     tests/test_evaluator.py::test_fixed_threshold_reproduces_the_all_negative_failure
+0.04s call     tests/test_evaluator.py::test_trainer_details_are_reported
+0.04s call     tests/test_api.py::test_train_refuses_qml_on_multiclass_target
+0.04s setup    tests/test_api.py::test_sample_loads_like_an_upload
+0.03s call     tests/test_preprocessing.py::test_validation_rows_are_split_from_training_rows
+0.03s call     tests/test_evaluator.py::test_records_test_time_and_test_rows
+0.03s call     tests/test_evaluator.py::test_binary_metrics
+0.03s setup    tests/test_api.py::test_train_validates_settings[extra6]
+0.03s call     tests/test_api.py::test_train_validates_settings[extra11]
+0.03s call     tests/test_api.py::test_sample_loads_like_an_upload
+0.03s call     tests/test_evaluator.py::test_binary_result_has_roc_curve_from_origin_to_corner
+0.03s setup    tests/test_api.py::test_full_flow
+0.03s call     tests/test_security.py::test_sec5_unknown_routes_answer_json
+0.03s setup    tests/test_api.py::test_unknown_sample_is_404[config.py]
+0.03s setup    tests/test_api.py::test_train_validates_settings[extra13]
+0.03s setup    tests/test_api.py::test_sample_path_traversal_never_matches_a_route
+0.03s setup    tests/test_api.py::test_upload_without_file
+0.03s setup    tests/test_api.py::test_unknown_job_is_404
+0.03s setup    tests/test_api.py::test_upload_rejects_bad_extension
+0.03s setup    tests/test_api.py::test_upload_rejects_executables_and_lookalikes[payload.xlsm]
+0.03s call     tests/test_security.py::test_sec3_production_without_origins_allows_no_cross_origin
+0.03s setup    tests/test_api.py::test_train_validates_settings[extra7]
+0.03s setup    tests/test_api.py::test_train_requires_a_model
+0.03s setup    tests/test_api.py::test_upload_rejects_malformed_file_and_deletes_it
+0.03s setup    tests/test_api.py::test_unknown_sample_is_404[three_class]
+0.03s setup    tests/test_api.py::test_unknown_sample_is_404[unknown]
+0.03s setup    tests/test_api.py::test_train_validates_settings[extra3]
+0.03s setup    tests/test_api.py::test_train_validates_settings[extra4]
+0.03s setup    tests/test_api.py::test_fixed_threshold_and_unbalanced_run_are_reported
+0.03s call     tests/test_security.py::test_sec1_size_limit_is_enforced
+0.03s setup    tests/test_system.py::test_preloaded_samples_match_the_bundled_files
+0.03s setup    tests/test_api.py::test_train_refuses_unsupported_target
+0.03s setup    tests/test_api.py::test_configure_unknown_dataset_is_404
+0.03s setup    tests/test_system.py::test_preloaded_dataset_end_to_end[telecom]
+0.03s setup    tests/test_api.py::test_csv_export_downloads_the_metrics_table
+0.03s setup    tests/test_api.py::test_train_validates_settings[extra2]
+0.03s call     tests/test_security.py::test_sec3_production_allows_only_listed_origins
+0.03s call     tests/test_api.py::test_upload_rejects_malformed_file_and_deletes_it
+0.03s setup    tests/test_api.py::test_train_returns_202_immediately
+0.03s setup    tests/test_system.py::test_preloaded_dataset_end_to_end[healthcare]
+0.03s setup    tests/test_api.py::test_train_validates_settings[extra9]
+0.03s call     tests/test_storage.py::test_cleanup_keeps_the_folder_under_its_size_cap
+0.03s setup    tests/test_api.py::test_train_refuses_qml_on_multiclass_target
+0.03s call     tests/test_evaluator.py::test_zero_division_counts_as_zero
+0.03s setup    tests/test_api.py::test_samples_are_listed
+0.02s setup    tests/test_api.py::test_train_validates_settings[extra8]
+0.02s setup    tests/test_api.py::test_same_seed_gives_same_split_fingerprint
+0.02s call     tests/test_evaluator.py::test_threshold_defaults_to_half_without_validation_rows
+0.02s setup    tests/test_api.py::test_upload_rejects_executables_and_lookalikes[setup.exe]
+0.02s call     tests/test_security.py::test_sec3_development_allows_localhost_only
+0.02s setup    tests/test_system.py::test_three_class_dataset_end_to_end
+0.02s call     tests/test_evaluator.py::test_threshold_is_tuned_on_validation_rows
+0.02s call     tests/test_trainers.py::test_svm_not_subsampled_below_the_cap
+0.02s setup    tests/test_api.py::test_second_job_in_the_same_session_is_refused
+0.02s setup    tests/test_api.py::test_configure
+0.02s setup    tests/test_api.py::test_train_validates_settings[extra0]
+0.02s setup    tests/test_api.py::test_train_rejects_unknown_model
+0.02s setup    tests/test_api.py::test_full_flow_multiclass
+0.02s call     tests/test_profiling.py::test_banking_profile
+0.02s call     tests/test_trainers.py::test_each_model_trains_and_predicts[logistic_regression]
+0.02s setup    tests/test_api.py::test_train_validates_settings[extra10]
+0.02s setup    tests/test_api.py::test_xlsx_upload_is_parsed_like_csv
+0.02s call     tests/test_trainers.py::test_each_model_trains_and_predicts[svm]
+0.02s setup    tests/test_api.py::test_train_validates_settings[extra11]
+0.02s call     tests/test_evaluator.py::test_confusion_matrix_includes_classes_never_predicted
+0.02s call     tests/test_storage.py::test_cleanup_deletes_uploads_older_than_ttl
+0.02s setup    tests/test_api.py::test_upload_returns_profile_suggestions_and_preview
+0.02s call     tests/test_profiling.py::test_profile_is_json_serialisable[banking]
+0.02s call     tests/test_profiling.py::test_profile_is_json_serialisable[healthcare]
+0.02s call     tests/test_trainers.py::test_svm_is_subsampled_above_the_row_cap
+0.02s setup    tests/test_api.py::test_upload_rejects_executables_and_lookalikes[data.csv.exe]
+0.02s call     tests/test_api.py::test_upload_rejects_oversized_file
+0.01s setup    tests/test_system.py::test_preloaded_dataset_end_to_end[banking]
+0.01s setup    tests/test_security.py::test_sec5_unknown_routes_answer_json
+0.01s call     tests/test_evaluator.py::test_multiclass_uses_weighted_average_and_no_roc
+0.01s call     tests/test_storage.py::test_cleanup_runs_before_each_upload
+0.01s teardown tests/test_api.py::test_second_job_in_the_same_session_is_refused
+0.01s setup    tests/test_api.py::test_train_validates_settings[extra1]
+0.01s setup    tests/test_api.py::test_train_validates_settings[extra5]
+0.01s call     tests/test_api.py::test_upload_rejects_bad_extension
+0.01s setup    tests/test_api.py::test_train_validates_settings[extra12]
+0.01s call     tests/test_api.py::test_upload_rejects_executables_and_lookalikes[payload.xlsm]
+0.01s call     tests/test_storage.py::test_too_few_rows_rejected_and_deleted
+0.01s call     tests/test_trainers.py::test_each_model_trains_and_predicts[naive_bayes]
+0.01s call     tests/test_storage.py::test_too_few_columns_rejected
+0.01s call     tests/test_profiling.py::test_profile_is_json_serialisable[insurance]
+0.01s setup    tests/test_targets.py::test_domain_samples_suggest_their_target_first[banking]
+0.01s setup    tests/test_storage.py::test_cleanup_deletes_uploads_older_than_ttl
+0.01s call     tests/test_storage.py::test_each_sample_loads_under_a_new_uuid[insurance]
+0.01s call     tests/test_targets.py::test_domain_samples_suggest_their_target_first[banking]
+0.01s call     tests/test_storage.py::test_unparseable_file_rejected_and_deleted
+0.01s call     tests/test_storage.py::test_saved_under_uuid_not_client_name
+0.01s setup    tests/test_preprocessing.py::test_dense_finite_matrix_for_every_domain[banking]
+0.01s setup    tests/test_storage.py::test_each_sample_loads_under_a_new_uuid[insurance]
+0.01s call     tests/test_storage.py::test_loading_a_cleaned_up_dataset_raises_key_error
+0.01s call     tests/test_trainers.py::test_each_model_trains_and_predicts[decision_tree]
+0.01s setup    tests/test_preprocessing.py::test_unknown_target_raises
+0.01s setup    tests/test_targets.py::test_three_class_suggests_segment
+0.01s setup    tests/test_preprocessing.py::test_preprocessing_runs_once_per_job
+0.01s call     tests/test_profiling.py::test_profile_is_json_serialisable[telecom]
+0.01s setup    tests/test_profiling.py::test_profile_is_json_serialisable[healthcare]
+0.01s setup    tests/test_storage.py::test_unparseable_file_rejected_and_deleted
+0.01s setup    tests/test_preprocessing.py::test_dense_finite_matrix_for_every_domain[healthcare]
+0.01s call     tests/test_jobs.py::test_unhandled_job_error_marks_failed_and_logs_traceback
+0.01s setup    tests/test_security.py::test_sec3_production_allows_only_listed_origins
+0.01s setup    tests/test_preprocessing.py::test_metadata_records_columns_and_fingerprint
+0.01s call     tests/test_evaluator.py::test_roc_curve_is_downsampled_to_about_100_points
+0.01s call     tests/test_targets.py::test_binary_task
+0.01s setup    tests/test_preprocessing.py::test_rows_with_missing_target_removed
+0.01s setup    tests/test_storage.py::test_cleanup_keeps_the_folder_under_its_size_cap
+0.01s call     tests/test_targets.py::test_domain_samples_suggest_their_target_first[telecom]
+0.01s call     tests/test_trainers.py::test_stratified_sample_keeps_class_shares
+0.01s setup    tests/test_security.py::test_sec3_production_without_origins_allows_no_cross_origin
+0.01s call     tests/test_targets.py::test_imbalance_warning
+0.01s setup    tests/test_preprocessing.py::test_dense_finite_matrix_for_every_domain[telecom]
+0.01s call     tests/test_api.py::test_health
+0.01s call     tests/test_targets.py::test_scoring_rules
+0.01s call     tests/test_targets.py::test_single_class_blocked
+0.01s setup    tests/test_security.py::test_sec1_size_limit_is_enforced
+0.01s setup    tests/test_preprocessing.py::test_split_is_stratified_and_sized
+0.01s setup    tests/test_storage.py::test_too_few_rows_rejected_and_deleted
+0.01s setup    tests/test_profiling.py::test_profile_is_json_serialisable[banking]
+0.01s setup    tests/test_targets.py::test_domain_samples_suggest_their_target_first[insurance]
+0.01s call     tests/test_api.py::test_upload_rejects_executables_and_lookalikes[setup.exe]
+0.01s call     tests/test_targets.py::test_class_with_one_row_blocked
+0.01s call     tests/test_api.py::test_sample_path_traversal_never_matches_a_route
+0.01s setup    tests/test_security.py::test_sec1_client_filename_never_reaches_the_path[..\\..\\evil.csv]
+0.01s call     tests/test_storage.py::test_each_sample_loads_under_a_new_uuid[telecom]
+0.01s call     tests/test_targets.py::test_domain_samples_suggest_their_target_first[healthcare]
+0.01s call     tests/test_jobs.py::test_production_still_shows_data_problems
+0.01s call     tests/test_targets.py::test_only_2_to_20_classes_are_candidates
+0.01s setup    tests/test_targets.py::test_domain_samples_suggest_their_target_first[healthcare]
+0.01s call     tests/test_storage.py::test_each_sample_loads_under_a_new_uuid[healthcare]
+0.01s setup    tests/test_security.py::test_sec5_unexpected_errors_are_generic_and_logged
+0.01s setup    tests/test_storage.py::test_loading_a_cleaned_up_dataset_raises_key_error
+0.01s setup    tests/test_preprocessing.py::test_scaler_fitted_on_training_rows_only
+0.01s setup    tests/test_gpu.py::test_ml_models_report_their_device
+0.01s call     tests/test_system.py::test_preloaded_samples_match_the_bundled_files
+0.01s call     tests/test_api.py::test_upload_without_file
+0.01s call     tests/test_storage.py::test_each_sample_loads_under_a_new_uuid[banking]
+0.01s setup    tests/test_storage.py::test_too_few_columns_rejected
+0.01s setup    tests/test_storage.py::test_cleanup_runs_before_each_upload
+
+(469 durations < 0.005s hidden.  Use -vv to show these durations.)
+238 passed, 4 warnings in 151.89s (0:02:31)
