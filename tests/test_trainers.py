@@ -1,5 +1,9 @@
 """ML trainers and the model catalogue (SM-36, SM-37)."""
 
+import subprocess
+import sys
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import pytest
@@ -7,7 +11,13 @@ import pytest
 import config
 from core.evaluator import evaluate
 from core.preprocessing import Preprocessor
-from core.trainers import ML_MODELS, available_models, build_trainers, stratified_sample
+from core.trainers import (
+    DEFERRED_MODELS,
+    ML_MODELS,
+    available_models,
+    build_trainers,
+    stratified_sample,
+)
 from tests.conftest import load_sample
 from tests.test_evaluator import METRIC_KEYS
 
@@ -138,3 +148,37 @@ def test_balanced_models_find_a_rare_class(key):
     assert trainer.details["Class weights"] == "balanced"
     assert result["confusion_matrix"][1][1] > 0, "the model never flagged the rare class"
     assert result["pr_auc"] > split.metadata()["test_positive_rate"]
+
+
+# DEF-04 (PERF-1): /api/train must not import TensorFlow or PennyLane inside the request.
+def test_dl_and_qml_trainers_are_built_only_on_first_use():
+    dnn, vqc = build_trainers(["dnn", "vqc"], seed=5)
+    assert (dnn.key, dnn.name, dnn.paradigm) == ("dnn", "Deep Neural Network", "DL")
+    assert (vqc.key, vqc.name, vqc.paradigm) == ("vqc", "Variational Quantum Classifier", "QML")
+    assert not dnn.loaded and not vqc.loaded
+    assert dnn.epochs == config.DNN_EPOCHS
+    assert dnn.loaded
+
+
+def test_deferred_names_match_the_real_trainers():
+    from core.dnn import DNNTrainer  # pylint: disable=import-outside-toplevel
+    from core.qml import QMLTrainer  # pylint: disable=import-outside-toplevel
+
+    assert DEFERRED_MODELS == {
+        DNNTrainer.key: (DNNTrainer.name, DNNTrainer.paradigm),
+        QMLTrainer.key: (QMLTrainer.name, QMLTrainer.paradigm),
+    }
+
+
+def test_building_trainers_does_not_import_tensorflow_or_pennylane():
+    # A fresh interpreter, because other tests in this session may already have loaded them.
+    code = (
+        "import sys; from core.trainers import build_trainers; "
+        "build_trainers(['svm', 'dnn', 'vqc'], seed=0); "
+        "print(sorted(m for m in ('tensorflow', 'keras', 'pennylane') if m in sys.modules))"
+    )
+    root = Path(__file__).resolve().parents[1]
+    out = subprocess.run(
+        [sys.executable, "-c", code], cwd=root, capture_output=True, text=True, check=True
+    )
+    assert out.stdout.strip() == "[]"

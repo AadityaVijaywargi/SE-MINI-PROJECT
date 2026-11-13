@@ -1,0 +1,1 @@
+7 /api/status requests, median gap 2.02 s; distinct stages seen: 8.

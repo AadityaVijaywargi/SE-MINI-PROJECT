@@ -1,0 +1,1 @@
+Server stage labels seen with 0.1 s polling: 5 (2 with an epoch). Epoch stage rendered in the UI label on the Banking run: no; on the TD-12 confirmation run: yes.

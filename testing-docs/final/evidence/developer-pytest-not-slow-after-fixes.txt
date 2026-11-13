@@ -1,0 +1,30 @@
+Command: pytest -m "not slow" -q --cov=core --cov=app --cov-report=term -p no:cacheprovider
+Started: 2026-11-10 22:57:58  Base commit: 4988037 + uncommitted fixes on branch qa/defect-fixes-final-testing (DEF-01..04)
+........................................................................ [ 30%]
+........................................................................ [ 61%]
+........................................................................ [ 92%]
+..................                                                       [100%]
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.11.9-final-0 _______________
+
+Name                    Stmts   Miss  Cover
+-------------------------------------------
+app.py                    207     13    94%
+core\__init__.py            6      2    67%
+core\base.py               34      4    88%
+core\dnn.py                80      6    92%
+core\evaluator.py          90      6    93%
+core\export.py             21      0   100%
+core\gpu.py                32      5    84%
+core\jobs.py              188      0   100%
+core\preprocessing.py     118      4    97%
+core\profiling.py          40      2    95%
+core\qml.py               103      2    98%
+core\storage.py           108      0   100%
+core\targets.py            57      0   100%
+core\trainers.py           81      1    99%
+-------------------------------------------
+TOTAL                    1165     45    96%
+234 passed, 1 deselected in 87.58s (0:01:27)
+Exit code: 0
+Finished: 2026-11-10 22:59:36

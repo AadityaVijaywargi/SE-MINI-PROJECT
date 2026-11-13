@@ -1,0 +1,6 @@
+# Black-box system test dependencies (separate from the application's requirements).
+# Install into testing-docs/final/tests/.venv, then: python -m playwright install chromium
+playwright==1.65.0
+pytest==9.2.0
+pytest-playwright==0.10.0
+pytest-html==4.2.0

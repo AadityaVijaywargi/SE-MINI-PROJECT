@@ -1,0 +1,1 @@
+Same rules are also asserted by developer pytest tests (see Test_Automation_Mapping.xlsx); this run is system-level evidence against the live server.

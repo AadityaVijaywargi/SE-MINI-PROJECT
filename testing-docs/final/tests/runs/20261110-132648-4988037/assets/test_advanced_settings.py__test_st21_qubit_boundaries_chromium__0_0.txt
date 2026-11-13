@@ -1,0 +1,1 @@
+'1': error='Qubits must be a whole number from 2 to 8.', start disabled=True; '9': error='Qubits must be a whole number from 2 to 8.', start disabled=True; '4.5': error='Qubits must be a whole number from 2 to 8.', start disabled=True; '2': error='', start disabled=False; '8': error='', start disabled=False

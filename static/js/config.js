@@ -3,7 +3,7 @@
 
 import { configure, startTraining } from "./api.js";
 import { clear, el, paradigmBadge, PARADIGM_NAMES } from "./dom.js";
-import { setState, showScreen, state } from "./state.js";
+import { onStateChange, setState, showScreen, state } from "./state.js";
 import { startPolling } from "./progress.js";
 
 // Models in the order they train.
@@ -192,9 +192,32 @@ function modelCheckbox(model) {
   ]);
 }
 
+// DEF-02: SVM is subsampled on its training rows, which are what is left after the test split
+// and the validation hold-out (core/preprocessing.py; sklearn rounds held-out rows up).
+const VALIDATION_RATIO = 0.2;
+
+function svmTrainingRows() {
+  const testRatio = Number(document.getElementById("opt-test-ratio").value) || 0.2;
+  const afterTest = state.profile.rows - Math.ceil(state.profile.rows * testRatio);
+  return afterTest - Math.ceil(afterTest * VALIDATION_RATIO);
+}
+
+function svmWarningText() {
+  if (svmTrainingRows() <= SVM_MAX_ROWS) return "";
+  return `⚠ ${state.profile.rows.toLocaleString()} rows: SVM will train on a stratified sample of ${SVM_MAX_ROWS.toLocaleString()} rows.`;
+}
+
+function updateSvmWarning() {
+  const hint = document.getElementById("svm-note");
+  if (!hint || !state.profile) return;
+  const text = svmWarningText();
+  hint.textContent = text;
+  hint.classList.toggle("hidden", !text);
+}
+
 function renderModelGrid() {
   const grid = clear(document.getElementById("model-grid"));
-  const bigData = state.profile.rows > SVM_MAX_ROWS;
+  const svmWarning = svmWarningText();
   ["ML", "DL", "QML"].forEach((paradigm) => {
     const models = MODEL_CATALOG.filter((model) => model.paradigm === paradigm);
     grid.append(
@@ -202,10 +225,11 @@ function renderModelGrid() {
         el("legend", {}, [paradigmBadge(paradigm), ` ${PARADIGM_NAMES[paradigm]}`]),
         ...models.map(modelCheckbox),
         // REQ-MS-4: SVM is subsampled on large datasets.
-        paradigm === "ML" && bigData
+        paradigm === "ML"
           ? el("p", {
-              class: "hint warn-text",
-              text: `⚠ ${state.profile.rows.toLocaleString()} rows: SVM will train on a stratified sample of ${SVM_MAX_ROWS.toLocaleString()} rows.`,
+              class: svmWarning ? "hint warn-text" : "hint warn-text hidden",
+              id: "svm-note",
+              text: svmWarning,
             })
           : null,
         paradigm === "DL"
@@ -267,4 +291,15 @@ export function initConfigure() {
     updateTrainButton();
   });
   document.getElementById("opt-threshold").addEventListener("input", updateTrainButton);
+  // DEF-01: these settings had no listener, and Start training stayed disabled after a run.
+  document.getElementById("opt-test-ratio").addEventListener("change", () => {
+    updateSvmWarning();
+    updateTrainButton();
+  });
+  document.getElementById("opt-balance").addEventListener("change", updateTrainButton);
+  let lastScreen = state.screen;
+  onStateChange(({ screen }) => {
+    if (screen === "configure" && lastScreen !== "configure") updateTrainButton();
+    lastScreen = screen;
+  });
 }

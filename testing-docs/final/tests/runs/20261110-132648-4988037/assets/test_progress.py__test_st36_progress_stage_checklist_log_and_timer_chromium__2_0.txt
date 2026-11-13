@@ -1,0 +1,1 @@
+The UI refreshes every 2 s, so short stages can be skipped. Never rendered on screen: 'Testing <model> (i of n)'. Confirm by watching a run.

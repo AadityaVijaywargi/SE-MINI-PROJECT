@@ -1,0 +1,1 @@
+Pass rule: medians of 5 calls for upload/configure and of all polls for status, as in docs/performance.md; maxima are recorded above.

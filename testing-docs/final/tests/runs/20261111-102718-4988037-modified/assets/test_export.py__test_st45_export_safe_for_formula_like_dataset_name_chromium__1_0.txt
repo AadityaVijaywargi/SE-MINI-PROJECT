@@ -1,0 +1,1 @@
+Excel check: {'opened': True, 'cells': 28, 'formulas': 0, 'errors': 0}

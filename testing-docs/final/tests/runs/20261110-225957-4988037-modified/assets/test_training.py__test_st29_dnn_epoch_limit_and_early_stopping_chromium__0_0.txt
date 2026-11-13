@@ -1,0 +1,1 @@
+DNN details: {'Best epoch': '5', 'Class weights': 'balanced', 'Device': 'CPU', 'Epochs run': '5', 'Parameters': '12289', 'Stopped early': 'no', 'Validation rows': '32'}

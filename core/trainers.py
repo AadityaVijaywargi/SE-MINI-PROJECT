@@ -113,21 +113,75 @@ def default_options():
     }
 
 
+#: Display name and paradigm of the models whose trainers load TensorFlow or PennyLane.
+#: They must match DNNTrainer and QMLTrainer (checked in tests/test_trainers.py).
+DEFERRED_MODELS = {
+    "dnn": ("Deep Neural Network", "DL"),
+    "vqc": ("Variational Quantum Classifier", "QML"),
+}
+
+
+class DeferredTrainer:
+    """Stands in for the DNN or VQC trainer until something first uses it (DEF-04, PERF-1).
+
+    Importing TensorFlow or PennyLane takes seconds. Building the real trainer on first
+    attribute access moves that import from the /api/train request into the job thread,
+    so the request returns 202 at once. ``key``, ``name`` and ``paradigm`` are known
+    without the import; every other attribute comes from the real trainer.
+    """
+
+    def __init__(self, key, build):
+        self.key = key
+        self.name, self.paradigm = DEFERRED_MODELS[key]
+        self._build = build
+        self._trainer = None
+
+    @property
+    def loaded(self):
+        """True once the real trainer has been built."""
+        return self._trainer is not None
+
+    def resolve(self):
+        """The real trainer, built on first use."""
+        if self._trainer is None:
+            self._trainer = self._build()
+        return self._trainer
+
+    def __getattr__(self, attr):
+        if attr.startswith("_"):
+            raise AttributeError(attr)
+        return getattr(self.resolve(), attr)
+
+
+def build_dnn(seed, options):
+    """The DNN trainer. Imported here so a run without DL never loads TensorFlow."""
+    from core.dnn import DNNTrainer  # pylint: disable=import-outside-toplevel
+
+    return DNNTrainer(seed, epochs=options["dnn_epochs"], balance=options["balance_classes"])
+
+
+def build_vqc(seed, options):
+    """The VQC trainer. Imported here so a run without QML never loads PennyLane."""
+    from core.qml import QMLTrainer  # pylint: disable=import-outside-toplevel
+
+    return QMLTrainer(
+        seed,
+        epochs=options["qml_epochs"],
+        qubits=options["qubits"],
+        balance=options["balance_classes"],
+    )
+
+
 def build_one(key, seed, options):
-    """The trainer for one known model key."""
-    balance = options["balance_classes"]
+    """The trainer for one known model key; DL and QML trainers are deferred."""
     if key in ML_MODELS:
         name, factory = ML_MODELS[key]
         max_rows = config.SVM_MAX_ROWS if key == "svm" else None
-        return MLTrainer(key, name, factory, seed, max_rows=max_rows, balance=balance)
-    # Imported here so a run without DL or QML never loads TensorFlow or PennyLane.
-    if key in DL_MODELS:
-        from core.dnn import DNNTrainer  # pylint: disable=import-outside-toplevel
-
-        return DNNTrainer(seed, epochs=options["dnn_epochs"], balance=balance)
-    from core.qml import QMLTrainer  # pylint: disable=import-outside-toplevel
-
-    return QMLTrainer(seed, epochs=options["qml_epochs"], qubits=options["qubits"], balance=balance)
+        return MLTrainer(
+            key, name, factory, seed, max_rows=max_rows, balance=options["balance_classes"]
+        )
+    build = build_dnn if key in DL_MODELS else build_vqc
+    return DeferredTrainer(key, lambda: build(seed, options))
 
 
 def build_trainers(model_keys, seed, options=None):

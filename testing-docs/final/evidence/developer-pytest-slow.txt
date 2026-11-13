@@ -1,0 +1,6 @@
+Command: pytest -m slow -q -p no:cacheprovider
+Started: 2026-11-10 13:36:39  Commit: 4988037
+.                                                                        [100%]
+1 passed, 231 deselected in 7.00s
+Exit code: 0
+Finished: 2026-11-10 13:36:50

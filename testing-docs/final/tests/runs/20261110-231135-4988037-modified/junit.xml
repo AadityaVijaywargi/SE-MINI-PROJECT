@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="44.670" timestamp="2026-11-10T23:11:38.147321+05:30" hostname="Ravi_Teja"><testcase classname="test_performance" name="test_st50_api_response_times" time="43.962" /></testsuite></testsuites>

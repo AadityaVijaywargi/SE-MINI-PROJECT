@@ -1,0 +1,1 @@
+SVM details: {'Class weights': 'balanced', 'Device': 'CPU', 'Subsampled': 'from 25600 rows', 'Training rows': '20000'}

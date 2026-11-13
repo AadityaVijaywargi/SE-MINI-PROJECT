@@ -1,0 +1,1 @@
+TD-15 (25,000 rows): ML hint '⚠ 25,000 rows: SVM will train on a stratified sample of 20,000 rows.'; SVM details {'Class weights': 'balanced', 'Device': 'CPU'}. The warning promises subsampling but SVM trained on all rows (no 'Subsampled' detail).

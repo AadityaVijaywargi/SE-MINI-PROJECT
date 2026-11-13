@@ -1,0 +1,1 @@
+'0': error='Fixed threshold must be a number from 0.01 to 0.99.', start disabled=True; '1': error='Fixed threshold must be a number from 0.01 to 0.99.', start disabled=True; '': error='Fixed threshold must be a number from 0.01 to 0.99.', start disabled=True; '0.01': error='', start disabled=False; '0.99': error='', start disabled=False
