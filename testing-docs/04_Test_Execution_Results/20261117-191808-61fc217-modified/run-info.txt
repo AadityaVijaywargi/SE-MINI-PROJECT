@@ -1,0 +1,10 @@
+﻿Run started:      2026-11-17 19:18:08
+Commit:           61fc217-modified
+Machine / OS:     RAVI_TEJA / Microsoft Windows 11 Home Single Language
+Application:      http://127.0.0.1:5055 (started by the tests, COMPUTE_DEVICE=cpu)
+Default browser:  Google Chrome 157.0.8103.79 (channel chrome)
+Also used:        Microsoft Edge 157.0.4341.60 (ST-39, ST-49); Playwright Chromium (ST-49)
+Python (tests):   Python 3.11.9
+Packages:         playwright==1.65.0, pytest==9.2.0, pytest-html==4.2.0, pytest-playwright==0.10.0
+Selection:        all
+Run finished:     2026-11-17 19:29:03 (pytest exit code 1)

@@ -1,0 +1,1 @@
+Results opened 4.1 s after Cancel was clicked.

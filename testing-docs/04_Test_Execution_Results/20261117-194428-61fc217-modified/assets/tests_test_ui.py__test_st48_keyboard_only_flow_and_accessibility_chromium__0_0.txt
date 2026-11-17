@@ -1,0 +1,1 @@
+52 focus stops checked. Without outline or box-shadow: none. Outline width/contrast below 2 px or 3:1 (WCAG 2.2 SC 1.4.11 / 2.4.13 thresholds): none. Outline contrast range 6.09:1 to 6.64:1.
