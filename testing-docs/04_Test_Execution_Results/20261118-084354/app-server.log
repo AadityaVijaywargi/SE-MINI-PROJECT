@@ -1,0 +1,108 @@
+
+===== start 08:43:58 COMPUTE_DEVICE=cpu =====
+ * Serving Flask app 'app'
+ * Debug mode: off
+2026-11-18 08:44:15,144 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5055
+2026-11-18 08:44:15,144 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-11-18 08:44:15,586 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:15] "GET /api/health HTTP/1.1" 200 -
+2026-11-18 08:44:18,698 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:18] "GET / HTTP/1.1" 200 -
+2026-11-18 08:44:18,844 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:18] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-18 08:44:19,002 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:19] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-18 08:44:19,003 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:19] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-18 08:44:19,003 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:19] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-18 08:44:19,004 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:19] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-18 08:44:19,007 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:19] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-18 08:44:19,047 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:19] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-18 08:44:19,050 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:19] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-18 08:44:19,090 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:19] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-18 08:44:20,189 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:20] "GET /api/samples HTTP/1.1" 200 -
+2026-11-18 08:44:20,427 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:20] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-11-18 08:44:20,690 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-18 08:44:20,745 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:20] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-18 08:44:21,857 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:21] "GET / HTTP/1.1" 200 -
+2026-11-18 08:44:21,879 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:21] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-18 08:44:21,886 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:21] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-18 08:44:21,887 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:21] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-18 08:44:21,890 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:21] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-18 08:44:21,896 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:21] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-18 08:44:21,902 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:21] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-18 08:44:21,903 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:21] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-18 08:44:21,905 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:21] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-18 08:44:21,908 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:21] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-18 08:44:23,123 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:23] "GET /api/samples HTTP/1.1" 200 -
+2026-11-18 08:44:23,477 INFO core.storage: Upload received: healthcare.csv, 7858 bytes, 200 rows, 7 columns
+2026-11-18 08:44:23,487 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:23] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-18 08:44:23,960 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:23] "GET / HTTP/1.1" 200 -
+2026-11-18 08:44:23,988 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:23] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-18 08:44:23,991 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:23] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-18 08:44:23,994 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:23] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-18 08:44:23,998 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:23] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-18 08:44:24,000 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:24] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-18 08:44:24,010 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:24] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-18 08:44:24,013 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:24] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-18 08:44:24,018 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:24] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-18 08:44:24,020 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:24] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-18 08:44:25,434 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:25] "GET /api/samples HTTP/1.1" 200 -
+2026-11-18 08:44:26,323 INFO core.storage: Upload received: TD-03_banking.xlsx, 13922 bytes, 200 rows, 9 columns
+2026-11-18 08:44:26,335 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:26] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-18 08:44:27,361 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:27] "GET / HTTP/1.1" 200 -
+2026-11-18 08:44:27,391 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:27] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-18 08:44:27,398 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:27] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-18 08:44:27,401 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:27] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-18 08:44:27,406 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:27] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-18 08:44:27,408 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:27] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-18 08:44:27,414 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:27] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-18 08:44:27,416 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:27] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-18 08:44:27,419 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:27] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-18 08:44:27,425 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:27] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-18 08:44:28,657 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:28] "GET /api/samples HTTP/1.1" 200 -
+2026-11-18 08:44:30,776 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:30] "GET / HTTP/1.1" 200 -
+2026-11-18 08:44:30,795 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:30] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-18 08:44:30,799 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:30] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-18 08:44:30,801 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:30] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-18 08:44:30,804 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:30] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-18 08:44:30,811 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:30] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-18 08:44:30,813 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:30] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-18 08:44:30,816 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:30] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-18 08:44:30,818 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:30] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-18 08:44:30,824 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:30] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-18 08:44:32,075 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:32] "GET /api/samples HTTP/1.1" 200 -
+2026-11-18 08:44:33,112 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:33] "GET / HTTP/1.1" 200 -
+2026-11-18 08:44:33,136 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:33] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-18 08:44:33,141 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:33] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-18 08:44:33,144 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:33] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-18 08:44:33,146 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:33] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-18 08:44:33,149 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:33] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-18 08:44:33,150 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:33] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-18 08:44:33,169 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:33] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-18 08:44:33,171 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:33] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-18 08:44:33,172 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:33] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-18 08:44:34,329 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:34] "GET /api/samples HTTP/1.1" 200 -
+2026-11-18 08:44:35,200 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:35] "[31m[1mPOST /api/upload HTTP/1.1[0m" 400 -
+2026-11-18 08:44:36,389 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:36] "GET / HTTP/1.1" 200 -
+2026-11-18 08:44:36,413 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:36] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-18 08:44:36,414 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:36] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-18 08:44:36,421 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:36] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-18 08:44:36,424 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:36] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-18 08:44:36,428 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:36] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-18 08:44:36,432 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:36] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-18 08:44:36,434 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:36] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-18 08:44:36,439 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:36] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-18 08:44:36,445 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:36] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-18 08:44:37,664 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:37] "GET /api/samples HTTP/1.1" 200 -
+2026-11-18 08:44:37,907 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:37] "[31m[1mPOST /api/upload HTTP/1.1[0m" 400 -
+2026-11-18 08:44:38,121 INFO core.storage: Upload received: TD-05_rows_50.csv, 2327 bytes, 50 rows, 9 columns
+2026-11-18 08:44:38,131 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:38] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-18 08:44:38,625 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:38] "GET / HTTP/1.1" 200 -
+2026-11-18 08:44:38,656 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:38] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-18 08:44:38,660 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:38] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-18 08:44:38,661 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:38] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-18 08:44:38,668 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:38] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-18 08:44:38,671 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:38] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-18 08:44:38,672 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:38] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-18 08:44:38,674 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:38] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-18 08:44:38,682 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:38] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-18 08:44:38,683 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:38] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-18 08:44:39,866 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:39] "GET /api/samples HTTP/1.1" 200 -
+2026-11-18 08:44:40,145 INFO werkzeug: 127.0.0.1 - - [18/Nov/2026 08:44:40] "[31m[1mPOST /api/upload HTTP/1.1[0m" 400 -
