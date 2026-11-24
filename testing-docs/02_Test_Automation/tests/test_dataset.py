@@ -7,8 +7,12 @@ from playwright.sync_api import expect
 
 from pages import App, sample, text
 
-SAMPLES = [("Banking", "Exited", "banking.csv"), ("Healthcare", "Diagnosis", "healthcare.csv"),
-           ("Telecom", "Churn", "telecom.csv"), ("Insurance", "Fraud", "insurance.csv")]
+SAMPLES = [
+    ("Banking", "Exited", "banking.csv"),
+    ("Healthcare", "Diagnosis", "healthcare.csv"),
+    ("Telecom", "Churn", "telecom.csv"),
+    ("Insurance", "Fraud", "insurance.csv"),
+]
 
 WATCH_LOADING = """() => {
   window.__loading = [];
@@ -41,7 +45,9 @@ def test_st09_load_each_sample_dataset(page, evidence):
     for label, _, _ in SAMPLES:
         hits = [x for x in loading if x["text"] == f"Loading the {label} sample…"]
         assert hits, f"loading text for {label} was not shown"
-        assert all(x["disabled"] for x in hits), f"sample buttons were not disabled while loading {label}"
+        assert all(
+            x["disabled"] for x in hits
+        ), f"sample buttons were not disabled while loading {label}"
     assert chooser_opened == [], "a file picker opened for a sample button"
 
 
@@ -98,11 +104,17 @@ def test_st12_preprocessing_reported_in_metadata(page, evidence):
     meta = app.metadata()
     evidence.shot(page, "metadata")
     assert meta["Ordinal columns"] == "City"
-    assert set(meta["One-hot columns"].split(", ")) == {"Contract", "InternetService", "PaymentMethod"}
+    assert set(meta["One-hot columns"].split(", ")) == {
+        "Contract",
+        "InternetService",
+        "PaymentMethod",
+    }
     assert set(meta["Numeric columns"].split(", ")) == {"Tenure", "MonthlyCharges"}
     assert meta["Dropped columns"] == "none"
     assert meta["Positive class"] == "Yes"
-    match = re.fullmatch(r"(\d+) / (\d+) / (\d+) \(test split 20%\)", meta["Train / validation / test rows"])
+    match = re.fullmatch(
+        r"(\d+) / (\d+) / (\d+) \(test split 20%\)", meta["Train / validation / test rows"]
+    )
     assert match, meta["Train / validation / test rows"]
     train, val, test = map(int, match.groups())
     assert train + val + test == 200 and test == 40

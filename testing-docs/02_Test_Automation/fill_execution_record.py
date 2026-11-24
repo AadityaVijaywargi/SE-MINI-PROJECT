@@ -21,14 +21,23 @@ from pathlib import Path
 from openpyxl import load_workbook
 
 HERE = Path(__file__).resolve().parent
-TEMPLATE = HERE.parent / "04_Test_Execution_Results" / "Execution_Records" / "Test_Execution_Record_Template.xlsx"
+TEMPLATE = (
+    HERE.parent
+    / "04_Test_Execution_Results"
+    / "Execution_Records"
+    / "Test_Execution_Record_Template.xlsx"
+)
 
 
 def main(run_dir, out=None):
     run = Path(run_dir).resolve()
-    rows = {r["test_case_id"]: r for r in csv.DictReader((run / "results.csv").open(encoding="utf-8"))}
+    rows = {
+        r["test_case_id"]: r for r in csv.DictReader((run / "results.csv").open(encoding="utf-8"))
+    }
     info = dict(
-        line.split(":", 1) for line in (run / "run-info.txt").read_text(encoding="utf-8-sig").splitlines() if ":" in line
+        line.split(":", 1)
+        for line in (run / "run-info.txt").read_text(encoding="utf-8-sig").splitlines()
+        if ":" in line
     )
     info = {k.strip(): v.strip() for k, v in info.items()}
     commit = info.get("Commit", "")
@@ -63,23 +72,38 @@ def main(run_dir, out=None):
         row = rows.get(case)
         if not row:
             continue
-        outcome, pending, message = row["pytest_outcome"], row["manual_review_pending"], row["message"]
+        outcome, pending, message = (
+            row["pytest_outcome"],
+            row["manual_review_pending"],
+            row["message"],
+        )
         if outcome == "passed" and not pending:
             status, remark = "PASS", "All automated checks passed."
         elif outcome in ("failed", "error"):
             status, remark = "FAIL", f"Automated check failed: {message}"
         elif outcome == "passed":
-            status, remark = "UNVERIFIED", f"Automated checks passed; manual review pending: {pending}"
+            status, remark = (
+                "UNVERIFIED",
+                f"Automated checks passed; manual review pending: {pending}",
+            )
         else:
             status, remark = None, f"Not run by the script: {message}"
         if outcome != "skipped":
             ex.cell(row=r, column=7).value = run_date
             ex.cell(row=r, column=7).number_format = "DD-MMM-YYYY"
             ex.cell(row=r, column=8).value = "Playwright (automated)"
-            ex.cell(row=r, column=9).value = "Chrome (channel chrome)" if case not in ("ST-39", "ST-49") else "Chrome + Edge" + (" + Playwright Chromium" if case == "ST-49" else "")
+            ex.cell(row=r, column=9).value = (
+                "Chrome (channel chrome)"
+                if case not in ("ST-39", "ST-49")
+                else "Chrome + Edge" + (" + Playwright Chromium" if case == "ST-49" else "")
+            )
             ex.cell(row=r, column=10).value = commit
-            ex.cell(row=r, column=11).value = remark if outcome != "passed" or pending else "As expected (see report.html)."
-            ex.cell(row=r, column=14).value = f"{run.name}/report.html; screenshots/{row['test'].split('::')[-1]}"
+            ex.cell(row=r, column=11).value = (
+                remark if outcome != "passed" or pending else "As expected (see report.html)."
+            )
+            ex.cell(row=r, column=14).value = (
+                f"{run.name}/report.html; screenshots/{row['test'].split('::')[-1]}"
+            )
         ex.cell(row=r, column=12).value = status
         ex.cell(row=r, column=17).value = remark
     out = Path(out) if out else run / f"Test_Execution_Record_{run.name}.xlsx"

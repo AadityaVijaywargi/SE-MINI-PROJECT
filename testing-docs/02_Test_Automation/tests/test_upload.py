@@ -32,7 +32,9 @@ def test_st01_upload_valid_csv_with_file_picker(page, evidence):
     expect(page.locator("#profile")).to_be_visible()
     evidence.shot(page, "profile")
 
-    assert page.evaluate("window.__progressSeen").__len__() > 0, "upload progress text never appeared"
+    assert (
+        page.evaluate("window.__progressSeen").__len__() > 0
+    ), "upload progress text never appeared"
     expect(page.locator("#upload-progress")).to_be_hidden()
     expect(page.locator("#dataset-name")).to_have_text("banking.csv")
     cards = app.summary_cards()
@@ -171,5 +173,7 @@ def test_st08_reject_single_column_file(page, evidence):
     app.choose_file(td("TD-06_one_column.csv"))
     text = app.wait_toast("1 column")
     evidence.shot(page, "one-column-rejected", full_page=False)
-    assert text == "The file has 1 column; at least 2 are needed (one or more features plus a target)."
+    assert (
+        text == "The file has 1 column; at least 2 are needed (one or more features plus a target)."
+    )
     expect(page.locator("#profile")).to_be_hidden()

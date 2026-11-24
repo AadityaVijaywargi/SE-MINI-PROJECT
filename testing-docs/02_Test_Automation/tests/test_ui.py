@@ -28,7 +28,9 @@ FOCUS_STYLE = r"""() => {
 
 
 def visible_screens(page):
-    return page.evaluate("[...document.querySelectorAll('[data-screen]')].filter(s => !s.classList.contains('hidden')).length")
+    return page.evaluate(
+        "[...document.querySelectorAll('[data-screen]')].filter(s => !s.classList.contains('hidden')).length"
+    )
 
 
 class Keyboard:
@@ -55,7 +57,9 @@ def test_st48_keyboard_only_flow_and_accessibility(page, evidence):
     for key in ("Enter", " "):
         with page.expect_file_chooser(timeout=5000):
             page.keyboard.press(key)
-    keys.tab_to("document.activeElement.closest('#sample-buttons') && document.activeElement.textContent.includes('Banking')")
+    keys.tab_to(
+        "document.activeElement.closest('#sample-buttons') && document.activeElement.textContent.includes('Banking')"
+    )
     page.keyboard.press("Enter")
     expect(page.locator("#profile")).to_be_visible()
     assert page.evaluate("document.activeElement.id") == "to-configure"
@@ -100,9 +104,20 @@ def test_st48_keyboard_only_flow_and_accessibility(page, evidence):
     # BODY/HTML get focus only when Tab wraps past the last control; they are not controls.
     controls = [f for f in keys.focused if f["tag"] not in ("BODY", "HTML")]
     keys.focused = controls
-    no_indicator = sorted({f"{f['tag']}#{f['id']} {' '.join(f['label'].split())}" for f in controls if not (f["outline"] or f["shadow"])})
-    weak = sorted({f"{f['tag']}#{f['id']} {' '.join(f['label'].split())} ({f['width']}px, {f['contrast']}:1)"
-                   for f in controls if f["outline"] and (f["width"] < 2 or f["contrast"] < 3)})
+    no_indicator = sorted(
+        {
+            f"{f['tag']}#{f['id']} {' '.join(f['label'].split())}"
+            for f in controls
+            if not (f["outline"] or f["shadow"])
+        }
+    )
+    weak = sorted(
+        {
+            f"{f['tag']}#{f['id']} {' '.join(f['label'].split())} ({f['width']}px, {f['contrast']}:1)"
+            for f in controls
+            if f["outline"] and (f["width"] < 2 or f["contrast"] < 3)
+        }
+    )
     contrasts = [f["contrast"] for f in controls if f["outline"]]
     evidence.note(
         f"{len(controls)} focus stops checked. Without outline or box-shadow: {no_indicator or 'none'}. "
@@ -131,7 +146,9 @@ STAMP_OVERLAP = """() => {
 
 def layout_checks(page, width):
     problems = []
-    overflow = page.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth")
+    overflow = page.evaluate(
+        "document.documentElement.scrollWidth - document.documentElement.clientWidth"
+    )
     if overflow > 1:
         problems.append(f"horizontal page scroll of {overflow}px")
     if visible_screens(page) != 1:
@@ -159,13 +176,19 @@ def test_st49_responsive_layout_and_browser_compatibility(playwright, base_url, 
     overlaps = []
     for channel in ("chrome", "msedge", "chromium"):
         try:
-            browser = playwright.chromium.launch(channel=channel) if channel != "chromium" else playwright.chromium.launch()
+            browser = (
+                playwright.chromium.launch(channel=channel)
+                if channel != "chromium"
+                else playwright.chromium.launch()
+            )
         except Exception as exc:  # noqa: BLE001
             failures.append(f"{channel}: browser could not start ({str(exc).splitlines()[0]})")
             continue
         try:
             for width, height in VIEWPORTS:
-                context = browser.new_context(base_url=base_url, viewport={"width": width, "height": height})
+                context = browser.new_context(
+                    base_url=base_url, viewport={"width": width, "height": height}
+                )
                 page = context.new_page()
                 tag = f"{channel}-{width}"
                 app = App(page).open()
@@ -183,7 +206,9 @@ def test_st49_responsive_layout_and_browser_compatibility(playwright, base_url, 
                 badges = [text(b) for b in page.locator("#metrics-table .badge").all()]
                 if not badges or any(b not in ("ML", "DL") for b in badges):
                     problems.append(f"paradigm badges without text: {badges}")
-                results.append(f"{browser.browser_type.name}/{channel} {browser.version} at {width}x{height}: {'ok' if not problems else problems}")
+                results.append(
+                    f"{browser.browser_type.name}/{channel} {browser.version} at {width}x{height}: {'ok' if not problems else problems}"
+                )
                 failures += [f"{tag}: {p}" for p in problems]
                 context.close()
         finally:

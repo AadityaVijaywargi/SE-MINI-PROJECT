@@ -8,7 +8,16 @@ from playwright.sync_api import Page, expect
 
 from settings import SAMPLES, TEST_DATA
 
-MODEL_KEYS = ["logistic_regression", "decision_tree", "random_forest", "svm", "naive_bayes", "xgboost", "dnn", "vqc"]
+MODEL_KEYS = [
+    "logistic_regression",
+    "decision_tree",
+    "random_forest",
+    "svm",
+    "naive_bayes",
+    "xgboost",
+    "dnn",
+    "vqc",
+]
 TRAIN_TIMEOUT_MS = 240_000
 
 
@@ -68,7 +77,9 @@ class App:
             cells = [c.text_content().strip() for c in row.locator("td").all()]
             warn = row.locator(".warn-icon")
             rows[name] = {
-                "type": cells[0], "unique": cells[1], "missing": cells[2],
+                "type": cells[0],
+                "unique": cells[1],
+                "missing": cells[2],
                 "role": row.locator(".badge[class*=badge-role]").text_content().strip(),
                 "warning": warn.get_attribute("title") if warn.count() else "",
             }
@@ -76,7 +87,10 @@ class App:
 
     # ------------------------------------------------------------------ toasts
     def toasts(self):
-        return [t.text_content().replace("×", "").strip() for t in self.page.locator("#toasts .toast").all()]
+        return [
+            t.text_content().replace("×", "").strip()
+            for t in self.page.locator("#toasts .toast").all()
+        ]
 
     def wait_toast(self, text, timeout=15_000):
         locator = self.page.locator("#toasts .toast", has_text=text)
@@ -158,8 +172,7 @@ class App:
 
     def record_training(self):
         """Record every change the Train screen renders (each 2 s poll) in window.__ui."""
-        self.page.evaluate(
-            """() => {
+        self.page.evaluate("""() => {
               window.__ui = [];
               const q = s => document.querySelector(s);
               const rec = () => window.__ui.push({
@@ -175,8 +188,7 @@ class App:
               });
               new MutationObserver(rec).observe(q('[data-screen="train"]'),
                 {subtree: true, childList: true, characterData: true, attributes: true});
-            }"""
-        )
+            }""")
 
     def training_history(self):
         return self.page.evaluate("window.__ui || []")
@@ -220,20 +232,33 @@ class App:
     def metadata(self):
         out = {}
         for item in self.page.locator("#run-meta .meta-item").all():
-            out[item.locator("dt").text_content().strip()] = item.locator("dd").text_content().strip()
+            out[item.locator("dt").text_content().strip()] = (
+                item.locator("dd").text_content().strip()
+            )
         return out
 
     def table(self):
-        heads = [re.sub(r"[▲▼]", "", h.text_content()).strip() for h in self.page.locator("#metrics-table thead th").all()]
+        heads = [
+            re.sub(r"[▲▼]", "", h.text_content()).strip()
+            for h in self.page.locator("#metrics-table thead th").all()
+        ]
         rows = []
         for row in self.page.locator("#metrics-table tbody tr:not(.failed-row)").all():
-            cells = [row.locator("th").text_content().strip()] + [c.text_content().strip() for c in row.locator("td").all()]
+            cells = [row.locator("th").text_content().strip()] + [
+                c.text_content().strip() for c in row.locator("td").all()
+            ]
             rows.append(dict(zip(heads, cells)))
         return heads, rows
 
     def model_details(self, model_name):
-        card = self.page.locator("#confusion-grid figure", has=self.page.locator("figcaption", has_text=model_name))
-        text = card.locator(".cm-details").text_content() if card.locator(".cm-details").count() else ""
+        card = self.page.locator(
+            "#confusion-grid figure", has=self.page.locator("figcaption", has_text=model_name)
+        )
+        text = (
+            card.locator(".cm-details").text_content()
+            if card.locator(".cm-details").count()
+            else ""
+        )
         details = {}
         for part in text.split(" · "):
             if ": " in part:

@@ -9,8 +9,22 @@ import pytest
 
 from pages import MODEL_KEYS, App, td, text
 
-HEADER = ["Model", "Paradigm", "Status", "Accuracy", "Precision", "Recall", "F1", "ROC-AUC", "PR-AUC",
-          "Threshold", "Train time (s)", "Test time (s)", "Test rows", "Error"]
+HEADER = [
+    "Model",
+    "Paradigm",
+    "Status",
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "F1",
+    "ROC-AUC",
+    "PR-AUC",
+    "Threshold",
+    "Train time (s)",
+    "Test time (s)",
+    "Test rows",
+    "Error",
+]
 
 
 def export(app, evidence):
@@ -56,7 +70,9 @@ def test_st44_export_metrics_table_as_csv(page, evidence):
             diff = abs(float(record[column]) - float(on_screen[column]))
             assert diff <= 0.00051, (record["Model"], column, record[column], on_screen[column])
     evidence.note(f"Saved {name} ({len(raw)} bytes) in the evidence folder.")
-    evidence.note("Spreadsheet check automated as: valid UTF-8, comma-separated, equal column counts.")
+    evidence.note(
+        "Spreadsheet check automated as: valid UTF-8, comma-separated, equal column counts."
+    )
 
 
 @pytest.mark.partial
@@ -109,8 +125,18 @@ def excel_formula_check(path):
         script = Path(tmp) / "excel_check.ps1"
         script.write_text(EXCEL_CHECK, encoding="utf-8")
         run = subprocess.run(  # noqa: S603 - fixed local script
-            ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(script), str(path)],
-            capture_output=True, text=True, timeout=180,
+            [
+                "powershell",
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                str(script),
+                str(path),
+            ],
+            capture_output=True,
+            text=True,
+            timeout=180,
         )
     line = (run.stdout.strip().splitlines() or ["{}"])[-1]
     try:

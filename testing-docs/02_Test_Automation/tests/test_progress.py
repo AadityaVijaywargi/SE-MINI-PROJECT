@@ -39,7 +39,10 @@ def test_st36_progress_stage_checklist_log_and_timer(page, evidence):
 
     stages = [h["stage"] for h in history]
     assert any(re.fullmatch(r"Training .+ \(\d of 8\)(: .*)?", s) for s in stages), set(stages)
-    assert any(re.search(r"(Deep Neural Network|Variational Quantum Classifier) \(\d of 8\): epoch", s) for s in stages)
+    assert any(
+        re.search(r"(Deep Neural Network|Variational Quantum Classifier) \(\d of 8\): epoch", s)
+        for s in stages
+    )
     testing_seen = any(re.fullmatch(r"Testing .+ \(\d of 8\)", s) for s in stages)
     preprocessing_seen = "Preprocessing data" in stages
 
@@ -63,7 +66,9 @@ def test_st36_progress_stage_checklist_log_and_timer(page, evidence):
 
     gaps = [b - a for a, b in zip(polls, polls[1:])]
     median_gap = statistics.median(gaps) if gaps else 0
-    evidence.note(f"{len(polls)} /api/status requests, median gap {median_gap:.2f} s; distinct stages seen: {len(set(stages))}.")
+    evidence.note(
+        f"{len(polls)} /api/status requests, median gap {median_gap:.2f} s; distinct stages seen: {len(set(stages))}."
+    )
     assert 1.8 <= median_gap <= 3.0, f"status polling interval {median_gap:.2f} s is not about 2 s"
     if not testing_seen or not preprocessing_seen:
         # Confirmation run on TD-12 (40,000 rows): stages last longer than the 2 s refresh.
@@ -73,8 +78,10 @@ def test_st36_progress_stage_checklist_log_and_timer(page, evidence):
         app.select_target("Exited")
         app.set_models(["random_forest", "svm", "dnn"])
         app.start()
-        wanted = {"preprocessing": re.compile(r"Preprocessing (data|done)"),
-                  "testing": re.compile(r"Testing .+ \(\d of 3\)")}
+        wanted = {
+            "preprocessing": re.compile(r"Preprocessing (data|done)"),
+            "testing": re.compile(r"Testing .+ \(\d of 3\)"),
+        }
         large = {key: False for key in wanted}
         deadline = time.time() + 900
         while time.time() < deadline and not app.screen("results").is_visible():
@@ -87,11 +94,20 @@ def test_st36_progress_stage_checklist_log_and_timer(page, evidence):
         app.wait_results(timeout=900_000)
         preprocessing_seen = preprocessing_seen or large["preprocessing"]
         testing_seen = testing_seen or large["testing"]
-        evidence.note(f"TD-12 confirmation run (Random Forest, SVM, DNN): stage labels seen on screen {large}.")
+        evidence.note(
+            f"TD-12 confirmation run (Random Forest, SVM, DNN): stage labels seen on screen {large}."
+        )
     if not testing_seen or not preprocessing_seen:
         evidence.manual(
             "The UI refreshes every 2 s, so short stages can be skipped. Never rendered on screen: "
-            + ", ".join(n for n, seen in (("'Preprocessing data'", preprocessing_seen), ("'Testing <model> (i of n)'", testing_seen)) if not seen)
+            + ", ".join(
+                n
+                for n, seen in (
+                    ("'Preprocessing data'", preprocessing_seen),
+                    ("'Testing <model> (i of n)'", testing_seen),
+                )
+                if not seen
+            )
             + ". Confirm by watching a run."
         )
 
@@ -114,9 +130,13 @@ def test_st37_cancel_during_dnn_keeps_finished_results(page, evidence):
     assert any(h["stage"] == "Cancelling: stopping after the current step…" for h in history)
     _, rows = app.table()
     assert sorted(r["Paradigm"] for r in rows) == ["ML"] * 6, rows
-    assert text(page.locator("#winner-banner .winner-kicker")).endswith("· run cancelled, partial results")
+    assert text(page.locator("#winner-banner .winner-kicker")).endswith(
+        "· run cancelled, partial results"
+    )
     for card in ("dl", "qml"):
-        assert "Cancelled before it finished." in text(page.locator(f"#paradigm-cards .card-{card}"))
+        assert "Cancelled before it finished." in text(
+            page.locator(f"#paradigm-cards .card-{card}")
+        )
     evidence.note(f"Results opened {stopped_after:.1f} s after Cancel was clicked.")
     assert stopped_after < 15, f"cancel took {stopped_after:.1f} s"
 
@@ -128,7 +148,9 @@ def test_st38_cancel_before_any_model_finishes(page, evidence):
     job = app.start_and_get_job()
     app.wait_model_status(job, "vqc", "running")
     page.click("#cancel-job")
-    expect(page.locator("#stage-label")).to_have_text("Cancelled before any model finished.", timeout=30_000)
+    expect(page.locator("#stage-label")).to_have_text(
+        "Cancelled before any model finished.", timeout=30_000
+    )
     evidence.shot(page, "cancelled-before-any-model", full_page=False)
     expect(page.locator("#cancel-job")).to_be_hidden()
     expect(page.locator("#back-to-configure")).to_be_visible()
@@ -150,7 +172,10 @@ def test_st39_one_training_job_per_browser(page, context, playwright, base_url, 
     tab_b.click("#start-training")
     toast = app_b.wait_toast("already running")
     evidence.shot(tab_b, "tab-b-refused", full_page=False)
-    assert toast == "A training job is already running in this browser. Wait for it to finish or cancel it first."
+    assert (
+        toast
+        == "A training job is already running in this browser. Wait for it to finish or cancel it first."
+    )
     expect(app_b.screen("configure")).to_be_visible()
     expect(app_a.screen("train")).to_be_visible()
 

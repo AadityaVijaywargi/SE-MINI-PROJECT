@@ -50,16 +50,14 @@ def test_st40_winner_banner_and_paradigm_cards(completed, evidence):
     winner = best_by(rows, "PR-AUC", "F1")
     name = text(banner.locator(".winner-name"))
     assert name.startswith(winner["Model"]), f"banner {name!r} vs table best {winner['Model']!r}"
-    largest = page.evaluate(
-        """() => {
+    largest = page.evaluate("""() => {
           const sizes = [...document.querySelectorAll('[data-screen="results"] *')]
             .filter(e => e.offsetParent !== null && !e.closest('.visually-hidden'))
             .filter(e => { const r = e.getBoundingClientRect(); return r.width > 1 && r.height > 1; })
             .filter(e => [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim()))
             .map(e => parseFloat(getComputedStyle(e).fontSize));
           return {max: Math.max(...sizes), winner: parseFloat(getComputedStyle(document.querySelector('.winner-name')).fontSize)};
-        }"""
-    )
+        }""")
     assert largest["winner"] >= largest["max"], f"winner name is not the largest text: {largest}"
     for paradigm in ("ML", "DL", "QML"):
         card = page.locator(f"#paradigm-cards .card-{paradigm.lower()}")
@@ -84,8 +82,13 @@ def test_st41_metrics_table_sorting_and_highlight(completed, evidence):
         index = heads.index(column)
         values = [number(r[column]) for r in rows]
         target = min(values) if column in TIMES else max(values)
-        highlighted = [number(text(c)) for c in page.locator(f"#metrics-table tbody tr td:nth-child({index + 1}).best").all()]
-        assert highlighted and all(v == target for v in highlighted), f"{column}: highlight {highlighted} vs best {target}"
+        highlighted = [
+            number(text(c))
+            for c in page.locator(f"#metrics-table tbody tr td:nth-child({index + 1}).best").all()
+        ]
+        assert highlighted and all(
+            v == target for v in highlighted
+        ), f"{column}: highlight {highlighted} vs best {target}"
         assert cells.count() > 0
     for column in heads:
         index = heads.index(column) + 1
@@ -95,7 +98,10 @@ def test_st41_metrics_table_sorting_and_highlight(completed, evidence):
             th = page.locator(f"#metrics-table thead th:nth-child({index})")
             aria = th.get_attribute("aria-sort")
             _, rows_now = app.table()
-            values = [r[column] if column in ("Model", "Paradigm") else number(r[column]) for r in rows_now]
+            values = [
+                r[column] if column in ("Model", "Paradigm") else number(r[column])
+                for r in rows_now
+            ]
             expected = sorted(values, reverse=(aria == "descending"))
             assert aria in ("ascending", "descending"), f"{column}: aria-sort {aria}"
             assert values == expected, f"{column} click {click}: not sorted {aria}"
@@ -108,7 +114,9 @@ def test_st41_metrics_table_sorting_and_highlight(completed, evidence):
 
 @pytest.mark.partial
 @pytest.mark.st("ST-42")
-def test_st42_charts_render_and_degrade_without_chartjs(completed, browser, browser_context_args, evidence):
+def test_st42_charts_render_and_degrade_without_chartjs(
+    completed, browser, browser_context_args, evidence
+):
     app, page = completed, completed.page
     page.locator(".chart-grid").scroll_into_view_if_needed()
     evidence.shot(page, "charts")
@@ -116,14 +124,20 @@ def test_st42_charts_render_and_degrade_without_chartjs(completed, browser, brow
     for canvas in ("chart-metrics", "chart-roc", "chart-pr", "chart-time", "chart-tradeoff"):
         box = page.locator(f"#{canvas}").bounding_box()
         assert box and box["width"] > 50 and box["height"] > 50, f"{canvas} not drawn"
-        assert page.evaluate(f"!!Chart.getChart(document.getElementById('{canvas}'))"), f"{canvas} has no chart"
+        assert page.evaluate(
+            f"!!Chart.getChart(document.getElementById('{canvas}'))"
+        ), f"{canvas} has no chart"
     assert text(page.locator("#tradeoff-metric")) == "PR-AUC"
-    assert page.evaluate("Chart.getChart(document.getElementById('chart-time')).options.scales.x.type") == "logarithmic"
-    roc_sets = page.evaluate("Chart.getChart(document.getElementById('chart-roc')).data.datasets.length")
+    assert (
+        page.evaluate("Chart.getChart(document.getElementById('chart-time')).options.scales.x.type")
+        == "logarithmic"
+    )
+    roc_sets = page.evaluate(
+        "Chart.getChart(document.getElementById('chart-roc')).data.datasets.length"
+    )
     assert roc_sets >= 9, "ROC chart should hold 8 models plus the random baseline"
     assert app.console_errors == [], app.console_errors
-    charts = page.evaluate(
-        """() => {
+    charts = page.evaluate("""() => {
           const c = id => Chart.getChart(document.getElementById(id));
           const ds = id => c(id).data.datasets.map(d => ({label: d.label, border: d.borderColor,
                                                          background: d.backgroundColor, dash: d.borderDash || []}));
@@ -131,8 +145,7 @@ def test_st42_charts_render_and_degrade_without_chartjs(completed, browser, brow
                   roc: ds('chart-roc'), pr: ds('chart-pr'),
                   timeAxis: c('chart-time').options.indexAxis, tradeoffType: c('chart-tradeoff').config.type,
                   legends: ['chart-metrics','chart-roc','chart-pr'].map(id => c(id).options.plugins.legend.display !== false)};
-        }"""
-    )
+        }""")
     colour = {"ML": "rgba(76, 114, 176", "DL": "rgba(201, 79, 109", "QML": "rgba(129, 114, 179"}
     paradigm_of = {r["Model"]: r["Paradigm"] for r in app.table()[1]}
     assert [d["label"] for d in charts["metrics"]] == ["Accuracy", "Precision", "Recall", "F1"]
@@ -143,7 +156,9 @@ def test_st42_charts_render_and_degrade_without_chartjs(completed, browser, brow
     for name in ("roc", "pr"):
         models = [d for d in charts[name] if not d["label"].startswith("Random baseline")]
         baseline = [d for d in charts[name] if d["label"].startswith("Random baseline")]
-        assert len(models) == 8 and len(baseline) == 1, f"{name}: {len(models)} models, {len(baseline)} baselines"
+        assert (
+            len(models) == 8 and len(baseline) == 1
+        ), f"{name}: {len(models)} models, {len(baseline)} baselines"
         assert baseline[0]["dash"], f"{name} baseline is not dashed"
         for d in models:
             p = next(p for p in ("QML", "DL", "ML") if f"({p})" in d["label"])
@@ -151,7 +166,9 @@ def test_st42_charts_render_and_degrade_without_chartjs(completed, browser, brow
     assert charts["timeAxis"] == "y", "training-time bars are not horizontal"
     assert charts["tradeoffType"] == "scatter"
     assert all(charts["legends"]), "a chart legend is hidden"
-    evidence.note("Chart checks: bar and curve colours match the paradigm colours (ML #4c72b0, DL #c94f6d, QML #8172b3); every curve label names its paradigm; ROC and PR have one dashed random baseline; time chart is horizontal on a log axis; legends shown.")
+    evidence.note(
+        "Chart checks: bar and curve colours match the paradigm colours (ML #4c72b0, DL #c94f6d, QML #8172b3); every curve label names its paradigm; ROC and PR have one dashed random baseline; time chart is horizontal on a log axis; legends shown."
+    )
 
     context = browser.new_context(**browser_context_args)
     try:
@@ -177,10 +194,14 @@ def test_st43_confusion_matrices_and_metadata(completed, evidence):
     page.locator("#confusion-grid").scroll_into_view_if_needed()
     evidence.shot(page, "confusion-and-metadata")
     meta = app.metadata()
-    test_rows = int(re.search(r"/ (\d+) \(test split", meta["Train / validation / test rows"]).group(1))
+    test_rows = int(
+        re.search(r"/ (\d+) \(test split", meta["Train / validation / test rows"]).group(1)
+    )
     figures = page.locator("#confusion-grid figure").all()
     assert len(figures) == 8
-    pattern = re.compile(r"Caught \d+ of \d+ 1 rows · TP \d+ · FP \d+ \(false alarms\) · FN \d+ \(missed\) · TN \d+ · threshold \d\.\d{3}")
+    pattern = re.compile(
+        r"Caught \d+ of \d+ 1 rows · TP \d+ · FP \d+ \(false alarms\) · FN \d+ \(missed\) · TN \d+ · threshold \d\.\d{3}"
+    )
     for figure in figures:
         caption = text(figure.locator("figcaption"))
         assert re.match(r"(ML|DL|QML) \S", caption), caption
@@ -188,17 +209,30 @@ def test_st43_confusion_matrices_and_metadata(completed, evidence):
         assert labels == ["0", "1"], labels
         total = sum(int(text(c)) for c in figure.locator("tbody td").all())
         assert total == test_rows, f"{caption}: matrix total {total} vs test rows {test_rows}"
-        assert pattern.fullmatch(text(figure.locator(".cm-counts"))), text(figure.locator(".cm-counts"))
+        assert pattern.fullmatch(text(figure.locator(".cm-counts"))), text(
+            figure.locator(".cm-counts")
+        )
     assert text(page.locator("#confusion-note")).startswith("Positive class: 1.")
     expected = {
-        "Dataset": "banking.csv", "Rows": "200", "Target": "Exited (binary)", "Positive class": "1",
-        "Class weights": "balanced", "Best model chosen by": "PR-AUC, then F1", "Seed": "42",
-        "DNN epochs (max) / QML epochs / qubits": "100 / 20 / 4", "Dropped columns": "CustomerId",
+        "Dataset": "banking.csv",
+        "Rows": "200",
+        "Target": "Exited (binary)",
+        "Positive class": "1",
+        "Class weights": "balanced",
+        "Best model chosen by": "PR-AUC, then F1",
+        "Seed": "42",
+        "DNN epochs (max) / QML epochs / qubits": "100 / 20 / 4",
+        "Dropped columns": "CustomerId",
         "Decision threshold": "tuned per model on the validation rows (best F1)",
     }
     for key, value in expected.items():
         assert meta.get(key) == value, f"{key}: {meta.get(key)!r}"
-    for key in ("Split fingerprint", "QML subsampled to", "Positive rate in test rows", "Features after encoding"):
+    for key in (
+        "Split fingerprint",
+        "QML subsampled to",
+        "Positive rate in test rows",
+        "Features after encoding",
+    ):
         assert meta.get(key), f"{key} missing"
     assert meta["PCA variance retained"].endswith("%")
     evidence.note(f"Run metadata: {meta}")

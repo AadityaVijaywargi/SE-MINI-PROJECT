@@ -5,17 +5,26 @@ from playwright.sync_api import expect
 
 from pages import MODEL_KEYS, App, sample, td, text
 
-QML_NOTE = "Quantum training uses PCA to 4 features and samples at most 2,000 rows; expect 1 to 3 minutes."
+QML_NOTE = (
+    "Quantum training uses PCA to 4 features and samples at most 2,000 rows; expect 1 to 3 minutes."
+)
 
 
 def options(page):
-    return [(o.get_attribute("value"), text(o)) for o in page.locator("#target-select option").all()]
+    return [
+        (o.get_attribute("value"), text(o)) for o in page.locator("#target-select option").all()
+    ]
 
 
 @pytest.mark.st("ST-13")
 def test_st13_suggested_target_preselected_and_starred(page, evidence):
     app = App(page).open()
-    for label, target in (("Banking", "Exited"), ("Healthcare", "Diagnosis"), ("Telecom", "Churn"), ("Insurance", "Fraud")):
+    for label, target in (
+        ("Banking", "Exited"),
+        ("Healthcare", "Diagnosis"),
+        ("Telecom", "Churn"),
+        ("Insurance", "Fraud"),
+    ):
         app.load_sample(label)
         uniques = {name: int(row["unique"]) for name, row in app.column_rows().items()}
         app.to_configure()
@@ -26,7 +35,9 @@ def test_st13_suggested_target_preselected_and_starred(page, evidence):
         assert dict(opts)[target] == f"★ {target}"
         for value, label_text in opts:
             candidate = 2 <= uniques[value] <= 20
-            assert label_text.startswith("★ ") == candidate, f"{value}: star does not match 2 to 20 values rule"
+            assert (
+                label_text.startswith("★ ") == candidate
+            ), f"{value}: star does not match 2 to 20 values rule"
         page.click("#back-to-upload")
     # Any column can be chosen, and the analysis follows the choice.
     app.load_sample("Banking")
@@ -35,7 +46,9 @@ def test_st13_suggested_target_preselected_and_starred(page, evidence):
     age_badge = app.task_badge()
     app.select_target("Exited")
     assert app.task_badge() == "Binary"
-    evidence.note(f"Choosing Age gave task badge '{age_badge}'; choosing Exited again gave 'Binary'.")
+    evidence.note(
+        f"Choosing Age gave task badge '{age_badge}'; choosing Exited again gave 'Binary'."
+    )
 
 
 @pytest.mark.st("ST-14")
@@ -48,7 +61,10 @@ def test_st14_binary_task_analysis(page, evidence):
     assert app.task_badge() == "Binary"
     assert "2 classes" in analysis
     assert "imbalance 1:1" in analysis
-    counts = [text(li.locator(".dist-count")) for li in page.locator("#task-analysis .distribution li").all()]
+    counts = [
+        text(li.locator(".dist-count"))
+        for li in page.locator("#task-analysis .distribution li").all()
+    ]
     assert counts == ["100", "100"]
     expect(page.locator("#task-analysis .warning")).to_have_count(0)
     assert not app.start_disabled()
@@ -114,7 +130,9 @@ def test_st17_multiclass_target_disables_qml(page, evidence):
     vqc = page.locator("#model-vqc")
     assert not vqc.is_checked() and vqc.is_disabled()
     assert text(page.locator("#label-vqc")) == "Variational Quantum Classifier *"
-    assert text(page.locator("#qml-note")).startswith("* Binary targets only. This target has more than two classes.")
+    assert text(page.locator("#qml-note")).startswith(
+        "* Binary targets only. This target has more than two classes."
+    )
     for key in MODEL_KEYS[:-1]:
         assert page.locator(f"#model-{key}").is_checked(), f"{key} should stay ticked"
     assert not app.start_disabled()
@@ -148,7 +166,14 @@ def test_st19_model_grid_defaults_qml_note_and_no_model_block(page, evidence):
         groups[legend] = [text(label) for label in fieldset.locator("label").all()]
     evidence.shot(page, "model-grid", full_page=False)
     assert groups == {
-        "ML Machine Learning": ["Logistic Regression", "Decision Tree", "Random Forest", "SVM", "Naive Bayes", "XGBoost"],
+        "ML Machine Learning": [
+            "Logistic Regression",
+            "Decision Tree",
+            "Random Forest",
+            "SVM",
+            "Naive Bayes",
+            "XGBoost",
+        ],
         "DL Deep Learning": ["Deep Neural Network"],
         "QML Quantum ML": ["Variational Quantum Classifier"],
     }

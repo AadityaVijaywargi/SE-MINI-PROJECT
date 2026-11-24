@@ -14,8 +14,20 @@ from settings import TEST_DATA
 def td_path(name):
     return TEST_DATA / name
 
-ALL_COLUMNS = ["Model", "Paradigm", "Accuracy", "Precision", "Recall", "F1", "ROC-AUC", "PR-AUC",
-               "Threshold", "Train time", "Test time"]
+
+ALL_COLUMNS = [
+    "Model",
+    "Paradigm",
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "F1",
+    "ROC-AUC",
+    "PR-AUC",
+    "Threshold",
+    "Train time",
+    "Test time",
+]
 
 
 def banking(page):
@@ -26,7 +38,9 @@ def banking(page):
 
 
 def split_rows(meta):
-    match = re.fullmatch(r"(\d+) / (\d+) / (\d+) \(test split (\d+)%\)", meta["Train / validation / test rows"])
+    match = re.fullmatch(
+        r"(\d+) / (\d+) / (\d+) \(test split (\d+)%\)", meta["Train / validation / test rows"]
+    )
     assert match, meta["Train / validation / test rows"]
     return tuple(int(x) for x in match.groups())
 
@@ -36,10 +50,17 @@ def stage_check(evidence, ui_seen, server, large_seen=None):
     evidence.note(
         f"Server stage labels seen with 0.1 s polling: {len(server)} ({len(epoch_stages)} with an epoch). "
         f"Epoch stage rendered in the UI label on the Banking run: {'yes' if ui_seen else 'no'}"
-        + ("" if large_seen is None else f"; on the TD-12 confirmation run: {'yes' if large_seen else 'no'}") + "."
+        + (
+            ""
+            if large_seen is None
+            else f"; on the TD-12 confirmation run: {'yes' if large_seen else 'no'}"
+        )
+        + "."
     )
     if not (ui_seen or large_seen):
-        evidence.manual("The epoch stage label was not rendered on screen in either run (the UI refreshes every 2 s). Confirm by watching a longer run.")
+        evidence.manual(
+            "The epoch stage label was not rendered on screen in either run (the UI refreshes every 2 s). Confirm by watching a longer run."
+        )
 
 
 def label_on_large_data(app, evidence, models, pattern, tag):
@@ -85,8 +106,16 @@ def test_st26_train_all_eight_models_binary(page, evidence):
     for row in rows:
         for column in ALL_COLUMNS[2:]:
             assert number(row[column]) is not None, f"{row['Model']}: {column} is empty"
-    evidence.note(f"Elapsed timer {elapsed} s; wall clock from Start training to results {seconds:.1f} s.")
-    evidence.note("Scores: " + "; ".join(f"{r['Model']} acc {r['Accuracy']} F1 {r['F1']} ROC-AUC {r['ROC-AUC']} PR-AUC {r['PR-AUC']}" for r in rows))
+    evidence.note(
+        f"Elapsed timer {elapsed} s; wall clock from Start training to results {seconds:.1f} s."
+    )
+    evidence.note(
+        "Scores: "
+        + "; ".join(
+            f"{r['Model']} acc {r['Accuracy']} F1 {r['F1']} ROC-AUC {r['ROC-AUC']} PR-AUC {r['PR-AUC']}"
+            for r in rows
+        )
+    )
     assert elapsed < 120, f"run took {elapsed} s (PERF-8 target under 2 minutes)"
 
 
@@ -103,7 +132,10 @@ def test_st27_train_seven_models_multiclass(page, evidence):
     expect(page.locator("#roc-hidden")).to_be_visible()
     expect(page.locator("#roc-panel")).to_be_hidden()
     expect(page.locator("#pr-panel")).to_be_hidden()
-    assert text(page.locator("#winner-banner .winner-kicker")) == "Best model · ranked by F1, then accuracy"
+    assert (
+        text(page.locator("#winner-banner .winner-kicker"))
+        == "Best model · ranked by F1, then accuracy"
+    )
     qml_card = page.locator("#paradigm-cards .card-qml")
     assert "Binary targets only; not run for this target." in text(qml_card)
     first = page.locator("#confusion-grid figure").first
@@ -167,7 +199,9 @@ def test_st30_qml_settings_applied_and_reported(page, evidence):
     server = app.server_stages(job)
     app.wait_results()
     evidence.shot(page, "results")
-    pattern = re.compile(r"Training Variational Quantum Classifier \(1 of 1\): epoch \d of 3, loss \d+\.\d{3}")
+    pattern = re.compile(
+        r"Training Variational Quantum Classifier \(1 of 1\): epoch \d of 3, loss \d+\.\d{3}"
+    )
     assert any(pattern.fullmatch(s) for s in server), server
     ui_seen = any(pattern.fullmatch(h["stage"]) for h in app.training_history())
     d = app.model_details("Variational Quantum Classifier")
@@ -198,7 +232,9 @@ def test_st31_qml_row_cap_and_default_run_time(page, evidence):
     _, rows = app.table()
     train_time = number(rows[0]["Train time"])
     _, _, test_rows, _ = split_rows(meta)
-    evidence.note(f"VQC details: {d}; train time {rows[0]['Train time']}; metadata test rows {test_rows}.")
+    evidence.note(
+        f"VQC details: {d}; train time {rows[0]['Train time']}; metadata test rows {test_rows}."
+    )
     assert d["Training rows"] == "2000" and d["Subsampled"] == "yes"
     assert meta["QML subsampled to"] == "2000"
     assert test_rows == 8000
@@ -297,10 +333,10 @@ def test_st34_svm_subsampling_on_large_dataset(page, evidence, tmp_path):
     app.train(["svm"], timeout=900_000)
     evidence.shot(page, "td15-results")
     d15 = app.model_details("SVM")
-    observation = (
-        f"TD-15 (25,000 rows): ML hint {warning!r}; SVM details {d15}. "
-        + ("The warning promises subsampling but SVM trained on all rows (no 'Subsampled' detail)."
-           if warning and "Subsampled" not in d15 else "Warning and subsampling agree.")
+    observation = f"TD-15 (25,000 rows): ML hint {warning!r}; SVM details {d15}. " + (
+        "The warning promises subsampling but SVM trained on all rows (no 'Subsampled' detail)."
+        if warning and "Subsampled" not in d15
+        else "Warning and subsampling agree."
     )
     evidence.note("Observation for SRS REQ-MS-4 [DEV CONFIRM]: " + observation)
     evidence.folder.mkdir(parents=True, exist_ok=True)
@@ -310,8 +346,12 @@ def test_st34_svm_subsampling_on_large_dataset(page, evidence, tmp_path):
 @pytest.mark.st("ST-35")
 def test_st35_compute_device_reported(page, app_server, evidence):
     try:
-        smi = subprocess.run(["nvidia-smi", "--query-gpu=name,driver_version", "--format=csv,noheader"],
-                             capture_output=True, text=True, timeout=60).stdout.strip()
+        smi = subprocess.run(
+            ["nvidia-smi", "--query-gpu=name,driver_version", "--format=csv,noheader"],
+            capture_output=True,
+            text=True,
+            timeout=60,
+        ).stdout.strip()
     except FileNotFoundError:
         smi = "nvidia-smi not found"
     evidence.note(f"nvidia-smi: {smi}")
@@ -330,5 +370,9 @@ def test_st35_compute_device_reported(page, app_server, evidence):
             app_server.restart(compute_device="cpu")
     evidence.note(f"Devices reported: {devices}")
     assert "RTX" in smi, f"precondition: NVIDIA GPU not reported by nvidia-smi ({smi})"
-    assert devices["auto"] == {"Logistic Regression": "CPU", "XGBoost": "GPU (CUDA)", "Deep Neural Network": "CPU"}, devices["auto"]
+    assert devices["auto"] == {
+        "Logistic Regression": "CPU",
+        "XGBoost": "GPU (CUDA)",
+        "Deep Neural Network": "CPU",
+    }, devices["auto"]
     assert set(devices["cpu"].values()) == {"CPU"}, devices["cpu"]

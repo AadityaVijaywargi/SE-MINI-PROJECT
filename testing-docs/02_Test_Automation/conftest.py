@@ -35,7 +35,9 @@ def assert_local(url):
 
 def _healthy(url, timeout=1.0):
     try:
-        with urllib.request.urlopen(url + "/api/health", timeout=timeout) as response:  # nosec B310 (local URL)
+        with urllib.request.urlopen(
+            url + "/api/health", timeout=timeout
+        ) as response:  # nosec B310 (local URL)
             return json.loads(response.read()).get("status") == "ok"
     except Exception:  # noqa: BLE001 - any failure means "not up yet"
         return False
@@ -68,7 +70,9 @@ class AppServer:
             PYTHONUNBUFFERED="1",
         )
         log = open(self.log_path, "a", encoding="utf-8")  # noqa: SIM115 - closed in stop()
-        log.write(f"\n===== start {datetime.now():%H:%M:%S} COMPUTE_DEVICE={self.compute_device} =====\n")
+        log.write(
+            f"\n===== start {datetime.now():%H:%M:%S} COMPUTE_DEVICE={self.compute_device} =====\n"
+        )
         log.flush()
         self._log = log
         self.process = subprocess.Popen(  # noqa: S603 - fixed command inside the repository
@@ -82,7 +86,9 @@ class AppServer:
                 return self
             time.sleep(0.5)
         self.stop()
-        raise RuntimeError(f"Application did not answer /api/health within 90 s; see {self.log_path}")
+        raise RuntimeError(
+            f"Application did not answer /api/health within 90 s; see {self.log_path}"
+        )
 
     def stop(self):
         if self.process and self.process.poll() is None:
@@ -189,7 +195,11 @@ def pytest_runtest_makereport(item, call):
         except ImportError:  # pragma: no cover
             extras = None
         if extras is not None:
-            html_dir = Path(item.config.option.htmlpath).resolve().parent if getattr(item.config.option, "htmlpath", None) else RUN_DIR
+            html_dir = (
+                Path(item.config.option.htmlpath).resolve().parent
+                if getattr(item.config.option, "htmlpath", None)
+                else RUN_DIR
+            )
             items = list(getattr(report, "extras", []))
             for text in data["notes"]:
                 items.append(extras.text(text, name="Note"))

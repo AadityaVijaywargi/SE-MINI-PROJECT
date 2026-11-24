@@ -22,7 +22,10 @@ JOB = re.compile(
 def test_st50_api_response_times(base_url, evidence):
     run = subprocess.run(  # noqa: S603 - fixed command, local URL only
         [str(APP_PYTHON), "tools/measure_times.py", base_url],
-        cwd=REPO, capture_output=True, text=True, timeout=1800,
+        cwd=REPO,
+        capture_output=True,
+        text=True,
+        timeout=1800,
     )
     output = run.stdout + run.stderr
     evidence.folder.mkdir(parents=True, exist_ok=True)
@@ -45,5 +48,7 @@ def test_st50_api_response_times(base_url, evidence):
         failures.append(f"status while training: median {job['st']} ms (target < 200 ms)")
     if int(job["res"]) >= 500:
         failures.append(f"results: {job['res']} ms (target < 500 ms)")
-    evidence.note("Pass rule: medians of 5 calls for upload/configure and of all polls for status, as in docs/performance.md; maxima are recorded above.")
+    evidence.note(
+        "Pass rule: medians of 5 calls for upload/configure and of all polls for status, as in docs/performance.md; maxima are recorded above."
+    )
     assert not failures, failures
