@@ -24,7 +24,8 @@ TRAIN_TIMEOUT_MS = 240_000
 def td(name):
     """Path of a TD-nn test data file."""
     path = TEST_DATA / name
-    assert path.exists(), f"Missing test data {path}; run make_test_data.py"
+    if not path.exists():
+        raise FileNotFoundError(f"Missing test data {path}; run make_test_data.py")
     return str(path)
 
 
@@ -200,7 +201,8 @@ class App:
         with self.page.expect_response(lambda r: r.url.endswith("/api/train")) as info:
             self.start()
         response = info.value
-        assert response.status == 202, f"/api/train answered {response.status}"
+        if response.status != 202:
+            raise RuntimeError(f"/api/train answered {response.status}")
         return response.json()["job_id"]
 
     def server_stages(self, job_id, timeout_s=600):

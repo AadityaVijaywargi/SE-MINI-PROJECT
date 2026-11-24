@@ -1,6 +1,6 @@
 """ML trainers and the model catalogue (SM-36, SM-37)."""
 
-import subprocess
+import subprocess  # nosec B404 - fixed local Python interpreter test
 import sys
 from pathlib import Path
 
@@ -178,7 +178,7 @@ def test_building_trainers_does_not_import_tensorflow_or_pennylane():
         "print(sorted(m for m in ('tensorflow', 'keras', 'pennylane') if m in sys.modules))"
     )
     root = Path(__file__).resolve().parents[1]
-    out = subprocess.run(
+    out = subprocess.run(  # nosec B603 - sys.executable and a fixed -c script
         [sys.executable, "-c", code], cwd=root, capture_output=True, text=True, check=True
     )
     assert out.stdout.strip() == "[]"

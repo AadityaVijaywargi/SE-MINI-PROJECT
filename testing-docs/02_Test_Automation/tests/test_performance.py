@@ -1,7 +1,7 @@
 """Group K: performance (ST-50). Reuses the project's own tools/measure_times.py."""
 
 import re
-import subprocess
+import subprocess  # nosec B404 - fixed repository Python test utility
 
 import pytest
 
@@ -20,7 +20,7 @@ JOB = re.compile(
 @pytest.mark.slow
 @pytest.mark.st("ST-50")
 def test_st50_api_response_times(base_url, evidence):
-    run = subprocess.run(  # noqa: S603 - fixed command, local URL only
+    run = subprocess.run(  # nosec B603 - fixed sys.executable and local utility
         [str(APP_PYTHON), "tools/measure_times.py", base_url],
         cwd=REPO,
         capture_output=True,

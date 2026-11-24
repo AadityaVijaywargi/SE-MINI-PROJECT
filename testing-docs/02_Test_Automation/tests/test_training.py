@@ -1,7 +1,8 @@
 """Group E: ML, DL and QML training (ST-26 to ST-35)."""
 
 import re
-import subprocess
+import shutil
+import subprocess  # nosec B404 - fixed local NVIDIA and test commands
 import time
 
 import pytest
@@ -346,8 +347,11 @@ def test_st34_svm_subsampling_on_large_dataset(page, evidence, tmp_path):
 @pytest.mark.st("ST-35")
 def test_st35_compute_device_reported(page, app_server, evidence):
     try:
-        smi = subprocess.run(
-            ["nvidia-smi", "--query-gpu=name,driver_version", "--format=csv,noheader"],
+        nvidia_smi = shutil.which("nvidia-smi")
+        if not nvidia_smi:
+            raise FileNotFoundError
+        smi = subprocess.run(  # nosec B603 - absolute executable resolved by shutil.which
+            [nvidia_smi, "--query-gpu=name,driver_version", "--format=csv,noheader"],
             capture_output=True,
             text=True,
             timeout=60,

@@ -13,7 +13,7 @@ import csv
 import json
 import os
 import socket
-import subprocess
+import subprocess  # nosec B404 - fixed local application and test commands only
 import sys
 import time
 import urllib.request
@@ -75,7 +75,7 @@ class AppServer:
         )
         log.flush()
         self._log = log
-        self.process = subprocess.Popen(  # noqa: S603 - fixed command inside the repository
+        self.process = subprocess.Popen(  # nosec B603 - fixed executable and app.py path
             [str(APP_PYTHON), "app.py"], cwd=REPO, env=env, stdout=log, stderr=subprocess.STDOUT
         )
         deadline = time.time() + 90
@@ -184,44 +184,50 @@ def _st_id(item):
     return marker.args[0] if marker else ""
 
 
+def _report_message(report, call):
+    if report.failed and call.excinfo is not None:
+        return call.excinfo.exconly().splitlines()[0][:500]
+    if report.skipped:
+        longrepr = report.longrepr
+        return longrepr[2] if isinstance(longrepr, tuple) else str(longrepr)
+    return ""
+
+
+def _add_html_extras(item, report, data):
+    try:
+        from pytest_html import extras
+    except ImportError:  # pragma: no cover
+        return
+    html_dir = (
+        Path(item.config.option.htmlpath).resolve().parent
+        if getattr(item.config.option, "htmlpath", None)
+        else RUN_DIR
+    )
+    items = list(getattr(report, "extras", []))
+    for text in data["notes"]:
+        items.append(extras.text(text, name="Note"))
+    for text in data["manual"]:
+        items.append(extras.text(text, name="Manual review required"))
+    for path in data["shots"]:
+        rel = os.path.relpath(path, html_dir).replace("\\", "/")
+        items.append(extras.image(rel, name=path.stem))
+    report.extras = items
+
+
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     outcome = yield
     report = outcome.get_result()
     data = item.stash.get(EVIDENCE_KEY, {"shots": [], "notes": [], "manual": []})
     if report.when == "call" or (report.when == "setup" and report.skipped):
-        try:
-            from pytest_html import extras
-        except ImportError:  # pragma: no cover
-            extras = None
-        if extras is not None:
-            html_dir = (
-                Path(item.config.option.htmlpath).resolve().parent
-                if getattr(item.config.option, "htmlpath", None)
-                else RUN_DIR
-            )
-            items = list(getattr(report, "extras", []))
-            for text in data["notes"]:
-                items.append(extras.text(text, name="Note"))
-            for text in data["manual"]:
-                items.append(extras.text(text, name="Manual review required"))
-            for path in data["shots"]:
-                rel = os.path.relpath(path, html_dir).replace("\\", "/")
-                items.append(extras.image(rel, name=path.stem))
-            report.extras = items
-        message = ""
-        if report.failed and call.excinfo is not None:
-            message = call.excinfo.exconly().splitlines()[0][:500]
-        elif report.skipped:
-            longrepr = report.longrepr
-            message = longrepr[2] if isinstance(longrepr, tuple) else str(longrepr)
+        _add_html_extras(item, report, data)
         RESULTS.append(
             {
                 "test_case_id": _st_id(item),
                 "test": item.nodeid,
                 "pytest_outcome": report.outcome,
                 "duration_s": round(report.duration, 1),
-                "message": message.replace("\n", " "),
+                "message": _report_message(report, call).replace("\n", " "),
                 "manual_review_pending": "; ".join(data["manual"]),
                 "screenshots": len(data["shots"]),
             }

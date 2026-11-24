@@ -118,15 +118,19 @@ try {
 def excel_formula_check(path):
     """Open the CSV in Microsoft Excel (read-only, hidden) and count formula and error cells."""
     import json
-    import subprocess
+    import shutil
+    import subprocess  # nosec B404 - fixed local PowerShell export verification
     import tempfile
 
     with tempfile.TemporaryDirectory() as tmp:
         script = Path(tmp) / "excel_check.ps1"
         script.write_text(EXCEL_CHECK, encoding="utf-8")
-        run = subprocess.run(  # noqa: S603 - fixed local script
+        powershell = shutil.which("powershell") or shutil.which("pwsh")
+        if not powershell:
+            return {"opened": False, "error": "PowerShell not installed"}
+        run = subprocess.run(  # nosec B603 - fixed PowerShell executable and script arguments
             [
-                "powershell",
+                powershell,
                 "-NoProfile",
                 "-ExecutionPolicy",
                 "Bypass",
