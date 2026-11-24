@@ -13,7 +13,7 @@ markers = [
 no-docstring-rgx = "^(_|test_)"
 
 [tool.bandit]
-exclude_dirs = [".venv", "venv"]
+exclude_dirs = [".venv", "venv", "tests", "testing-docs"]
 
 [tool.bandit.assert_used]
 # pytest checks results with plain assert statements, so B101 is expected in tests.
