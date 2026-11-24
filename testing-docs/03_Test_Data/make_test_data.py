@@ -30,7 +30,9 @@ def resample_target(frame, target, counts, rng):
     parts = []
     for label, count in counts.items():
         pool = frame[frame[target] == label]
-        parts.append(pool.sample(n=count, replace=count > len(pool), random_state=rng.integers(1e9)))
+        parts.append(
+            pool.sample(n=count, replace=count > len(pool), random_state=rng.integers(1e9))
+        )
     out = pd.concat(parts).sample(frac=1, random_state=SEED).reset_index(drop=True)
     out["CustomerId"] = np.arange(15_000_001, 15_000_001 + len(out))
     return out

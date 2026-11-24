@@ -50,14 +50,16 @@ def test_st40_winner_banner_and_paradigm_cards(completed, evidence):
     winner = best_by(rows, "PR-AUC", "F1")
     name = text(banner.locator(".winner-name"))
     assert name.startswith(winner["Model"]), f"banner {name!r} vs table best {winner['Model']!r}"
-    largest = page.evaluate("""() => {
+    largest = page.evaluate(
+        """() => {
           const sizes = [...document.querySelectorAll('[data-screen="results"] *')]
             .filter(e => e.offsetParent !== null && !e.closest('.visually-hidden'))
             .filter(e => { const r = e.getBoundingClientRect(); return r.width > 1 && r.height > 1; })
             .filter(e => [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim()))
             .map(e => parseFloat(getComputedStyle(e).fontSize));
           return {max: Math.max(...sizes), winner: parseFloat(getComputedStyle(document.querySelector('.winner-name')).fontSize)};
-        }""")
+        }"""
+    )
     assert largest["winner"] >= largest["max"], f"winner name is not the largest text: {largest}"
     for paradigm in ("ML", "DL", "QML"):
         card = page.locator(f"#paradigm-cards .card-{paradigm.lower()}")
@@ -137,7 +139,8 @@ def test_st42_charts_render_and_degrade_without_chartjs(
     )
     assert roc_sets >= 9, "ROC chart should hold 8 models plus the random baseline"
     assert app.console_errors == [], app.console_errors
-    charts = page.evaluate("""() => {
+    charts = page.evaluate(
+        """() => {
           const c = id => Chart.getChart(document.getElementById(id));
           const ds = id => c(id).data.datasets.map(d => ({label: d.label, border: d.borderColor,
                                                          background: d.backgroundColor, dash: d.borderDash || []}));
@@ -145,7 +148,8 @@ def test_st42_charts_render_and_degrade_without_chartjs(
                   roc: ds('chart-roc'), pr: ds('chart-pr'),
                   timeAxis: c('chart-time').options.indexAxis, tradeoffType: c('chart-tradeoff').config.type,
                   legends: ['chart-metrics','chart-roc','chart-pr'].map(id => c(id).options.plugins.legend.display !== false)};
-        }""")
+        }"""
+    )
     colour = {"ML": "rgba(76, 114, 176", "DL": "rgba(201, 79, 109", "QML": "rgba(129, 114, 179"}
     paradigm_of = {r["Model"]: r["Paradigm"] for r in app.table()[1]}
     assert [d["label"] for d in charts["metrics"]] == ["Accuracy", "Precision", "Recall", "F1"]

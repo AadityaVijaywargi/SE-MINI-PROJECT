@@ -172,7 +172,8 @@ class App:
 
     def record_training(self):
         """Record every change the Train screen renders (each 2 s poll) in window.__ui."""
-        self.page.evaluate("""() => {
+        self.page.evaluate(
+            """() => {
               window.__ui = [];
               const q = s => document.querySelector(s);
               const rec = () => window.__ui.push({
@@ -188,7 +189,8 @@ class App:
               });
               new MutationObserver(rec).observe(q('[data-screen="train"]'),
                 {subtree: true, childList: true, characterData: true, attributes: true});
-            }""")
+            }"""
+        )
 
     def training_history(self):
         return self.page.evaluate("window.__ui || []")
