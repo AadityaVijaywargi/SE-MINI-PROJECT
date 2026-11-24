@@ -1,0 +1,2 @@
+test_case_id,test,pytest_outcome,duration_s,message,manual_review_pending,screenshots
+ST-50,test_performance.py::test_st50_api_response_times,failed,24.2,AssertionError: ['train 202: 5641 ms (target < 200 ms)'],,0

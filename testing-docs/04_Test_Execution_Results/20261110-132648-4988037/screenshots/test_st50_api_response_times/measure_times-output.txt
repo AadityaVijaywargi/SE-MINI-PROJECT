@@ -1,0 +1,5 @@
+banking.csv (200 rows) (0.01 MB): upload median 47 ms, max 60 ms; configure median 15 ms, max 20 ms
+synthetic 10,000 rows (0.47 MB): upload median 62 ms, max 73 ms; configure median 32 ms, max 35 ms
+synthetic 50,000 rows (2.35 MB): upload median 111 ms, max 117 ms; configure median 51 ms, max 59 ms
+train 202: 1043 ms; status while training: median 15 ms, max 88 ms over 30 polls; results: 16 ms; job took 15.0 s
+per-model training time: random_forest 0.4s, svm 6.2s, dnn 3.3s, vqc 3.6s

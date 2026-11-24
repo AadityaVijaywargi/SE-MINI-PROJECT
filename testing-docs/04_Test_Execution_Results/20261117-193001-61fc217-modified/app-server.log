@@ -1,0 +1,46 @@
+
+===== start 19:30:09 COMPUTE_DEVICE=cpu =====
+ * Serving Flask app 'app'
+ * Debug mode: off
+2026-11-17 19:30:20,994 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5055
+2026-11-17 19:30:20,995 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-11-17 19:30:21,042 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:21] "GET /api/health HTTP/1.1" 200 -
+2026-11-17 19:30:21,364 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:21] "GET / HTTP/1.1" 200 -
+2026-11-17 19:30:21,389 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:21] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-17 19:30:21,397 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:21] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-17 19:30:21,405 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:21] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-17 19:30:21,406 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:21] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-17 19:30:21,408 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:21] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-17 19:30:21,414 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:21] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-17 19:30:21,427 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:21] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-17 19:30:21,432 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:21] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-17 19:30:21,432 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:21] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-17 19:30:21,761 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:21] "GET /api/samples HTTP/1.1" 200 -
+2026-11-17 19:30:21,944 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-11-17 19:30:22,107 INFO core.storage: Upload received: TD-13_SUM11.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-17 19:30:22,121 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:22] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-17 19:30:22,419 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:22] "POST /api/configure HTTP/1.1" 200 -
+2026-11-17 19:30:22,529 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:22] "POST /api/configure HTTP/1.1" 200 -
+2026-11-17 19:30:23,002 INFO core.jobs: Job dffc467927d74ecbb87d425ff8e7586c started: dataset TD-13_SUM11.csv, target Exited, models logistic_regression
+2026-11-17 19:30:23,003 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:23] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-17 19:30:23,033 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:23] "GET /api/status/dffc467927d74ecbb87d425ff8e7586c HTTP/1.1" 200 -
+2026-11-17 19:30:23,091 INFO core.jobs: Job dffc467927d74ecbb87d425ff8e7586c: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-17 19:30:23,092 INFO core.jobs: Job dffc467927d74ecbb87d425ff8e7586c finished: complete in 0.1s
+2026-11-17 19:30:25,057 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:25] "GET /api/status/dffc467927d74ecbb87d425ff8e7586c HTTP/1.1" 200 -
+2026-11-17 19:30:25,064 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:25] "GET /api/results/dffc467927d74ecbb87d425ff8e7586c HTTP/1.1" 200 -
+2026-11-17 19:30:26,022 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:26] "GET /api/results/dffc467927d74ecbb87d425ff8e7586c/csv HTTP/1.1" 200 -
+2026-11-17 19:30:31,282 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:31] "GET / HTTP/1.1" 200 -
+2026-11-17 19:30:31,302 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:31] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-17 19:30:31,308 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:31] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-17 19:30:31,310 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:31] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-17 19:30:31,314 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:31] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-17 19:30:31,316 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:31] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-17 19:30:31,319 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:31] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-17 19:30:31,326 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:31] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-17 19:30:31,327 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:31] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-17 19:30:31,330 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:31] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-17 19:30:31,678 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:31] "GET /api/samples HTTP/1.1" 200 -
+2026-11-17 19:30:31,888 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:31] "[31m[1mPOST /api/upload HTTP/1.1[0m" 400 -
+2026-11-17 19:30:32,084 INFO core.storage: Upload received: TD-05_rows_50.csv, 2327 bytes, 50 rows, 9 columns
+2026-11-17 19:30:32,095 INFO werkzeug: 127.0.0.1 - - [17/Nov/2026 19:30:32] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -

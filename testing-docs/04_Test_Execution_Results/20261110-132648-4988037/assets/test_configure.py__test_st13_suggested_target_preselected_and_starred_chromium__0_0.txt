@@ -1,0 +1,1 @@
+Choosing Age gave task badge 'Unsupported'; choosing Exited again gave 'Binary'.

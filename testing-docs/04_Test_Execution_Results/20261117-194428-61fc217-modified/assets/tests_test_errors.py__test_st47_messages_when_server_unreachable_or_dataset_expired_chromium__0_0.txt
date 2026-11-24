@@ -1,0 +1,1 @@
+Order run: expired dataset (step 4) first, then server stopped (steps 2 and 3), so each message comes from a real server state.

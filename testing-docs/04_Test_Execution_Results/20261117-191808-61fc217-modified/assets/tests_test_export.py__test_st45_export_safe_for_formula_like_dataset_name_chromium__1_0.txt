@@ -1,0 +1,1 @@
+Excel check: {'opened': False, 'error': 'Exception from HRESULT: 0xFFF40015'}

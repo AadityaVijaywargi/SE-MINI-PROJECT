@@ -1,0 +1,1367 @@
+
+===== start 13:26:52 COMPUTE_DEVICE=cpu =====
+ * Serving Flask app 'app'
+ * Debug mode: off
+2026-11-10 13:26:55,276 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5055
+2026-11-10 13:26:55,276 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-11-10 13:26:55,814 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:55] "GET /api/health HTTP/1.1" 200 -
+2026-11-10 13:26:56,041 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "GET / HTTP/1.1" 200 -
+2026-11-10 13:26:56,059 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:26:56,064 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:26:56,067 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:26:56,070 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:26:56,074 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:26:56,077 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:26:56,086 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:26:56,089 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:26:56,093 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:26:56,233 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:26:56,505 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-11-10 13:26:56,602 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:26:56,612 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:26:56,700 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:56] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:26:57,237 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:57] "GET / HTTP/1.1" 200 -
+2026-11-10 13:26:57,253 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:57] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:26:57,258 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:57] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:26:57,259 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:57] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:26:57,259 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:57] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:26:57,262 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:57] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:26:57,264 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:57] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:26:57,269 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:57] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:26:57,271 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:57] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:26:57,272 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:57] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:26:57,423 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:57] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:26:57,748 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:26:57,753 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:57] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:26:57,853 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:57] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:26:58,686 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:58] "GET / HTTP/1.1" 200 -
+2026-11-10 13:26:58,704 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:58] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:26:58,710 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:58] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:26:58,710 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:58] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:26:58,710 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:58] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:26:58,713 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:58] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:26:58,717 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:58] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:26:58,721 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:58] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:26:58,722 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:58] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:26:58,723 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:58] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:26:58,900 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:58] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:26:59,234 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:26:59,240 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:59] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:26:59,321 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:26:59] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:00,071 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:00] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:00,087 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:00] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:00,094 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:00] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:00,095 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:00] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:00,097 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:00] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:00,100 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:00] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:00,104 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:00] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:00,108 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:00] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:00,109 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:00] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:00,110 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:00] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:00,251 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:00] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:00,572 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:00,580 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:00] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:00,656 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:00] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:01,354 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:01] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:01,371 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:01] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:01,378 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:01] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:01,378 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:01] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:01,379 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:01] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:01,385 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:01] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:01,387 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:01] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:01,391 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:01] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:01,393 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:01] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:01,395 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:01] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:01,530 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:01] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:01,862 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:01,866 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:01] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:01,946 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:01] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:03,031 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:03] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:03,051 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:03] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:03,058 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:03] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:03,058 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:03] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:03,059 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:03] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:03,060 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:03] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:03,061 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:03] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:03,069 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:03] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:03,070 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:03] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:03,071 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:03] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:03,242 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:03] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:03,585 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:03,591 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:03] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:03,693 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:03] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:04,630 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:04] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:04,648 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:04] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:04,652 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:04] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:04,653 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:04] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:04,659 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:04] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:04,659 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:04] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:04,661 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:04] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:04,665 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:04] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:04,667 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:04] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:04,669 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:04] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:04,807 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:04] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:05,152 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:05,160 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:05] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:05,707 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:05] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:05,982 INFO core.storage: Upload received: healthcare.csv, 7858 bytes, 200 rows, 7 columns
+2026-11-10 13:27:05,987 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:05] "[35m[1mPOST /api/samples/healthcare HTTP/1.1[0m" 201 -
+2026-11-10 13:27:06,385 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:06] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:06,630 INFO core.storage: Upload received: telecom.csv, 9424 bytes, 200 rows, 7 columns
+2026-11-10 13:27:06,637 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:06] "[35m[1mPOST /api/samples/telecom HTTP/1.1[0m" 201 -
+2026-11-10 13:27:07,053 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:07] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:07,297 INFO core.storage: Upload received: insurance.csv, 6632 bytes, 200 rows, 7 columns
+2026-11-10 13:27:07,303 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:07] "[35m[1mPOST /api/samples/insurance HTTP/1.1[0m" 201 -
+2026-11-10 13:27:07,743 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:07] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:08,018 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:08,024 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:08,075 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:08,116 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:08,155 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:08,585 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:08,607 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:08,613 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:08,615 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:08,615 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:08,620 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:08,622 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:08,628 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:08,630 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:08,631 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:08,779 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:08] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:09,199 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:09,206 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:09] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:09,286 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:09] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:09,724 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:09] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:09,742 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:09] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:09,750 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:09] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:09,751 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:09] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:09,751 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:09] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:09,753 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:09] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:09,760 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:09] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:09,762 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:09] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:09,765 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:09] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:09,767 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:09] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:09,902 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:09] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:10,261 INFO core.storage: Upload received: TD-09_imbalanced_4to1.csv, 9164 bytes, 200 rows, 9 columns
+2026-11-10 13:27:10,270 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:10] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:27:10,351 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:10] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:10,407 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:10] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:10,607 INFO core.storage: Upload received: TD-10_imbalanced_3to1.csv, 9128 bytes, 200 rows, 9 columns
+2026-11-10 13:27:10,614 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:10] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:27:10,664 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:10] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:10,704 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:10] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:11,107 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:11,125 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:11,132 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:11,135 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:11,135 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:11,144 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:11,145 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:11,148 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:11,150 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:11,154 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:11,623 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:11,726 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:11,733 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:11,812 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:11,874 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:11] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:12,075 INFO core.storage: Upload received: TD-11_single_row_class.csv, 8939 bytes, 200 rows, 9 columns
+2026-11-10 13:27:12,083 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:27:12,131 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:12,172 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:12,636 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:12,654 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:12,663 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:12,663 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:12,665 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:12,669 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:12,669 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:12,674 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:12,679 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:12,680 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:12,832 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:12] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:13,205 INFO core.storage: Upload received: three_class.csv, 4707 bytes, 200 rows, 4 columns
+2026-11-10 13:27:13,209 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:13] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:27:13,284 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:13] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:13,762 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:13] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:13,781 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:13] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:13,787 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:13] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:13,787 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:13] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:13,789 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:13] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:13,791 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:13] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:13,793 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:13] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:13,801 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:13] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:13,802 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:13] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:13,804 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:13] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:13,938 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:13] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:14,270 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:14,277 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:14,357 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:14,411 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:14,530 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:14,910 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:14,930 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:14,937 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:14,938 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:14,941 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:14,942 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:14,943 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:14,948 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:14,950 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:14,953 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:14] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:15,096 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:15] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:15,406 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:15,412 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:15] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:15,497 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:15] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:16,553 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:16] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:16,572 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:16] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:16,576 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:16] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:16,578 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:16] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:16,584 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:16] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:16,585 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:16] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:16,586 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:16] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:16,589 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:16] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:16,592 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:16] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:16,596 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:16] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:16,749 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:16] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:17,165 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:17,171 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:17] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:17,479 INFO core.storage: Upload received: healthcare.csv, 7858 bytes, 200 rows, 7 columns
+2026-11-10 13:27:17,488 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:17] "[35m[1mPOST /api/samples/healthcare HTTP/1.1[0m" 201 -
+2026-11-10 13:27:17,736 INFO core.storage: Upload received: telecom.csv, 9424 bytes, 200 rows, 7 columns
+2026-11-10 13:27:17,743 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:17] "[35m[1mPOST /api/samples/telecom HTTP/1.1[0m" 201 -
+2026-11-10 13:27:17,987 INFO core.storage: Upload received: insurance.csv, 6632 bytes, 200 rows, 7 columns
+2026-11-10 13:27:17,994 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:17] "[35m[1mPOST /api/samples/insurance HTTP/1.1[0m" 201 -
+2026-11-10 13:27:18,600 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:18] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:18,624 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:18] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:18,629 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:18] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:18,632 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:18] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:18,634 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:18] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:18,637 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:18] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:18,642 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:18] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:18,646 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:18] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:18,649 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:18] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:18,650 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:18] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:18,805 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:18] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:19,161 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:19,174 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:19] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:20,093 INFO core.storage: Upload received: insurance.csv, 6632 bytes, 200 rows, 7 columns
+2026-11-10 13:27:20,100 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:20] "[35m[1mPOST /api/samples/insurance HTTP/1.1[0m" 201 -
+2026-11-10 13:27:20,895 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:20] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:20,912 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:20] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:20,918 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:20] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:20,919 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:20] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:20,922 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:20] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:20,924 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:20] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:20,926 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:20] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:20,929 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:20] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:20,933 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:20] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:20,933 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:20] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:21,092 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:21] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:21,423 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:21,429 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:21] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:22,752 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:22] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:22,772 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:22] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:22,777 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:22] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:22,778 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:22] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:22,780 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:22] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:22,784 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:22] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:22,786 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:22] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:22,788 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:22] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:22,790 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:22] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:22,794 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:22] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:22,944 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:22] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:23,505 INFO core.storage: Upload received: telecom.csv, 9424 bytes, 200 rows, 7 columns
+2026-11-10 13:27:23,512 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:23] "[35m[1mPOST /api/samples/telecom HTTP/1.1[0m" 201 -
+2026-11-10 13:27:23,592 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:23] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:23,941 INFO core.jobs: Job adf206697fca4b8c8c0a871538e70a6c started: dataset telecom.csv, target Churn, models logistic_regression
+2026-11-10 13:27:23,941 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:23] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:27:23,971 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:23] "GET /api/status/adf206697fca4b8c8c0a871538e70a6c HTTP/1.1" 200 -
+2026-11-10 13:27:24,011 INFO core.jobs: Job adf206697fca4b8c8c0a871538e70a6c: logistic_regression done in 0.01s, accuracy 0.825
+2026-11-10 13:27:24,011 INFO core.jobs: Job adf206697fca4b8c8c0a871538e70a6c finished: complete in 0.1s
+2026-11-10 13:27:25,999 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:25] "GET /api/status/adf206697fca4b8c8c0a871538e70a6c HTTP/1.1" 200 -
+2026-11-10 13:27:26,009 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:26] "GET /api/results/adf206697fca4b8c8c0a871538e70a6c HTTP/1.1" 200 -
+2026-11-10 13:27:27,964 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:27,970 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:27] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:27,981 INFO core.jobs: Job 6aa11309bf304a1694e104679f619bf0 started: dataset banking.csv, target Exited, models logistic_regression
+2026-11-10 13:27:27,981 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:27] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:27:27,996 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:27] "GET /api/status/6aa11309bf304a1694e104679f619bf0 HTTP/1.1" 200 -
+2026-11-10 13:27:28,020 INFO core.jobs: Job 6aa11309bf304a1694e104679f619bf0: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:27:28,020 INFO core.jobs: Job 6aa11309bf304a1694e104679f619bf0 finished: complete in 0.0s
+2026-11-10 13:27:28,512 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "GET /api/status/6aa11309bf304a1694e104679f619bf0 HTTP/1.1" 200 -
+2026-11-10 13:27:28,517 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "[33mGET /api/status/00000000000000000000000000000000 HTTP/1.1[0m" 404 -
+2026-11-10 13:27:28,526 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "[31m[1mPOST /api/samples/..%2F..%2Fconfig HTTP/1.1[0m" 405 -
+2026-11-10 13:27:28,531 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "[33mGET /api/does-not-exist HTTP/1.1[0m" 404 -
+2026-11-10 13:27:28,535 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "[33mPOST /api/configure HTTP/1.1[0m" 404 -
+2026-11-10 13:27:28,539 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "[31m[1mPOST /api/cancel/6aa11309bf304a1694e104679f619bf0 HTTP/1.1[0m" 409 -
+2026-11-10 13:27:28,770 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:28,792 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:28,796 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:28,798 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:28,800 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:28,806 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:28,807 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:28,808 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:28,810 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:28,814 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:28,982 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:28] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:29,530 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:29,538 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:29] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:29,624 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:29] "POST /api/configure HTTP/1.1" 200 -
+
+===== start 13:27:34 COMPUTE_DEVICE=cpu =====
+ * Serving Flask app 'app'
+ * Debug mode: off
+2026-11-10 13:27:36,572 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5055
+2026-11-10 13:27:36,572 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-11-10 13:27:37,088 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:37] "GET /api/health HTTP/1.1" 200 -
+2026-11-10 13:27:37,111 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:37] "[33mPOST /api/train HTTP/1.1[0m" 404 -
+
+===== start 13:27:41 COMPUTE_DEVICE=cpu =====
+ * Serving Flask app 'app'
+ * Debug mode: off
+2026-11-10 13:27:44,473 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5055
+2026-11-10 13:27:44,473 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-11-10 13:27:44,899 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:44] "GET /api/health HTTP/1.1" 200 -
+2026-11-10 13:27:44,998 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:45,011 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:45] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:27:45,531 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:45] "GET / HTTP/1.1" 200 -
+2026-11-10 13:27:45,546 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:45] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:27:45,549 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:45] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:27:45,552 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:45] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:27:45,556 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:45] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:27:45,556 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:45] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:27:45,559 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:45] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:27:45,564 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:45] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:27:45,566 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:45] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:27:45,567 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:45] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:27:45,723 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:45] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:27:46,058 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:27:46,065 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:46] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:27:46,148 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:46] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:27:51,532 INFO core.jobs: Job 9250a6b1685c41a993bc987639ee9885 started: dataset banking.csv, target Exited, models logistic_regression, decision_tree, random_forest, svm, naive_bayes, xgboost, dnn, vqc
+2026-11-10 13:27:51,532 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:51] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:27:51,563 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:51] "GET /api/status/9250a6b1685c41a993bc987639ee9885 HTTP/1.1" 200 -
+2026-11-10 13:27:51,579 INFO core.jobs: Job 9250a6b1685c41a993bc987639ee9885: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:27:51,590 INFO core.jobs: Job 9250a6b1685c41a993bc987639ee9885: decision_tree done in 0.00s, accuracy 0.725
+2026-11-10 13:27:51,912 INFO core.jobs: Job 9250a6b1685c41a993bc987639ee9885: random_forest done in 0.23s, accuracy 0.825
+2026-11-10 13:27:51,926 INFO core.jobs: Job 9250a6b1685c41a993bc987639ee9885: svm done in 0.00s, accuracy 0.725
+2026-11-10 13:27:51,939 INFO core.jobs: Job 9250a6b1685c41a993bc987639ee9885: naive_bayes done in 0.00s, accuracy 0.825
+2026-11-10 13:27:52,091 INFO core.jobs: Job 9250a6b1685c41a993bc987639ee9885: xgboost done in 0.14s, accuracy 0.675
+2026-11-10 13:27:53,580 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:53] "GET /api/status/9250a6b1685c41a993bc987639ee9885 HTTP/1.1" 200 -
+2026-11-10 13:27:55,596 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:55] "GET /api/status/9250a6b1685c41a993bc987639ee9885 HTTP/1.1" 200 -
+2026-11-10 13:27:56,903 INFO core.jobs: Job 9250a6b1685c41a993bc987639ee9885: dnn done in 4.66s, accuracy 0.825
+2026-11-10 13:27:57,607 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:57] "GET /api/status/9250a6b1685c41a993bc987639ee9885 HTTP/1.1" 200 -
+2026-11-10 13:27:58,660 INFO core.jobs: Job 9250a6b1685c41a993bc987639ee9885: vqc done in 1.74s, accuracy 0.600
+2026-11-10 13:27:58,660 INFO core.jobs: Job 9250a6b1685c41a993bc987639ee9885 finished: complete in 7.1s
+2026-11-10 13:27:59,624 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:59] "GET /api/status/9250a6b1685c41a993bc987639ee9885 HTTP/1.1" 200 -
+2026-11-10 13:27:59,630 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:27:59] "GET /api/results/9250a6b1685c41a993bc987639ee9885 HTTP/1.1" 200 -
+2026-11-10 13:28:00,428 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:00] "GET /api/results/9250a6b1685c41a993bc987639ee9885/csv HTTP/1.1" 200 -
+2026-11-10 13:28:02,079 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "GET / HTTP/1.1" 200 -
+2026-11-10 13:28:02,097 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:28:02,099 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:28:02,101 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:28:02,106 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:28:02,107 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:28:02,114 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:28:02,114 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:28:02,115 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:28:02,116 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:28:02,288 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:28:02,718 INFO core.storage: Upload received: TD-13_SUM11.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:28:02,735 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:28:02,923 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:28:02,996 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:02] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:28:03,320 INFO core.jobs: Job 9f8babbe696c429ca4873c5de6a8a014 started: dataset TD-13_SUM11.csv, target Exited, models logistic_regression
+2026-11-10 13:28:03,322 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:03] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:28:03,355 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:03] "GET /api/status/9f8babbe696c429ca4873c5de6a8a014 HTTP/1.1" 200 -
+2026-11-10 13:28:03,377 INFO core.jobs: Job 9f8babbe696c429ca4873c5de6a8a014: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:28:03,377 INFO core.jobs: Job 9f8babbe696c429ca4873c5de6a8a014 finished: complete in 0.1s
+2026-11-10 13:28:05,365 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:05] "GET /api/status/9f8babbe696c429ca4873c5de6a8a014 HTTP/1.1" 200 -
+2026-11-10 13:28:05,372 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:05] "GET /api/results/9f8babbe696c429ca4873c5de6a8a014 HTTP/1.1" 200 -
+2026-11-10 13:28:06,321 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:06] "GET /api/results/9f8babbe696c429ca4873c5de6a8a014/csv HTTP/1.1" 200 -
+2026-11-10 13:28:10,180 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "GET / HTTP/1.1" 200 -
+2026-11-10 13:28:10,201 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:28:10,203 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:28:10,206 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:28:10,209 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:28:10,212 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:28:10,215 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:28:10,219 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:28:10,221 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:28:10,222 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:28:10,371 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:28:10,696 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:28:10,705 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:28:10,787 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:28:10,864 INFO core.jobs: Job 97a44703906c4f7c85c9c5b1be9a08bd started: dataset banking.csv, target Exited, models logistic_regression, decision_tree, random_forest, svm, naive_bayes, xgboost, dnn, vqc
+2026-11-10 13:28:10,865 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:28:10,906 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:10] "GET /api/status/97a44703906c4f7c85c9c5b1be9a08bd HTTP/1.1" 200 -
+2026-11-10 13:28:10,923 INFO core.jobs: Job 97a44703906c4f7c85c9c5b1be9a08bd: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:28:10,937 INFO core.jobs: Job 97a44703906c4f7c85c9c5b1be9a08bd: decision_tree done in 0.00s, accuracy 0.725
+2026-11-10 13:28:11,345 INFO core.jobs: Job 97a44703906c4f7c85c9c5b1be9a08bd: random_forest done in 0.33s, accuracy 0.825
+2026-11-10 13:28:11,355 INFO core.jobs: Job 97a44703906c4f7c85c9c5b1be9a08bd: svm done in 0.00s, accuracy 0.725
+2026-11-10 13:28:11,362 INFO core.jobs: Job 97a44703906c4f7c85c9c5b1be9a08bd: naive_bayes done in 0.00s, accuracy 0.825
+2026-11-10 13:28:11,394 INFO core.jobs: Job 97a44703906c4f7c85c9c5b1be9a08bd: xgboost done in 0.02s, accuracy 0.675
+2026-11-10 13:28:12,920 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:12] "GET /api/status/97a44703906c4f7c85c9c5b1be9a08bd HTTP/1.1" 200 -
+2026-11-10 13:28:14,938 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:14] "GET /api/status/97a44703906c4f7c85c9c5b1be9a08bd HTTP/1.1" 200 -
+2026-11-10 13:28:15,940 INFO core.jobs: Job 97a44703906c4f7c85c9c5b1be9a08bd: dnn done in 4.39s, accuracy 0.825
+2026-11-10 13:28:16,954 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:16] "GET /api/status/97a44703906c4f7c85c9c5b1be9a08bd HTTP/1.1" 200 -
+2026-11-10 13:28:17,715 INFO core.jobs: Job 97a44703906c4f7c85c9c5b1be9a08bd: vqc done in 1.76s, accuracy 0.600
+2026-11-10 13:28:17,715 INFO core.jobs: Job 97a44703906c4f7c85c9c5b1be9a08bd finished: complete in 6.9s
+2026-11-10 13:28:18,966 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:18] "GET /api/status/97a44703906c4f7c85c9c5b1be9a08bd HTTP/1.1" 200 -
+2026-11-10 13:28:18,972 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:18] "GET /api/results/97a44703906c4f7c85c9c5b1be9a08bd HTTP/1.1" 200 -
+2026-11-10 13:28:20,192 INFO core.storage: Upload received: TD-12_large_40000.csv, 1890997 bytes, 40000 rows, 9 columns
+2026-11-10 13:28:20,268 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:20] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:28:20,424 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:20] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:28:20,515 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:20] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:28:20,958 INFO core.jobs: Job ca027a790f38472ca2e77b3608cc0af6 started: dataset TD-12_large_40000.csv, target Exited, models random_forest, svm, dnn
+2026-11-10 13:28:20,959 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:20] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:28:20,971 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:20] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:21,690 INFO core.jobs: Job ca027a790f38472ca2e77b3608cc0af6: random_forest done in 0.53s, accuracy 0.999
+2026-11-10 13:28:22,982 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:22] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:24,991 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:24] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:26,997 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:26] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:29,007 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:29] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:30,477 INFO core.jobs: Job ca027a790f38472ca2e77b3608cc0af6: svm done in 7.60s, accuracy 0.990
+2026-11-10 13:28:31,017 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:31] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:33,036 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:33] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:35,053 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:35] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:37,071 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:37] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:39,081 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:39] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:41,092 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:41] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:43,101 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:43] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:45,119 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:45] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:47,139 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:47] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:49,150 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:49] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:51,160 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:51] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:53,176 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:53] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:55,187 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:55] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:56,231 WARNING tensorflow: 5 out of the last 7 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000002CE2481BE20> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-11-10 13:28:56,637 INFO core.jobs: Job ca027a790f38472ca2e77b3608cc0af6: dnn done in 25.69s, accuracy 0.999
+2026-11-10 13:28:56,638 INFO core.jobs: Job ca027a790f38472ca2e77b3608cc0af6 finished: complete in 35.7s
+2026-11-10 13:28:57,196 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:57] "GET /api/status/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:57,202 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:57] "GET /api/results/ca027a790f38472ca2e77b3608cc0af6 HTTP/1.1" 200 -
+2026-11-10 13:28:59,219 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:59] "GET / HTTP/1.1" 200 -
+2026-11-10 13:28:59,237 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:59] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:28:59,244 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:59] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:28:59,244 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:59] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:28:59,245 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:59] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:28:59,247 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:59] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:28:59,251 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:59] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:28:59,256 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:59] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:28:59,259 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:59] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:28:59,260 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:59] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:28:59,665 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:28:59] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:29:00,016 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:29:00,030 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:00] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:29:00,118 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:00] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:29:00,202 INFO core.jobs: Job a3b058f8c0e249369b58aad107960790 started: dataset banking.csv, target Exited, models logistic_regression, decision_tree, random_forest, svm, naive_bayes, xgboost, dnn, vqc
+2026-11-10 13:29:00,202 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:00] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:29:00,232 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:00] "GET /api/status/a3b058f8c0e249369b58aad107960790 HTTP/1.1" 200 -
+2026-11-10 13:29:00,251 INFO core.jobs: Job a3b058f8c0e249369b58aad107960790: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:29:00,254 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:00] "GET /api/status/a3b058f8c0e249369b58aad107960790 HTTP/1.1" 200 -
+2026-11-10 13:29:00,269 INFO core.jobs: Job a3b058f8c0e249369b58aad107960790: decision_tree done in 0.00s, accuracy 0.725
+2026-11-10 13:29:00,374 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:00] "GET /api/status/a3b058f8c0e249369b58aad107960790 HTTP/1.1" 200 -
+2026-11-10 13:29:00,502 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:00] "GET /api/status/a3b058f8c0e249369b58aad107960790 HTTP/1.1" 200 -
+2026-11-10 13:29:00,622 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:00] "GET /api/status/a3b058f8c0e249369b58aad107960790 HTTP/1.1" 200 -
+2026-11-10 13:29:00,670 INFO core.jobs: Job a3b058f8c0e249369b58aad107960790: random_forest done in 0.31s, accuracy 0.825
+2026-11-10 13:29:00,682 INFO core.jobs: Job a3b058f8c0e249369b58aad107960790: svm done in 0.00s, accuracy 0.725
+2026-11-10 13:29:00,689 INFO core.jobs: Job a3b058f8c0e249369b58aad107960790: naive_bayes done in 0.00s, accuracy 0.825
+2026-11-10 13:29:00,722 INFO core.jobs: Job a3b058f8c0e249369b58aad107960790: xgboost done in 0.02s, accuracy 0.675
+2026-11-10 13:29:00,736 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:00] "GET /api/status/a3b058f8c0e249369b58aad107960790 HTTP/1.1" 200 -
+2026-11-10 13:29:00,777 INFO __main__: Job a3b058f8c0e249369b58aad107960790: cancel requested
+2026-11-10 13:29:00,778 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:00] "[35m[1mPOST /api/cancel/a3b058f8c0e249369b58aad107960790 HTTP/1.1[0m" 202 -
+2026-11-10 13:29:02,002 INFO core.jobs: Job a3b058f8c0e249369b58aad107960790 finished: cancelled in 1.8s
+2026-11-10 13:29:02,243 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:02] "GET /api/status/a3b058f8c0e249369b58aad107960790 HTTP/1.1" 200 -
+2026-11-10 13:29:02,252 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:02] "GET /api/results/a3b058f8c0e249369b58aad107960790 HTTP/1.1" 200 -
+2026-11-10 13:29:04,661 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:04] "GET / HTTP/1.1" 200 -
+2026-11-10 13:29:04,683 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:04] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:29:04,689 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:04] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:29:04,691 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:04] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:29:04,694 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:04] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:29:04,695 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:04] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:29:04,699 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:04] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:29:04,702 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:04] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:29:04,705 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:04] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:29:04,706 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:04] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:29:04,849 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:04] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:29:05,310 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:29:05,319 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:05] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:29:05,403 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:05] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:29:05,723 INFO core.jobs: Job c05fabde1c404a5795f581cf11202184 started: dataset banking.csv, target Exited, models vqc
+2026-11-10 13:29:05,724 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:05] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:29:05,758 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:05] "GET /api/status/c05fabde1c404a5795f581cf11202184 HTTP/1.1" 200 -
+2026-11-10 13:29:05,762 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:05] "GET /api/status/c05fabde1c404a5795f581cf11202184 HTTP/1.1" 200 -
+2026-11-10 13:29:05,806 INFO __main__: Job c05fabde1c404a5795f581cf11202184: cancel requested
+2026-11-10 13:29:05,807 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:05] "[35m[1mPOST /api/cancel/c05fabde1c404a5795f581cf11202184 HTTP/1.1[0m" 202 -
+2026-11-10 13:29:05,915 INFO core.jobs: Job c05fabde1c404a5795f581cf11202184 finished: cancelled in 0.2s
+2026-11-10 13:29:07,768 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:07] "GET /api/status/c05fabde1c404a5795f581cf11202184 HTTP/1.1" 200 -
+2026-11-10 13:29:08,744 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:08] "GET / HTTP/1.1" 200 -
+2026-11-10 13:29:08,764 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:08] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:29:08,770 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:08] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:29:08,770 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:08] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:29:08,772 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:08] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:29:08,776 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:08] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:29:08,779 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:08] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:29:08,781 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:08] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:29:08,786 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:08] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:29:08,787 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:08] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:29:08,950 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:08] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:29:09,353 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:29:09,363 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:29:09,446 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:29:09,519 INFO core.jobs: Job f8b074b1d70d4ebbbf17e53554bf3f0b started: dataset banking.csv, target Exited, models logistic_regression, decision_tree, random_forest, svm, naive_bayes, xgboost, dnn, vqc
+2026-11-10 13:29:09,520 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:29:09,554 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "GET /api/status/f8b074b1d70d4ebbbf17e53554bf3f0b HTTP/1.1" 200 -
+2026-11-10 13:29:09,576 INFO core.jobs: Job f8b074b1d70d4ebbbf17e53554bf3f0b: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:29:09,599 INFO core.jobs: Job f8b074b1d70d4ebbbf17e53554bf3f0b: decision_tree done in 0.00s, accuracy 0.725
+2026-11-10 13:29:09,698 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "[36mGET / HTTP/1.1[0m" 304 -
+2026-11-10 13:29:09,721 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "[36mGET /css/styles.css HTTP/1.1[0m" 304 -
+2026-11-10 13:29:09,744 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "[36mGET /js/upload.js HTTP/1.1[0m" 304 -
+2026-11-10 13:29:09,783 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "[36mGET /js/config.js HTTP/1.1[0m" 304 -
+2026-11-10 13:29:09,809 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "[36mGET /js/progress.js HTTP/1.1[0m" 304 -
+2026-11-10 13:29:09,837 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "[36mGET /js/results.js HTTP/1.1[0m" 304 -
+2026-11-10 13:29:09,859 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "[36mGET /js/state.js HTTP/1.1[0m" 304 -
+2026-11-10 13:29:09,904 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2026-11-10 13:29:09,954 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "[36mGET /js/dom.js HTTP/1.1[0m" 304 -
+2026-11-10 13:29:09,968 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:09] "[36mGET /js/charts.js HTTP/1.1[0m" 304 -
+2026-11-10 13:29:10,016 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:10] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:29:10,174 INFO core.storage: Upload received: healthcare.csv, 7858 bytes, 200 rows, 7 columns
+2026-11-10 13:29:10,183 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:10] "[35m[1mPOST /api/samples/healthcare HTTP/1.1[0m" 201 -
+2026-11-10 13:29:10,247 INFO core.jobs: Job f8b074b1d70d4ebbbf17e53554bf3f0b: random_forest done in 0.53s, accuracy 0.825
+2026-11-10 13:29:10,261 INFO core.jobs: Job f8b074b1d70d4ebbbf17e53554bf3f0b: svm done in 0.00s, accuracy 0.725
+2026-11-10 13:29:10,269 INFO core.jobs: Job f8b074b1d70d4ebbbf17e53554bf3f0b: naive_bayes done in 0.00s, accuracy 0.825
+2026-11-10 13:29:10,318 INFO core.jobs: Job f8b074b1d70d4ebbbf17e53554bf3f0b: xgboost done in 0.03s, accuracy 0.675
+2026-11-10 13:29:10,338 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:10] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:29:10,412 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:10] "[31m[1mPOST /api/train HTTP/1.1[0m" 409 -
+2026-11-10 13:29:11,055 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:11] "GET / HTTP/1.1" 200 -
+2026-11-10 13:29:11,151 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:11] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:29:11,156 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:11] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:29:11,174 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:11] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:29:11,189 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:11] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:29:11,191 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:11] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:29:11,202 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:11] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:29:11,208 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:11] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:29:11,209 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:11] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:29:11,211 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:11] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:29:11,573 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:11] "GET /api/status/f8b074b1d70d4ebbbf17e53554bf3f0b HTTP/1.1" 200 -
+2026-11-10 13:29:11,736 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:11] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:29:12,001 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:12] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-11-10 13:29:12,152 INFO core.storage: Upload received: healthcare.csv, 7858 bytes, 200 rows, 7 columns
+2026-11-10 13:29:12,156 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:12] "[35m[1mPOST /api/samples/healthcare HTTP/1.1[0m" 201 -
+2026-11-10 13:29:12,300 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:12] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:29:12,515 INFO core.jobs: Job 10d3fc787ae642a294902eb90e3e988a started: dataset healthcare.csv, target Diagnosis, models logistic_regression
+2026-11-10 13:29:12,517 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:12] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:29:12,547 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:12] "GET /api/status/10d3fc787ae642a294902eb90e3e988a HTTP/1.1" 200 -
+2026-11-10 13:29:12,564 INFO core.jobs: Job 10d3fc787ae642a294902eb90e3e988a: logistic_regression done in 0.01s, accuracy 0.925
+2026-11-10 13:29:12,564 INFO core.jobs: Job 10d3fc787ae642a294902eb90e3e988a finished: complete in 0.0s
+2026-11-10 13:29:13,584 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:13] "GET /api/status/f8b074b1d70d4ebbbf17e53554bf3f0b HTTP/1.1" 200 -
+2026-11-10 13:29:14,566 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:14] "GET /api/status/10d3fc787ae642a294902eb90e3e988a HTTP/1.1" 200 -
+2026-11-10 13:29:14,572 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:14] "GET /api/results/10d3fc787ae642a294902eb90e3e988a HTTP/1.1" 200 -
+2026-11-10 13:29:15,596 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:15] "GET /api/status/f8b074b1d70d4ebbbf17e53554bf3f0b HTTP/1.1" 200 -
+2026-11-10 13:29:16,293 INFO core.jobs: Job f8b074b1d70d4ebbbf17e53554bf3f0b: dnn done in 5.79s, accuracy 0.825
+2026-11-10 13:29:17,612 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:17] "GET /api/status/f8b074b1d70d4ebbbf17e53554bf3f0b HTTP/1.1" 200 -
+2026-11-10 13:29:18,159 INFO core.jobs: Job f8b074b1d70d4ebbbf17e53554bf3f0b: vqc done in 1.85s, accuracy 0.600
+2026-11-10 13:29:18,160 INFO core.jobs: Job f8b074b1d70d4ebbbf17e53554bf3f0b finished: complete in 8.6s
+2026-11-10 13:29:19,623 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:19] "GET /api/status/f8b074b1d70d4ebbbf17e53554bf3f0b HTTP/1.1" 200 -
+2026-11-10 13:29:19,630 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:19] "GET /api/results/f8b074b1d70d4ebbbf17e53554bf3f0b HTTP/1.1" 200 -
+2026-11-10 13:29:20,718 INFO core.jobs: Job c95fd65dab4a4a099a471736e2f316b9 started: dataset healthcare.csv, target Diagnosis, models logistic_regression
+2026-11-10 13:29:20,720 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:20] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:29:20,758 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:20] "GET /api/status/c95fd65dab4a4a099a471736e2f316b9 HTTP/1.1" 200 -
+2026-11-10 13:29:20,785 INFO core.jobs: Job c95fd65dab4a4a099a471736e2f316b9: logistic_regression done in 0.01s, accuracy 0.925
+2026-11-10 13:29:20,785 INFO core.jobs: Job c95fd65dab4a4a099a471736e2f316b9 finished: complete in 0.1s
+2026-11-10 13:29:22,783 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:22] "GET /api/status/c95fd65dab4a4a099a471736e2f316b9 HTTP/1.1" 200 -
+2026-11-10 13:29:22,788 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:22] "GET /api/results/c95fd65dab4a4a099a471736e2f316b9 HTTP/1.1" 200 -
+2026-11-10 13:29:24,535 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:24] "GET / HTTP/1.1" 200 -
+2026-11-10 13:29:24,553 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:24] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:29:24,557 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:24] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:29:24,558 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:24] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:29:24,560 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:24] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:29:24,564 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:24] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:29:24,567 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:24] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:29:24,569 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:24] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:29:24,571 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:24] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:29:24,571 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:24] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:29:24,722 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:24] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:29:25,029 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:29:25,034 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:25] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:29:25,088 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:25] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:29:25,157 INFO core.jobs: Job cb462a81dc104097bd5209cdda01acc7 started: dataset banking.csv, target Exited, models logistic_regression, decision_tree, random_forest, svm, naive_bayes, xgboost, dnn, vqc
+2026-11-10 13:29:25,157 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:25] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:29:25,183 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:25] "GET /api/status/cb462a81dc104097bd5209cdda01acc7 HTTP/1.1" 200 -
+2026-11-10 13:29:25,195 INFO core.jobs: Job cb462a81dc104097bd5209cdda01acc7: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:29:25,204 INFO core.jobs: Job cb462a81dc104097bd5209cdda01acc7: decision_tree done in 0.00s, accuracy 0.725
+2026-11-10 13:29:25,491 INFO core.jobs: Job cb462a81dc104097bd5209cdda01acc7: random_forest done in 0.22s, accuracy 0.825
+2026-11-10 13:29:25,504 INFO core.jobs: Job cb462a81dc104097bd5209cdda01acc7: svm done in 0.00s, accuracy 0.725
+2026-11-10 13:29:25,514 INFO core.jobs: Job cb462a81dc104097bd5209cdda01acc7: naive_bayes done in 0.00s, accuracy 0.825
+2026-11-10 13:29:25,553 INFO core.jobs: Job cb462a81dc104097bd5209cdda01acc7: xgboost done in 0.03s, accuracy 0.675
+2026-11-10 13:29:27,197 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:27] "GET /api/status/cb462a81dc104097bd5209cdda01acc7 HTTP/1.1" 200 -
+2026-11-10 13:29:29,220 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:29] "GET /api/status/cb462a81dc104097bd5209cdda01acc7 HTTP/1.1" 200 -
+2026-11-10 13:29:30,055 WARNING tensorflow: 5 out of the last 456 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000002CE28B18AE0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-11-10 13:29:30,072 INFO core.jobs: Job cb462a81dc104097bd5209cdda01acc7: dnn done in 4.36s, accuracy 0.825
+2026-11-10 13:29:31,231 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:31] "GET /api/status/cb462a81dc104097bd5209cdda01acc7 HTTP/1.1" 200 -
+2026-11-10 13:29:31,813 INFO core.jobs: Job cb462a81dc104097bd5209cdda01acc7: vqc done in 1.72s, accuracy 0.600
+2026-11-10 13:29:31,813 INFO core.jobs: Job cb462a81dc104097bd5209cdda01acc7 finished: complete in 6.7s
+2026-11-10 13:29:33,254 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:33] "GET /api/status/cb462a81dc104097bd5209cdda01acc7 HTTP/1.1" 200 -
+2026-11-10 13:29:33,260 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:33] "GET /api/results/cb462a81dc104097bd5209cdda01acc7 HTTP/1.1" 200 -
+2026-11-10 13:29:39,744 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:39] "GET / HTTP/1.1" 200 -
+2026-11-10 13:29:39,770 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:39] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:29:39,772 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:39] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:29:39,773 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:39] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:29:39,778 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:39] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:29:39,780 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:39] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:29:39,783 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:39] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:29:39,788 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:39] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:29:39,789 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:39] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:29:39,791 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:39] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:29:39,989 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:39] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:29:40,378 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:29:40,384 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:40] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:29:40,443 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:40] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:29:40,632 INFO core.jobs: Job e737e984799a4a29b223ab3308303550 started: dataset banking.csv, target Exited, models logistic_regression
+2026-11-10 13:29:40,632 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:40] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:29:40,656 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:40] "GET /api/status/e737e984799a4a29b223ab3308303550 HTTP/1.1" 200 -
+2026-11-10 13:29:40,668 INFO core.jobs: Job e737e984799a4a29b223ab3308303550: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:29:40,668 INFO core.jobs: Job e737e984799a4a29b223ab3308303550 finished: complete in 0.0s
+2026-11-10 13:29:42,666 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:42] "GET /api/status/e737e984799a4a29b223ab3308303550 HTTP/1.1" 200 -
+2026-11-10 13:29:42,673 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:42] "GET /api/results/e737e984799a4a29b223ab3308303550 HTTP/1.1" 200 -
+2026-11-10 13:29:44,245 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:44] "GET / HTTP/1.1" 200 -
+2026-11-10 13:29:44,268 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:44] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:29:44,271 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:44] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:29:44,273 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:44] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:29:44,276 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:44] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:29:44,280 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:44] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:29:44,283 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:44] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:29:44,286 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:44] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:29:44,290 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:44] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:29:44,291 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:44] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:29:44,435 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:44] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:29:44,851 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:29:44,859 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:44] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:29:44,940 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:44] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:29:45,148 INFO core.jobs: Job c43aff7bdaaf4320987687eaefa1e879 started: dataset banking.csv, target Exited, models logistic_regression, decision_tree, random_forest, svm, naive_bayes, xgboost, dnn, vqc
+2026-11-10 13:29:45,149 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:45] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:29:45,172 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:45] "GET /api/status/c43aff7bdaaf4320987687eaefa1e879 HTTP/1.1" 200 -
+2026-11-10 13:29:45,198 INFO core.jobs: Job c43aff7bdaaf4320987687eaefa1e879: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:29:45,208 INFO core.jobs: Job c43aff7bdaaf4320987687eaefa1e879: decision_tree done in 0.00s, accuracy 0.725
+2026-11-10 13:29:45,469 INFO core.jobs: Job c43aff7bdaaf4320987687eaefa1e879: random_forest done in 0.19s, accuracy 0.825
+2026-11-10 13:29:45,479 INFO core.jobs: Job c43aff7bdaaf4320987687eaefa1e879: svm done in 0.00s, accuracy 0.725
+2026-11-10 13:29:45,486 INFO core.jobs: Job c43aff7bdaaf4320987687eaefa1e879: naive_bayes done in 0.00s, accuracy 0.825
+2026-11-10 13:29:45,528 INFO core.jobs: Job c43aff7bdaaf4320987687eaefa1e879: xgboost done in 0.03s, accuracy 0.675
+2026-11-10 13:29:47,202 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:47] "GET /api/status/c43aff7bdaaf4320987687eaefa1e879 HTTP/1.1" 200 -
+2026-11-10 13:29:49,216 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:49] "GET /api/status/c43aff7bdaaf4320987687eaefa1e879 HTTP/1.1" 200 -
+2026-11-10 13:29:50,023 INFO core.jobs: Job c43aff7bdaaf4320987687eaefa1e879: dnn done in 4.17s, accuracy 0.825
+2026-11-10 13:29:51,230 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:51] "GET /api/status/c43aff7bdaaf4320987687eaefa1e879 HTTP/1.1" 200 -
+2026-11-10 13:29:51,878 INFO core.jobs: Job c43aff7bdaaf4320987687eaefa1e879: vqc done in 1.84s, accuracy 0.600
+2026-11-10 13:29:51,878 INFO core.jobs: Job c43aff7bdaaf4320987687eaefa1e879 finished: complete in 6.7s
+2026-11-10 13:29:53,246 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:53] "GET /api/status/c43aff7bdaaf4320987687eaefa1e879 HTTP/1.1" 200 -
+2026-11-10 13:29:53,253 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:53] "GET /api/results/c43aff7bdaaf4320987687eaefa1e879 HTTP/1.1" 200 -
+2026-11-10 13:29:55,721 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:55] "GET / HTTP/1.1" 200 -
+2026-11-10 13:29:55,740 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:55] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:29:55,742 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:55] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:29:55,748 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:55] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:29:55,752 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:55] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:29:55,752 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:55] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:29:55,754 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:55] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:29:55,758 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:55] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:29:55,761 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:55] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:29:55,764 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:55] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:29:55,921 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:55] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:29:56,419 INFO core.storage: Upload received: three_class.csv, 4707 bytes, 200 rows, 4 columns
+2026-11-10 13:29:56,423 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:56] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:29:56,498 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:56] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:29:56,700 INFO core.jobs: Job 79e721ec2770418d9a04369212cd0e05 started: dataset three_class.csv, target Segment, models logistic_regression, decision_tree, random_forest, svm, naive_bayes, xgboost, dnn
+2026-11-10 13:29:56,701 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:56] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:29:56,727 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:56] "GET /api/status/79e721ec2770418d9a04369212cd0e05 HTTP/1.1" 200 -
+2026-11-10 13:29:56,738 INFO core.jobs: Job 79e721ec2770418d9a04369212cd0e05: logistic_regression done in 0.01s, accuracy 0.850
+2026-11-10 13:29:56,745 INFO core.jobs: Job 79e721ec2770418d9a04369212cd0e05: decision_tree done in 0.00s, accuracy 0.700
+2026-11-10 13:29:57,027 INFO core.jobs: Job 79e721ec2770418d9a04369212cd0e05: random_forest done in 0.24s, accuracy 0.750
+2026-11-10 13:29:57,038 INFO core.jobs: Job 79e721ec2770418d9a04369212cd0e05: svm done in 0.00s, accuracy 0.850
+2026-11-10 13:29:57,045 INFO core.jobs: Job 79e721ec2770418d9a04369212cd0e05: naive_bayes done in 0.00s, accuracy 0.750
+2026-11-10 13:29:57,182 INFO core.jobs: Job 79e721ec2770418d9a04369212cd0e05: xgboost done in 0.13s, accuracy 0.775
+2026-11-10 13:29:58,751 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:29:58] "GET /api/status/79e721ec2770418d9a04369212cd0e05 HTTP/1.1" 200 -
+2026-11-10 13:30:00,762 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:00] "GET /api/status/79e721ec2770418d9a04369212cd0e05 HTTP/1.1" 200 -
+2026-11-10 13:30:00,832 INFO core.jobs: Job 79e721ec2770418d9a04369212cd0e05: dnn done in 3.52s, accuracy 0.775
+2026-11-10 13:30:00,832 INFO core.jobs: Job 79e721ec2770418d9a04369212cd0e05 finished: complete in 4.1s
+2026-11-10 13:30:02,770 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:02] "GET /api/status/79e721ec2770418d9a04369212cd0e05 HTTP/1.1" 200 -
+2026-11-10 13:30:02,776 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:02] "GET /api/results/79e721ec2770418d9a04369212cd0e05 HTTP/1.1" 200 -
+2026-11-10 13:30:05,172 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:05] "GET / HTTP/1.1" 200 -
+2026-11-10 13:30:05,191 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:05] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:30:05,197 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:05] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:30:05,198 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:05] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:30:05,199 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:05] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:30:05,202 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:05] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:30:05,206 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:05] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:30:05,210 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:05] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:30:05,211 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:05] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:30:05,214 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:05] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:30:05,388 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:05] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:30:05,733 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:30:05,741 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:05] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:30:05,817 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:05] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:30:06,215 INFO core.jobs: Job 3e054604b4804eaf8e97a0f472075671 started: dataset banking.csv, target Exited, models logistic_regression
+2026-11-10 13:30:06,215 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:06] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:30:06,239 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:06] "GET /api/status/3e054604b4804eaf8e97a0f472075671 HTTP/1.1" 200 -
+2026-11-10 13:30:06,263 INFO core.jobs: Job 3e054604b4804eaf8e97a0f472075671: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:30:06,263 INFO core.jobs: Job 3e054604b4804eaf8e97a0f472075671 finished: complete in 0.0s
+2026-11-10 13:30:08,262 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:08] "GET /api/status/3e054604b4804eaf8e97a0f472075671 HTTP/1.1" 200 -
+2026-11-10 13:30:08,269 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:08] "GET /api/results/3e054604b4804eaf8e97a0f472075671 HTTP/1.1" 200 -
+2026-11-10 13:30:09,811 INFO core.jobs: Job 284edb161f88449d92a065bb550b4624 started: dataset banking.csv, target Exited, models logistic_regression
+2026-11-10 13:30:09,811 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:09] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:30:09,823 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:09] "GET /api/status/284edb161f88449d92a065bb550b4624 HTTP/1.1" 200 -
+2026-11-10 13:30:09,858 INFO core.jobs: Job 284edb161f88449d92a065bb550b4624: logistic_regression done in 0.00s, accuracy 0.800
+2026-11-10 13:30:09,858 INFO core.jobs: Job 284edb161f88449d92a065bb550b4624 finished: complete in 0.0s
+2026-11-10 13:30:11,845 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:11] "GET /api/status/284edb161f88449d92a065bb550b4624 HTTP/1.1" 200 -
+2026-11-10 13:30:11,850 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:11] "GET /api/results/284edb161f88449d92a065bb550b4624 HTTP/1.1" 200 -
+2026-11-10 13:30:13,378 INFO core.jobs: Job 676650b3ac134fc592033648509fc015 started: dataset banking.csv, target Exited, models logistic_regression
+2026-11-10 13:30:13,378 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:13] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:30:13,392 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:13] "GET /api/status/676650b3ac134fc592033648509fc015 HTTP/1.1" 200 -
+2026-11-10 13:30:13,427 INFO core.jobs: Job 676650b3ac134fc592033648509fc015: logistic_regression done in 0.00s, accuracy 0.850
+2026-11-10 13:30:13,427 INFO core.jobs: Job 676650b3ac134fc592033648509fc015 finished: complete in 0.0s
+2026-11-10 13:30:15,414 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:15] "GET /api/status/676650b3ac134fc592033648509fc015 HTTP/1.1" 200 -
+2026-11-10 13:30:15,419 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:15] "GET /api/results/676650b3ac134fc592033648509fc015 HTTP/1.1" 200 -
+2026-11-10 13:30:17,441 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:17] "GET / HTTP/1.1" 200 -
+2026-11-10 13:30:17,460 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:17] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:30:17,464 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:17] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:30:17,466 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:17] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:30:17,467 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:17] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:30:17,469 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:17] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:30:17,475 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:17] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:30:17,478 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:17] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:30:17,479 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:17] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:30:17,481 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:17] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:30:17,643 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:17] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:30:18,184 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:30:18,207 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:18] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:30:18,334 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:18] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:30:18,898 INFO core.jobs: Job 055428daebe84b7ebc4433825b9d04a5 started: dataset banking.csv, target Exited, models dnn
+2026-11-10 13:30:18,898 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:18] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:30:18,948 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:18] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:18,955 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:18] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:19,070 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:19] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:19,188 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:19] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:19,303 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:19] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:19,416 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:19] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:19,526 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:19] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:19,633 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:19] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:19,740 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:19] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:19,861 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:19] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:19,968 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:19] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:20,073 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:20] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:20,200 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:20] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:20,323 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:20] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:20,428 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:20] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:20,534 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:20] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:20,640 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:20] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:20,747 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:20] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:20,855 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:20] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:20,947 INFO core.jobs: Job 055428daebe84b7ebc4433825b9d04a5: dnn done in 1.83s, accuracy 0.625
+2026-11-10 13:30:20,947 INFO core.jobs: Job 055428daebe84b7ebc4433825b9d04a5 finished: complete in 2.1s
+2026-11-10 13:30:20,963 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:20] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:20,964 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:20] "GET /api/status/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:20,972 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:20] "GET /api/results/055428daebe84b7ebc4433825b9d04a5 HTTP/1.1" 200 -
+2026-11-10 13:30:22,439 INFO core.storage: Upload received: TD-12_large_40000.csv, 1890997 bytes, 40000 rows, 9 columns
+2026-11-10 13:30:22,512 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:22] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:30:22,669 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:22] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:30:22,766 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:22] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:30:23,184 INFO core.jobs: Job c39a3cafbc5545c0af9013e609f159ed started: dataset TD-12_large_40000.csv, target Exited, models dnn
+2026-11-10 13:30:23,185 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:23] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:30:23,195 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:23] "GET /api/status/c39a3cafbc5545c0af9013e609f159ed HTTP/1.1" 200 -
+2026-11-10 13:30:25,213 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:25] "GET /api/status/c39a3cafbc5545c0af9013e609f159ed HTTP/1.1" 200 -
+2026-11-10 13:30:27,234 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:27] "GET /api/status/c39a3cafbc5545c0af9013e609f159ed HTTP/1.1" 200 -
+2026-11-10 13:30:29,255 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:29] "GET /api/status/c39a3cafbc5545c0af9013e609f159ed HTTP/1.1" 200 -
+2026-11-10 13:30:29,699 INFO core.jobs: Job c39a3cafbc5545c0af9013e609f159ed: dnn done in 5.76s, accuracy 0.999
+2026-11-10 13:30:29,699 INFO core.jobs: Job c39a3cafbc5545c0af9013e609f159ed finished: complete in 6.5s
+2026-11-10 13:30:31,269 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:31] "GET /api/status/c39a3cafbc5545c0af9013e609f159ed HTTP/1.1" 200 -
+2026-11-10 13:30:31,274 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:31] "GET /api/results/c39a3cafbc5545c0af9013e609f159ed HTTP/1.1" 200 -
+2026-11-10 13:30:32,966 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:32] "GET / HTTP/1.1" 200 -
+2026-11-10 13:30:32,989 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:32] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:30:32,992 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:32] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:30:32,996 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:32] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:30:32,997 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:32] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:30:33,000 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:32] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:30:33,004 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:33] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:30:33,006 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:33] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:30:33,012 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:33] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:30:33,013 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:33] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:30:33,170 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:33] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:30:34,519 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:30:34,526 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:34] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:30:34,611 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:34] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:30:35,050 INFO core.jobs: Job 0aa392feac5e4dcbb872fb4c9f5b6d32 started: dataset banking.csv, target Exited, models vqc
+2026-11-10 13:30:35,051 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:35] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:30:35,082 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:35] "GET /api/status/0aa392feac5e4dcbb872fb4c9f5b6d32 HTTP/1.1" 200 -
+2026-11-10 13:30:35,093 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:35] "GET /api/status/0aa392feac5e4dcbb872fb4c9f5b6d32 HTTP/1.1" 200 -
+2026-11-10 13:30:35,213 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:35] "GET /api/status/0aa392feac5e4dcbb872fb4c9f5b6d32 HTTP/1.1" 200 -
+2026-11-10 13:30:35,308 INFO core.jobs: Job 0aa392feac5e4dcbb872fb4c9f5b6d32: vqc done in 0.21s, accuracy 0.575
+2026-11-10 13:30:35,308 INFO core.jobs: Job 0aa392feac5e4dcbb872fb4c9f5b6d32 finished: complete in 0.3s
+2026-11-10 13:30:35,325 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:35] "GET /api/status/0aa392feac5e4dcbb872fb4c9f5b6d32 HTTP/1.1" 200 -
+2026-11-10 13:30:37,114 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:37] "GET /api/status/0aa392feac5e4dcbb872fb4c9f5b6d32 HTTP/1.1" 200 -
+2026-11-10 13:30:37,120 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:37] "GET /api/results/0aa392feac5e4dcbb872fb4c9f5b6d32 HTTP/1.1" 200 -
+2026-11-10 13:30:38,519 INFO core.storage: Upload received: TD-12_large_40000.csv, 1890997 bytes, 40000 rows, 9 columns
+2026-11-10 13:30:38,589 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:38] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:30:38,748 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:38] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:30:38,836 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:38] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:30:39,238 INFO core.jobs: Job b75e97d8f6534fdeaab406bd36dcba32 started: dataset TD-12_large_40000.csv, target Exited, models vqc
+2026-11-10 13:30:39,238 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:39] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:30:39,249 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:39] "GET /api/status/b75e97d8f6534fdeaab406bd36dcba32 HTTP/1.1" 200 -
+2026-11-10 13:30:41,263 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:41] "GET /api/status/b75e97d8f6534fdeaab406bd36dcba32 HTTP/1.1" 200 -
+2026-11-10 13:30:41,450 INFO core.jobs: Job b75e97d8f6534fdeaab406bd36dcba32: vqc done in 2.05s, accuracy 0.522
+2026-11-10 13:30:41,450 INFO core.jobs: Job b75e97d8f6534fdeaab406bd36dcba32 finished: complete in 2.2s
+2026-11-10 13:30:43,276 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:43] "GET /api/status/b75e97d8f6534fdeaab406bd36dcba32 HTTP/1.1" 200 -
+2026-11-10 13:30:43,282 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:43] "GET /api/results/b75e97d8f6534fdeaab406bd36dcba32 HTTP/1.1" 200 -
+2026-11-10 13:30:44,774 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:44] "GET / HTTP/1.1" 200 -
+2026-11-10 13:30:44,795 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:44] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:30:44,797 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:44] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:30:44,801 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:44] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:30:44,805 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:44] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:30:44,807 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:44] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:30:44,810 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:44] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:30:44,812 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:44] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:30:44,814 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:44] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:30:44,817 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:44] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:30:44,976 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:44] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:30:45,508 INFO core.storage: Upload received: TD-12_large_40000.csv, 1890997 bytes, 40000 rows, 9 columns
+2026-11-10 13:30:45,580 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:45] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:30:45,732 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:45] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:30:45,816 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:45] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:30:46,189 INFO core.jobs: Job 6526a4a46fc04864ae9f6b42540f7b37 started: dataset TD-12_large_40000.csv, target Exited, models vqc
+2026-11-10 13:30:46,189 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:46] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:30:46,223 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:46] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:30:48,241 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:48] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:30:50,257 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:50] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:30:52,275 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:52] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:30:54,288 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:54] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:30:56,301 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:56] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:30:58,313 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:30:58] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:31:00,329 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:00] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:31:02,347 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:02] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:31:04,363 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:04] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:31:06,386 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:06] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:31:08,395 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:08] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:31:10,457 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:10] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:31:11,702 INFO core.jobs: Job 6526a4a46fc04864ae9f6b42540f7b37: vqc done in 25.28s, accuracy 0.739
+2026-11-10 13:31:11,702 INFO core.jobs: Job 6526a4a46fc04864ae9f6b42540f7b37 finished: complete in 25.5s
+2026-11-10 13:31:12,467 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:12] "GET /api/status/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:31:12,473 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:12] "GET /api/results/6526a4a46fc04864ae9f6b42540f7b37 HTTP/1.1" 200 -
+2026-11-10 13:31:14,492 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:14] "GET / HTTP/1.1" 200 -
+2026-11-10 13:31:14,512 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:14] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:31:14,514 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:14] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:31:14,516 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:14] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:31:14,522 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:14] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:31:14,524 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:14] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:31:14,527 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:14] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:31:14,527 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:14] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:31:14,531 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:14] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:31:14,533 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:14] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:31:14,735 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:14] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:31:15,528 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:31:15,537 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:15] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:31:15,636 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:15] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:31:15,941 INFO core.jobs: Job 844ac9838f164b04a948c728002c5219 started: dataset banking.csv, target Exited, models logistic_regression, xgboost
+2026-11-10 13:31:15,942 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:15] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:31:15,971 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:15] "GET /api/status/844ac9838f164b04a948c728002c5219 HTTP/1.1" 200 -
+2026-11-10 13:31:15,990 INFO core.jobs: Job 844ac9838f164b04a948c728002c5219: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:31:16,072 INFO core.jobs: Job 844ac9838f164b04a948c728002c5219: xgboost done in 0.07s, accuracy 0.675
+2026-11-10 13:31:16,072 INFO core.jobs: Job 844ac9838f164b04a948c728002c5219 finished: complete in 0.1s
+2026-11-10 13:31:17,993 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:17] "GET /api/status/844ac9838f164b04a948c728002c5219 HTTP/1.1" 200 -
+2026-11-10 13:31:17,999 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:17] "GET /api/results/844ac9838f164b04a948c728002c5219 HTTP/1.1" 200 -
+2026-11-10 13:31:19,790 INFO core.jobs: Job b8cc9d648c524d26b641c6ce13398cce started: dataset banking.csv, target Exited, models logistic_regression, xgboost
+2026-11-10 13:31:19,791 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:19] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:31:19,809 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:19] "GET /api/status/b8cc9d648c524d26b641c6ce13398cce HTTP/1.1" 200 -
+2026-11-10 13:31:19,839 INFO core.jobs: Job b8cc9d648c524d26b641c6ce13398cce: logistic_regression done in 0.00s, accuracy 0.825
+2026-11-10 13:31:19,886 INFO core.jobs: Job b8cc9d648c524d26b641c6ce13398cce: xgboost done in 0.03s, accuracy 0.675
+2026-11-10 13:31:19,886 INFO core.jobs: Job b8cc9d648c524d26b641c6ce13398cce finished: complete in 0.1s
+2026-11-10 13:31:21,816 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:21] "GET /api/status/b8cc9d648c524d26b641c6ce13398cce HTTP/1.1" 200 -
+2026-11-10 13:31:21,820 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:21] "GET /api/results/b8cc9d648c524d26b641c6ce13398cce HTTP/1.1" 200 -
+2026-11-10 13:31:23,883 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:23] "GET / HTTP/1.1" 200 -
+2026-11-10 13:31:23,903 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:23] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:31:23,907 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:23] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:31:23,908 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:23] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:31:23,911 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:23] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:31:23,913 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:23] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:31:23,917 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:23] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:31:23,920 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:23] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:31:23,922 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:23] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:31:23,924 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:23] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:31:24,095 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:24] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:31:24,472 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:31:24,481 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:24] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:31:24,562 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:24] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:31:24,866 INFO core.jobs: Job 79a0ff1454304f2da2ff3375bbb63749 started: dataset banking.csv, target Exited, models logistic_regression
+2026-11-10 13:31:24,867 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:24] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:31:24,900 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:24] "GET /api/status/79a0ff1454304f2da2ff3375bbb63749 HTTP/1.1" 200 -
+2026-11-10 13:31:24,915 INFO core.jobs: Job 79a0ff1454304f2da2ff3375bbb63749: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:31:24,915 INFO core.jobs: Job 79a0ff1454304f2da2ff3375bbb63749 finished: complete in 0.0s
+2026-11-10 13:31:26,926 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:26] "GET /api/status/79a0ff1454304f2da2ff3375bbb63749 HTTP/1.1" 200 -
+2026-11-10 13:31:26,932 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:26] "GET /api/results/79a0ff1454304f2da2ff3375bbb63749 HTTP/1.1" 200 -
+2026-11-10 13:31:28,760 INFO core.jobs: Job 26426664dabd451f9085de9d04b18a86 started: dataset banking.csv, target Exited, models logistic_regression
+2026-11-10 13:31:28,760 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:28] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:31:28,774 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:28] "GET /api/status/26426664dabd451f9085de9d04b18a86 HTTP/1.1" 200 -
+2026-11-10 13:31:28,806 INFO core.jobs: Job 26426664dabd451f9085de9d04b18a86: logistic_regression done in 0.00s, accuracy 0.800
+2026-11-10 13:31:28,807 INFO core.jobs: Job 26426664dabd451f9085de9d04b18a86 finished: complete in 0.0s
+2026-11-10 13:31:30,796 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:30] "GET /api/status/26426664dabd451f9085de9d04b18a86 HTTP/1.1" 200 -
+2026-11-10 13:31:30,802 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:30] "GET /api/results/26426664dabd451f9085de9d04b18a86 HTTP/1.1" 200 -
+2026-11-10 13:31:32,967 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:32] "GET / HTTP/1.1" 200 -
+2026-11-10 13:31:32,985 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:32] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:31:32,988 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:32] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:31:32,990 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:32] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:31:32,996 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:32] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:31:33,002 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:33] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:31:33,004 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:33] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:31:33,007 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:33] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:31:33,009 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:33] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:31:33,017 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:33] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:31:33,162 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:33] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:31:33,865 INFO core.storage: Upload received: TD-12_large_40000.csv, 1890997 bytes, 40000 rows, 9 columns
+2026-11-10 13:31:33,934 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:33] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:31:34,086 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:34] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:31:34,179 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:34] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:31:34,614 INFO core.jobs: Job 0a88ee0d7a5f44ca9211538d8be5703a started: dataset TD-12_large_40000.csv, target Exited, models svm
+2026-11-10 13:31:34,614 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:34] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:31:34,645 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:34] "GET /api/status/0a88ee0d7a5f44ca9211538d8be5703a HTTP/1.1" 200 -
+2026-11-10 13:31:36,662 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:36] "GET /api/status/0a88ee0d7a5f44ca9211538d8be5703a HTTP/1.1" 200 -
+2026-11-10 13:31:38,673 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:38] "GET /api/status/0a88ee0d7a5f44ca9211538d8be5703a HTTP/1.1" 200 -
+2026-11-10 13:31:40,690 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:40] "GET /api/status/0a88ee0d7a5f44ca9211538d8be5703a HTTP/1.1" 200 -
+2026-11-10 13:31:42,554 INFO core.jobs: Job 0a88ee0d7a5f44ca9211538d8be5703a: svm done in 6.69s, accuracy 0.990
+2026-11-10 13:31:42,554 INFO core.jobs: Job 0a88ee0d7a5f44ca9211538d8be5703a finished: complete in 7.9s
+2026-11-10 13:31:42,702 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:42] "GET /api/status/0a88ee0d7a5f44ca9211538d8be5703a HTTP/1.1" 200 -
+2026-11-10 13:31:42,709 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:42] "GET /api/results/0a88ee0d7a5f44ca9211538d8be5703a HTTP/1.1" 200 -
+2026-11-10 13:31:44,099 INFO core.storage: Upload received: TD-15_rows_25000.csv, 1181983 bytes, 25000 rows, 9 columns
+2026-11-10 13:31:44,144 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:44] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:31:44,309 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:44] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:31:44,367 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:44] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:31:44,773 INFO core.jobs: Job ccbd9d96b6f84d3eb39538ba05badade started: dataset TD-15_rows_25000.csv, target Exited, models svm
+2026-11-10 13:31:44,774 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:44] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:31:44,780 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:44] "GET /api/status/ccbd9d96b6f84d3eb39538ba05badade HTTP/1.1" 200 -
+2026-11-10 13:31:46,801 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:46] "GET /api/status/ccbd9d96b6f84d3eb39538ba05badade HTTP/1.1" 200 -
+2026-11-10 13:31:48,813 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:48] "GET /api/status/ccbd9d96b6f84d3eb39538ba05badade HTTP/1.1" 200 -
+2026-11-10 13:31:50,158 INFO core.jobs: Job ccbd9d96b6f84d3eb39538ba05badade: svm done in 4.67s, accuracy 0.990
+2026-11-10 13:31:50,158 INFO core.jobs: Job ccbd9d96b6f84d3eb39538ba05badade finished: complete in 5.4s
+2026-11-10 13:31:50,832 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:50] "GET /api/status/ccbd9d96b6f84d3eb39538ba05badade HTTP/1.1" 200 -
+2026-11-10 13:31:50,837 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:31:50] "GET /api/results/ccbd9d96b6f84d3eb39538ba05badade HTTP/1.1" 200 -
+
+===== start 13:31:57 COMPUTE_DEVICE=auto =====
+ * Serving Flask app 'app'
+ * Debug mode: off
+2026-11-10 13:31:59,343 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5055
+2026-11-10 13:31:59,343 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-11-10 13:32:00,072 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "GET /api/health HTTP/1.1" 200 -
+2026-11-10 13:32:00,122 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "GET / HTTP/1.1" 200 -
+2026-11-10 13:32:00,136 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:32:00,141 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:32:00,142 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:32:00,143 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:32:00,150 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:32:00,150 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:32:00,155 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:32:00,155 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:32:00,157 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:32:00,316 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:32:00,769 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:32:00,779 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:32:00,872 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:00] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:04,974 INFO core.jobs: Job d10bb10b038b4274b28f3cc994b93e29 started: dataset banking.csv, target Exited, models logistic_regression, xgboost, dnn
+2026-11-10 13:32:04,975 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:04] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:32:05,001 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:05] "GET /api/status/d10bb10b038b4274b28f3cc994b93e29 HTTP/1.1" 200 -
+2026-11-10 13:32:05,015 INFO core.jobs: Job d10bb10b038b4274b28f3cc994b93e29: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:32:05,453 INFO core.jobs: Job d10bb10b038b4274b28f3cc994b93e29: xgboost done in 0.43s, accuracy 0.675
+2026-11-10 13:32:07,014 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:07] "GET /api/status/d10bb10b038b4274b28f3cc994b93e29 HTTP/1.1" 200 -
+2026-11-10 13:32:09,024 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:09] "GET /api/status/d10bb10b038b4274b28f3cc994b93e29 HTTP/1.1" 200 -
+2026-11-10 13:32:09,747 INFO core.jobs: Job d10bb10b038b4274b28f3cc994b93e29: dnn done in 4.14s, accuracy 0.825
+2026-11-10 13:32:09,748 INFO core.jobs: Job d10bb10b038b4274b28f3cc994b93e29 finished: complete in 4.8s
+2026-11-10 13:32:11,041 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:11] "GET /api/status/d10bb10b038b4274b28f3cc994b93e29 HTTP/1.1" 200 -
+2026-11-10 13:32:11,047 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:11] "GET /api/results/d10bb10b038b4274b28f3cc994b93e29 HTTP/1.1" 200 -
+
+===== start 13:32:16 COMPUTE_DEVICE=cpu =====
+ * Serving Flask app 'app'
+ * Debug mode: off
+2026-11-10 13:32:18,869 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5055
+2026-11-10 13:32:18,869 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-11-10 13:32:19,607 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "GET /api/health HTTP/1.1" 200 -
+2026-11-10 13:32:19,659 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "[36mGET / HTTP/1.1[0m" 304 -
+2026-11-10 13:32:19,675 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "[36mGET /css/styles.css HTTP/1.1[0m" 304 -
+2026-11-10 13:32:19,681 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "[36mGET /js/upload.js HTTP/1.1[0m" 304 -
+2026-11-10 13:32:19,684 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "[36mGET /js/config.js HTTP/1.1[0m" 304 -
+2026-11-10 13:32:19,686 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "[36mGET /js/progress.js HTTP/1.1[0m" 304 -
+2026-11-10 13:32:19,688 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "[36mGET /js/results.js HTTP/1.1[0m" 304 -
+2026-11-10 13:32:19,689 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "[36mGET /js/state.js HTTP/1.1[0m" 304 -
+2026-11-10 13:32:19,700 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "[36mGET /js/api.js HTTP/1.1[0m" 304 -
+2026-11-10 13:32:19,701 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "[36mGET /js/dom.js HTTP/1.1[0m" 304 -
+2026-11-10 13:32:19,704 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "[36mGET /js/charts.js HTTP/1.1[0m" 304 -
+2026-11-10 13:32:19,713 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:32:19,811 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:32:19,820 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:32:19,918 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:19] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:23,798 INFO core.jobs: Job bb8964904dc94f3a9380534c2338b21d started: dataset banking.csv, target Exited, models logistic_regression, xgboost, dnn
+2026-11-10 13:32:23,798 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:23] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:32:23,808 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:23] "GET /api/status/bb8964904dc94f3a9380534c2338b21d HTTP/1.1" 200 -
+2026-11-10 13:32:23,841 INFO core.jobs: Job bb8964904dc94f3a9380534c2338b21d: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:32:23,974 INFO core.jobs: Job bb8964904dc94f3a9380534c2338b21d: xgboost done in 0.12s, accuracy 0.675
+2026-11-10 13:32:25,818 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:25] "GET /api/status/bb8964904dc94f3a9380534c2338b21d HTTP/1.1" 200 -
+2026-11-10 13:32:27,834 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:27] "GET /api/status/bb8964904dc94f3a9380534c2338b21d HTTP/1.1" 200 -
+2026-11-10 13:32:28,264 INFO core.jobs: Job bb8964904dc94f3a9380534c2338b21d: dnn done in 4.11s, accuracy 0.825
+2026-11-10 13:32:28,264 INFO core.jobs: Job bb8964904dc94f3a9380534c2338b21d finished: complete in 4.5s
+2026-11-10 13:32:29,845 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:29] "GET /api/status/bb8964904dc94f3a9380534c2338b21d HTTP/1.1" 200 -
+2026-11-10 13:32:29,851 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:29] "GET /api/results/bb8964904dc94f3a9380534c2338b21d HTTP/1.1" 200 -
+2026-11-10 13:32:31,270 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:31] "GET / HTTP/1.1" 200 -
+2026-11-10 13:32:31,289 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:31] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:32:31,293 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:31] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:32:31,296 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:31] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:32:31,301 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:31] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:32:31,302 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:31] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:32:31,304 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:31] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:32:31,308 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:31] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:32:31,309 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:31] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:32:31,310 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:31] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:32:31,475 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:31] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:32:31,863 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:32:31,870 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:31] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:32:31,944 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:31] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:32,548 INFO core.jobs: Job 49c9482f71a149f18731b8ad9a77514d started: dataset banking.csv, target Exited, models logistic_regression
+2026-11-10 13:32:32,549 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:32] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:32:32,590 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:32] "GET /api/status/49c9482f71a149f18731b8ad9a77514d HTTP/1.1" 200 -
+2026-11-10 13:32:32,612 INFO core.jobs: Job 49c9482f71a149f18731b8ad9a77514d: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:32:32,613 INFO core.jobs: Job 49c9482f71a149f18731b8ad9a77514d finished: complete in 0.1s
+2026-11-10 13:32:34,603 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:34] "GET /api/status/49c9482f71a149f18731b8ad9a77514d HTTP/1.1" 200 -
+2026-11-10 13:32:34,609 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:34] "GET /api/results/49c9482f71a149f18731b8ad9a77514d HTTP/1.1" 200 -
+2026-11-10 13:32:35,966 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:35] "GET /api/results/49c9482f71a149f18731b8ad9a77514d/csv HTTP/1.1" 200 -
+2026-11-10 13:32:36,920 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:36] "GET / HTTP/1.1" 200 -
+2026-11-10 13:32:36,938 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:36] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:32:36,940 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:36] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:32:36,944 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:36] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:32:36,949 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:36] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:32:36,951 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:36] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:32:36,954 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:36] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:32:36,957 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:36] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:32:36,958 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:36] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:32:36,963 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:36] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:32:37,120 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:37] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:32:37,543 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:32:37,550 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:37] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:38,196 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:38] "GET / HTTP/1.1" 200 -
+2026-11-10 13:32:38,215 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:38] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:32:38,218 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:38] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:32:38,220 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:38] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:32:38,224 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:38] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:32:38,227 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:38] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:32:38,229 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:38] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:32:38,234 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:38] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:32:38,235 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:38] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:32:38,237 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:38] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:32:38,393 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:38] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:32:38,920 INFO core.storage: Upload received: healthcare.csv, 7858 bytes, 200 rows, 7 columns
+2026-11-10 13:32:38,927 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:38] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:39,483 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:39] "GET / HTTP/1.1" 200 -
+2026-11-10 13:32:39,503 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:39] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:32:39,509 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:39] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:32:39,510 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:39] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:32:39,510 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:39] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:32:39,515 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:39] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:32:39,518 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:39] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:32:39,522 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:39] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:32:39,523 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:39] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:32:39,524 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:39] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:32:39,669 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:39] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:32:40,532 INFO core.storage: Upload received: TD-03_banking.xlsx, 13922 bytes, 200 rows, 9 columns
+2026-11-10 13:32:40,537 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:40] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:41,834 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:41] "GET / HTTP/1.1" 200 -
+2026-11-10 13:32:41,852 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:41] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:32:41,854 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:41] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:32:41,858 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:41] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:32:41,860 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:41] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:32:41,865 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:41] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:32:41,866 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:41] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:32:41,867 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:41] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:32:41,871 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:41] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:32:41,873 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:41] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:32:42,015 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:42] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:32:43,570 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:43] "GET / HTTP/1.1" 200 -
+2026-11-10 13:32:43,585 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:43] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:32:43,588 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:43] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:32:43,594 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:43] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:32:43,595 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:43] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:32:43,595 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:43] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:32:43,596 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:43] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:32:43,601 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:43] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:32:43,603 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:43] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:32:43,604 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:43] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:32:43,751 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:43] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:32:44,993 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:44] "GET / HTTP/1.1" 200 -
+2026-11-10 13:32:45,015 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:45] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:32:45,019 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:45] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:32:45,020 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:45] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:32:45,022 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:45] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:32:45,024 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:45] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:32:45,027 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:45] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:32:45,032 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:45] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:32:45,033 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:45] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:32:45,035 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:45] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:32:45,182 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:45] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:32:46,204 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:46] "[31m[1mPOST /api/upload HTTP/1.1[0m" 400 -
+2026-11-10 13:32:46,595 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:46] "GET / HTTP/1.1" 200 -
+2026-11-10 13:32:46,614 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:46] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:32:46,620 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:46] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:32:46,620 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:46] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:32:46,622 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:46] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:32:46,627 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:46] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:32:46,630 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:46] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:32:46,632 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:46] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:32:46,636 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:46] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:32:46,638 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:46] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:32:46,796 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:46] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:32:47,167 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:47] "[31m[1mPOST /api/upload HTTP/1.1[0m" 400 -
+2026-11-10 13:32:47,317 INFO core.storage: Upload received: TD-05_rows_50.csv, 2327 bytes, 50 rows, 9 columns
+2026-11-10 13:32:47,321 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:47] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:47,890 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:47] "GET / HTTP/1.1" 200 -
+2026-11-10 13:32:47,909 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:47] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:32:47,915 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:47] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:32:47,920 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:47] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:32:47,922 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:47] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:32:47,922 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:47] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:32:47,926 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:47] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:32:47,929 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:47] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:32:47,931 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:47] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:32:47,933 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:47] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:32:48,084 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:48] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:32:48,460 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:48] "[31m[1mPOST /api/upload HTTP/1.1[0m" 400 -
+2026-11-10 13:32:49,774 INFO core.storage: Upload received: perf.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:32:49,778 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:49] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:49,798 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:49] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:49,837 INFO core.storage: Upload received: perf.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:32:49,841 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:49] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:49,859 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:49] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:49,902 INFO core.storage: Upload received: perf.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:32:49,906 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:49] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:49,923 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:49] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:49,961 INFO core.storage: Upload received: perf.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:32:49,965 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:49] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:49,970 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:49] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:50,012 INFO core.storage: Upload received: perf.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:32:50,016 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:50,031 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:50,075 INFO core.storage: Upload received: perf.csv, 470570 bytes, 10000 rows, 5 columns
+2026-11-10 13:32:50,084 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:50,117 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:50,181 INFO core.storage: Upload received: perf.csv, 470570 bytes, 10000 rows, 5 columns
+2026-11-10 13:32:50,190 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:50,225 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:50,279 INFO core.storage: Upload received: perf.csv, 470570 bytes, 10000 rows, 5 columns
+2026-11-10 13:32:50,287 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:50,319 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:50,378 INFO core.storage: Upload received: perf.csv, 470570 bytes, 10000 rows, 5 columns
+2026-11-10 13:32:50,387 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:50,413 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:50,447 INFO core.storage: Upload received: perf.csv, 470570 bytes, 10000 rows, 5 columns
+2026-11-10 13:32:50,455 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:50,476 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:50,553 INFO core.storage: Upload received: perf.csv, 2353194 bytes, 50000 rows, 5 columns
+2026-11-10 13:32:50,589 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:50,626 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:50,695 INFO core.storage: Upload received: perf.csv, 2353194 bytes, 50000 rows, 5 columns
+2026-11-10 13:32:50,730 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:50,782 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:50,852 INFO core.storage: Upload received: perf.csv, 2353194 bytes, 50000 rows, 5 columns
+2026-11-10 13:32:50,888 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:50,924 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:50] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:51,007 INFO core.storage: Upload received: perf.csv, 2353194 bytes, 50000 rows, 5 columns
+2026-11-10 13:32:51,043 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:51] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:51,094 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:51] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:51,171 INFO core.storage: Upload received: perf.csv, 2353194 bytes, 50000 rows, 5 columns
+2026-11-10 13:32:51,206 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:51] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:51,265 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:51] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:32:51,342 INFO core.storage: Upload received: perf.csv, 470570 bytes, 10000 rows, 5 columns
+2026-11-10 13:32:51,351 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:51] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:32:52,394 INFO core.jobs: Job d8e6b076e2084003a8a2bffb8cc07357 started: dataset perf.csv, target target, models random_forest, svm, dnn, vqc
+2026-11-10 13:32:52,395 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:52] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:32:52,418 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:52] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:52,877 INFO core.jobs: Job d8e6b076e2084003a8a2bffb8cc07357: random_forest done in 0.37s, accuracy 0.500
+2026-11-10 13:32:52,947 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:52] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:53,461 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:53] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:53,978 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:53] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:54,492 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:54] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:55,007 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:55] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:55,522 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:55] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:56,035 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:56] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:56,549 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:56] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:57,067 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:57] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:57,585 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:57] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:58,111 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:58] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:58,628 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:58] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:59,143 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:59] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:32:59,659 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:32:59] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:00,173 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:00] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:00,208 INFO core.jobs: Job d8e6b076e2084003a8a2bffb8cc07357: svm done in 6.20s, accuracy 0.500
+2026-11-10 13:33:00,689 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:00] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:01,202 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:01] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:01,705 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:01] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:02,209 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:02] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:02,713 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:02] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:03,216 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:03] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:03,719 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:03] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:03,749 INFO core.jobs: Job d8e6b076e2084003a8a2bffb8cc07357: dnn done in 3.31s, accuracy 0.500
+2026-11-10 13:33:04,305 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:04] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:04,817 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:04] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:05,341 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:05] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:05,861 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:05] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:06,377 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:06] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:06,904 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:06] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:07,396 INFO core.jobs: Job d8e6b076e2084003a8a2bffb8cc07357: vqc done in 3.61s, accuracy 0.500
+2026-11-10 13:33:07,396 INFO core.jobs: Job d8e6b076e2084003a8a2bffb8cc07357 finished: complete in 15.0s
+2026-11-10 13:33:07,426 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:07] "GET /api/status/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:07,442 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:07] "GET /api/results/d8e6b076e2084003a8a2bffb8cc07357 HTTP/1.1" 200 -
+2026-11-10 13:33:07,876 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:07] "GET / HTTP/1.1" 200 -
+2026-11-10 13:33:07,894 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:07] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:33:07,903 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:07] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:33:07,903 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:07] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:33:07,904 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:07] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:33:07,906 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:07] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:33:07,909 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:07] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:33:07,915 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:07] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:33:07,917 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:07] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:33:07,918 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:07] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:33:08,085 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:08] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:33:08,337 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:08] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-11-10 13:33:08,410 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:33:08,415 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:08] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:33:08,509 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:08] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:33:08,688 INFO core.jobs: Job 78ef8d78acb0475fb67d67e60932eee3 started: dataset banking.csv, target Exited, models logistic_regression, dnn
+2026-11-10 13:33:08,688 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:08] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:33:08,711 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:08] "GET /api/status/78ef8d78acb0475fb67d67e60932eee3 HTTP/1.1" 200 -
+2026-11-10 13:33:08,723 INFO core.jobs: Job 78ef8d78acb0475fb67d67e60932eee3: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:33:10,720 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:10] "GET /api/status/78ef8d78acb0475fb67d67e60932eee3 HTTP/1.1" 200 -
+2026-11-10 13:33:12,736 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:12] "GET /api/status/78ef8d78acb0475fb67d67e60932eee3 HTTP/1.1" 200 -
+2026-11-10 13:33:12,979 INFO core.jobs: Job 78ef8d78acb0475fb67d67e60932eee3: dnn done in 4.09s, accuracy 0.825
+2026-11-10 13:33:12,979 INFO core.jobs: Job 78ef8d78acb0475fb67d67e60932eee3 finished: complete in 4.3s
+2026-11-10 13:33:14,753 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:14] "GET /api/status/78ef8d78acb0475fb67d67e60932eee3 HTTP/1.1" 200 -
+2026-11-10 13:33:14,758 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:14] "GET /api/results/78ef8d78acb0475fb67d67e60932eee3 HTTP/1.1" 200 -
+2026-11-10 13:33:15,901 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:15] "GET / HTTP/1.1" 200 -
+2026-11-10 13:33:15,919 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:15] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:33:15,920 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:15] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:33:15,923 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:15] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:33:15,928 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:15] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:33:15,929 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:15] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:33:15,930 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:15] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:33:15,933 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:15] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:33:15,936 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:15] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:33:15,937 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:15] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:33:16,164 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:16] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:33:16,510 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:33:16,516 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:16] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:33:16,590 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:16] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:33:16,770 INFO core.jobs: Job f843433872964c64acab5b55657f0fd3 started: dataset banking.csv, target Exited, models logistic_regression, dnn
+2026-11-10 13:33:16,770 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:16] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:33:16,796 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:16] "GET /api/status/f843433872964c64acab5b55657f0fd3 HTTP/1.1" 200 -
+2026-11-10 13:33:16,809 INFO core.jobs: Job f843433872964c64acab5b55657f0fd3: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:33:18,806 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:18] "GET /api/status/f843433872964c64acab5b55657f0fd3 HTTP/1.1" 200 -
+2026-11-10 13:33:20,818 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:20] "GET /api/status/f843433872964c64acab5b55657f0fd3 HTTP/1.1" 200 -
+2026-11-10 13:33:20,886 WARNING tensorflow: 5 out of the last 117 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000025AD78D6CA0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-11-10 13:33:20,964 WARNING tensorflow: 6 out of the last 119 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000025AD78D6CA0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-11-10 13:33:20,979 INFO core.jobs: Job f843433872964c64acab5b55657f0fd3: dnn done in 4.00s, accuracy 0.825
+2026-11-10 13:33:20,979 INFO core.jobs: Job f843433872964c64acab5b55657f0fd3 finished: complete in 4.2s
+2026-11-10 13:33:22,833 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:22] "GET /api/status/f843433872964c64acab5b55657f0fd3 HTTP/1.1" 200 -
+2026-11-10 13:33:22,838 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:22] "GET /api/results/f843433872964c64acab5b55657f0fd3 HTTP/1.1" 200 -
+2026-11-10 13:33:24,464 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:24] "GET / HTTP/1.1" 200 -
+2026-11-10 13:33:24,490 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:24] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:33:24,496 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:24] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:33:24,501 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:24] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:33:24,506 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:24] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:33:24,512 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:24] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:33:24,513 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:24] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:33:24,517 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:24] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:33:24,522 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:24] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:33:24,525 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:24] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:33:24,685 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:24] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:33:25,011 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:25] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-11-10 13:33:25,076 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:33:25,082 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:25] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:33:25,150 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:25] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:33:25,323 INFO core.jobs: Job 4fcb5cdb178a46469490c0f8a2a5c822 started: dataset banking.csv, target Exited, models logistic_regression, dnn
+2026-11-10 13:33:25,324 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:25] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:33:25,351 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:25] "GET /api/status/4fcb5cdb178a46469490c0f8a2a5c822 HTTP/1.1" 200 -
+2026-11-10 13:33:25,363 INFO core.jobs: Job 4fcb5cdb178a46469490c0f8a2a5c822: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:33:27,368 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:27] "GET /api/status/4fcb5cdb178a46469490c0f8a2a5c822 HTTP/1.1" 200 -
+2026-11-10 13:33:29,378 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:29] "GET /api/status/4fcb5cdb178a46469490c0f8a2a5c822 HTTP/1.1" 200 -
+2026-11-10 13:33:29,518 INFO core.jobs: Job 4fcb5cdb178a46469490c0f8a2a5c822: dnn done in 4.00s, accuracy 0.825
+2026-11-10 13:33:29,519 INFO core.jobs: Job 4fcb5cdb178a46469490c0f8a2a5c822 finished: complete in 4.2s
+2026-11-10 13:33:31,389 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:31] "GET /api/status/4fcb5cdb178a46469490c0f8a2a5c822 HTTP/1.1" 200 -
+2026-11-10 13:33:31,395 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:31] "GET /api/results/4fcb5cdb178a46469490c0f8a2a5c822 HTTP/1.1" 200 -
+2026-11-10 13:33:32,585 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:32] "GET / HTTP/1.1" 200 -
+2026-11-10 13:33:32,600 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:32] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:33:32,603 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:32] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:33:32,606 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:32] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:33:32,607 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:32] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:33:32,612 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:32] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:33:32,613 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:32] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:33:32,614 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:32] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:33:32,619 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:32] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:33:32,622 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:32] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:33:32,788 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:32] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:33:33,285 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:33:33,290 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:33] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:33:33,363 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:33] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:33:33,530 INFO core.jobs: Job 4b27160b26f54f7582c6fb7b5188f780 started: dataset banking.csv, target Exited, models logistic_regression, dnn
+2026-11-10 13:33:33,530 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:33] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:33:33,556 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:33] "GET /api/status/4b27160b26f54f7582c6fb7b5188f780 HTTP/1.1" 200 -
+2026-11-10 13:33:33,566 INFO core.jobs: Job 4b27160b26f54f7582c6fb7b5188f780: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:33:35,574 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:35] "GET /api/status/4b27160b26f54f7582c6fb7b5188f780 HTTP/1.1" 200 -
+2026-11-10 13:33:37,588 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:37] "GET /api/status/4b27160b26f54f7582c6fb7b5188f780 HTTP/1.1" 200 -
+2026-11-10 13:33:37,911 INFO core.jobs: Job 4b27160b26f54f7582c6fb7b5188f780: dnn done in 4.18s, accuracy 0.825
+2026-11-10 13:33:37,912 INFO core.jobs: Job 4b27160b26f54f7582c6fb7b5188f780 finished: complete in 4.4s
+2026-11-10 13:33:39,603 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:39] "GET /api/status/4b27160b26f54f7582c6fb7b5188f780 HTTP/1.1" 200 -
+2026-11-10 13:33:39,609 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:39] "GET /api/results/4b27160b26f54f7582c6fb7b5188f780 HTTP/1.1" 200 -
+2026-11-10 13:33:41,232 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:41] "GET / HTTP/1.1" 200 -
+2026-11-10 13:33:41,246 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:41] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:33:41,247 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:41] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:33:41,251 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:41] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:33:41,253 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:41] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:33:41,254 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:41] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:33:41,257 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:41] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:33:41,258 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:41] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:33:41,261 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:41] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:33:41,262 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:41] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:33:47,218 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:47] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:33:48,620 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:33:48,624 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:48] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:33:48,704 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:48] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:33:48,986 INFO core.jobs: Job 7c269976b6554773809d8a076a9431e5 started: dataset banking.csv, target Exited, models logistic_regression, dnn
+2026-11-10 13:33:48,986 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:48] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:33:49,020 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:49] "GET /api/status/7c269976b6554773809d8a076a9431e5 HTTP/1.1" 200 -
+2026-11-10 13:33:49,023 INFO core.jobs: Job 7c269976b6554773809d8a076a9431e5: logistic_regression done in 0.00s, accuracy 0.800
+2026-11-10 13:33:51,057 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:51] "GET /api/status/7c269976b6554773809d8a076a9431e5 HTTP/1.1" 200 -
+2026-11-10 13:33:53,072 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:53] "GET /api/status/7c269976b6554773809d8a076a9431e5 HTTP/1.1" 200 -
+2026-11-10 13:33:53,344 INFO core.jobs: Job 7c269976b6554773809d8a076a9431e5: dnn done in 4.17s, accuracy 0.825
+2026-11-10 13:33:53,344 INFO core.jobs: Job 7c269976b6554773809d8a076a9431e5 finished: complete in 4.4s
+2026-11-10 13:33:55,085 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:55] "GET /api/status/7c269976b6554773809d8a076a9431e5 HTTP/1.1" 200 -
+2026-11-10 13:33:55,090 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:55] "GET /api/results/7c269976b6554773809d8a076a9431e5 HTTP/1.1" 200 -
+2026-11-10 13:33:56,148 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:56] "GET / HTTP/1.1" 200 -
+2026-11-10 13:33:56,159 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:56] "GET /css/styles.css HTTP/1.1" 200 -
+2026-11-10 13:33:56,161 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:56] "GET /js/upload.js HTTP/1.1" 200 -
+2026-11-10 13:33:56,163 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:56] "GET /js/config.js HTTP/1.1" 200 -
+2026-11-10 13:33:56,166 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:56] "GET /js/progress.js HTTP/1.1" 200 -
+2026-11-10 13:33:56,167 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:56] "GET /js/results.js HTTP/1.1" 200 -
+2026-11-10 13:33:56,170 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:56] "GET /js/state.js HTTP/1.1" 200 -
+2026-11-10 13:33:56,172 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:56] "GET /js/api.js HTTP/1.1" 200 -
+2026-11-10 13:33:56,175 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:56] "GET /js/dom.js HTTP/1.1" 200 -
+2026-11-10 13:33:56,177 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:56] "GET /js/charts.js HTTP/1.1" 200 -
+2026-11-10 13:33:56,366 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:56] "GET /api/samples HTTP/1.1" 200 -
+2026-11-10 13:33:56,937 INFO core.storage: Upload received: banking.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:33:56,941 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:56] "[35m[1mPOST /api/samples/banking HTTP/1.1[0m" 201 -
+2026-11-10 13:33:57,051 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:57] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:33:57,318 INFO core.jobs: Job bc03b6acd4ed406db81fe6cd501230bb started: dataset banking.csv, target Exited, models logistic_regression, dnn
+2026-11-10 13:33:57,319 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:57] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:33:57,344 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:57] "GET /api/status/bc03b6acd4ed406db81fe6cd501230bb HTTP/1.1" 200 -
+2026-11-10 13:33:57,357 INFO core.jobs: Job bc03b6acd4ed406db81fe6cd501230bb: logistic_regression done in 0.01s, accuracy 0.800
+2026-11-10 13:33:59,351 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:33:59] "GET /api/status/bc03b6acd4ed406db81fe6cd501230bb HTTP/1.1" 200 -
+2026-11-10 13:34:01,363 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:01] "GET /api/status/bc03b6acd4ed406db81fe6cd501230bb HTTP/1.1" 200 -
+2026-11-10 13:34:01,688 INFO core.jobs: Job bc03b6acd4ed406db81fe6cd501230bb: dnn done in 4.18s, accuracy 0.825
+2026-11-10 13:34:01,688 INFO core.jobs: Job bc03b6acd4ed406db81fe6cd501230bb finished: complete in 4.4s
+2026-11-10 13:34:03,375 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:03] "GET /api/status/bc03b6acd4ed406db81fe6cd501230bb HTTP/1.1" 200 -
+2026-11-10 13:34:03,381 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:03] "GET /api/results/bc03b6acd4ed406db81fe6cd501230bb HTTP/1.1" 200 -

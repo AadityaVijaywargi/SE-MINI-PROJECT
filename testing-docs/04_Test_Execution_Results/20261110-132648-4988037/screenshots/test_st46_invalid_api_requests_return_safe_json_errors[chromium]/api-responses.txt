@@ -1,0 +1,5 @@
+GET /api/status/00000000000000000000000000000000 -> 404 {"error":"Unknown or expired job."}
+POST /api/samples/..%2F..%2Fconfig -> 405 {"error":"The method is not allowed for the requested URL."}
+GET /api/does-not-exist -> 404 {"error":"The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again."}
+POST /api/configure -> 404 {"error":"Unknown or expired dataset. Upload the file again."}
+POST /api/cancel/6aa11309bf304a1694e104679f619bf0 -> 409 {"error":"The job has already finished (complete)."}

@@ -1,0 +1,42 @@
+Command: pytest -m "not slow" -q --cov=core --cov=app --cov-report=term -p no:cacheprovider
+Started: 2026-11-10 13:35:41  Commit: 4988037
+........................................................................ [ 31%]
+........................................................................ [ 62%]
+........................................................................ [ 93%]
+...............                                                          [100%]
+============================== warnings summary ===============================
+tests/test_api.py::test_full_flow
+tests/test_api.py::test_full_flow_all_eight_models
+tests/test_api.py::test_full_flow_multiclass
+tests/test_preprocessing.py::test_preprocessing_runs_once_per_job
+tests/test_trainers.py::test_each_model_trains_and_predicts[logistic_regression]
+tests/test_trainers.py::test_each_model_result_has_every_metric_key[logistic_regression]
+tests/test_trainers.py::test_balanced_models_find_a_rare_class[logistic_regression]
+  C:\Users\ravit\OneDrive\Desktop\01-SE-FINAL-PROJECT\SE-MINI-PROJECT\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:455: DeprecationWarning: scipy.optimize: The `disp` and `iprint` options of the L-BFGS-B solver are deprecated and will be removed in SciPy 1.18.0.
+    opt_res = optimize.minimize(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.11.9-final-0 _______________
+
+Name                    Stmts   Miss  Cover
+-------------------------------------------
+app.py                    207     13    94%
+core\__init__.py            6      2    67%
+core\base.py               34      4    88%
+core\dnn.py                80      6    92%
+core\evaluator.py          90      6    93%
+core\export.py             21      0   100%
+core\gpu.py                32      5    84%
+core\jobs.py              188      0   100%
+core\preprocessing.py     118      4    97%
+core\profiling.py          40      2    95%
+core\qml.py               103      2    98%
+core\storage.py           108      0   100%
+core\targets.py            57      0   100%
+core\trainers.py           61      0   100%
+-------------------------------------------
+TOTAL                    1145     44    96%
+231 passed, 1 deselected, 7 warnings in 42.81s
+Exit code: 0
+Finished: 2026-11-10 13:36:31

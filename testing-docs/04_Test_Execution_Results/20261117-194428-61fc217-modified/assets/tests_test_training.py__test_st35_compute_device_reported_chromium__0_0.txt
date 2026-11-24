@@ -1,0 +1,1 @@
+nvidia-smi: NVIDIA GeForce RTX 3050 Laptop GPU, 566.07

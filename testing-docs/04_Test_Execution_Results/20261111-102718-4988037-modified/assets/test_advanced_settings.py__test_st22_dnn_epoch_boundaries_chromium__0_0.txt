@@ -1,0 +1,1 @@
+'0': error='DNN epochs must be a whole number from 1 to 500.', start disabled=True; '501': error='DNN epochs must be a whole number from 1 to 500.', start disabled=True; '1': error='', start disabled=False; '500': error='', start disabled=False

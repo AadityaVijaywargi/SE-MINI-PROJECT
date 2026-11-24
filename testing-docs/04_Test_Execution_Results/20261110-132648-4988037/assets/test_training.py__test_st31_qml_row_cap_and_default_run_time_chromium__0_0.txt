@@ -1,0 +1,1 @@
+VQC details: {'Class weights': 'balanced', 'Device': 'CPU', 'Epochs': '20', 'Layers': '2', 'PCA variance retained': '0.699', 'Qubits': '4', 'Simulator': 'default.qubit', 'Subsampled': 'yes', 'Trainable parameters': '24', 'Training rows': '2000'}; train time 25.28 s; metadata test rows 8000.

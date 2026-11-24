@@ -1,0 +1,2 @@
+Model,Paradigm,Status,Accuracy,Precision,Recall,F1,ROC-AUC,PR-AUC,Threshold,Train time (s),Test time (s),Test rows,Error
+Logistic Regression,ML,done,0.8,0.833333,0.75,0.789474,0.9125,0.914102,0.3284,0.009852,0.007157,40,

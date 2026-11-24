@@ -1,0 +1,1 @@
+Chart checks: bar and curve colours match the paradigm colours (ML #4c72b0, DL #c94f6d, QML #8172b3); every curve label names its paradigm; ROC and PR have one dashed random baseline; time chart is horizontal on a log axis; legends shown.

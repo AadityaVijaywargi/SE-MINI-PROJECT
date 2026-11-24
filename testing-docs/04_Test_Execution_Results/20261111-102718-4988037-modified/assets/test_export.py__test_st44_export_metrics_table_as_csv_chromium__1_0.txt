@@ -1,0 +1,1 @@
+Spreadsheet check automated as: valid UTF-8, comma-separated, equal column counts.

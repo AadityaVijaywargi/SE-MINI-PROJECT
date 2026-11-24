@@ -1,0 +1,6 @@
+chromium/chrome 157.0.8103.39 at 1366x768: ok
+chromium/chrome 157.0.8103.39 at 375x812: ok
+chromium/msedge 157.0.4341.46 at 1366x768: ok
+chromium/msedge 157.0.4341.46 at 375x812: ok
+chromium/chromium 158.0.8127.18 at 1366x768: ok
+chromium/chromium 158.0.8127.18 at 375x812: ok

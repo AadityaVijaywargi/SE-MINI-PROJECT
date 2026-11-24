@@ -1,0 +1,1 @@
+Devices reported: {'auto': {'Logistic Regression': 'CPU', 'XGBoost': 'GPU (CUDA)', 'Deep Neural Network': 'CPU'}, 'cpu': {'Logistic Regression': 'CPU', 'XGBoost': 'CPU', 'Deep Neural Network': 'CPU'}}

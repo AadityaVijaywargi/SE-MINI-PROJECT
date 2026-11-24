@@ -14,6 +14,39 @@ uploads/
 # Secrets (SEC-4): commit .env.example, never .env
 .env
 
+# System testing (see TESTING_README.md; framework in testing-docs/02_Test_Automation/)
+# Keep the application log of each execution run as evidence (*.log is ignored above).
+!testing-docs/04_Test_Execution_Results/**/app-server.log
+# Framework debugging runs, not execution evidence (kept on disk).
+testing-docs/04_Test_Execution_Results/dev-check/
+# Binary coverage databases; the text reports in Developer_Unit_Tests/ hold the results.
+.coverage-*
+
+# Superseded test run: run 1 was replaced by run 2 (same build, extended scripts).
+# Runs 2-5 stay: run 2/3 hold the original failure evidence, run 4/5 the final regression.
+testing-docs/04_Test_Execution_Results/20261110-122004-4988037/
+# Playwright / pytest default output folders (the runner writes to testing-docs/04_Test_Execution_Results/ instead)
+test-results/
+playwright-report/
+
+# Superseded document versions, kept on disk only (current versions sit one level above).
+testing-docs/**/Previous_Versions/
+# Original v1.0 specifications as PDF; replaced by SRS.docx (v1.2) and STP.docx (v2.2)
+/SRS_Full_Stack_Prediction_Platform (1).pdf
+/STP_Full_Stack_Prediction_Platform.pdf
+
+# Office lock files
+~$*
+
+# Other caches and temporary files
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.tmp
+*.bak
+*.swp
+*~
+
 # Editors and OS
 .vscode/
 .idea/

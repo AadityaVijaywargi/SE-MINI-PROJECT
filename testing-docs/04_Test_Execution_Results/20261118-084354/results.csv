@@ -1,0 +1,9 @@
+test_case_id,test,pytest_outcome,duration_s,message,manual_review_pending,screenshots
+ST-01,tests/test_upload.py::test_st01_upload_valid_csv_with_file_picker[chromium],passed,4.8,,,1
+ST-02,tests/test_upload.py::test_st02_upload_valid_csv_by_drag_and_drop[chromium],passed,1.9,,,2
+ST-03,tests/test_upload.py::test_st03_upload_valid_excel_file[chromium],passed,3.1,,,1
+ST-04,tests/test_upload.py::test_st04_reject_disallowed_extensions[chromium],passed,2.4,,,2
+ST-05,tests/test_upload.py::test_st05_reject_file_over_100_mb_in_browser[chromium],passed,2.8,,,1
+ST-06,tests/test_upload.py::test_st06_reject_empty_and_corrupt_files[chromium],passed,2.2,,,2
+ST-07,tests/test_upload.py::test_st07_minimum_row_boundary[chromium],passed,2.9,,,2
+ST-08,tests/test_upload.py::test_st08_reject_single_column_file[chromium],passed,1.7,,,1

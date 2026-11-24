@@ -540,6 +540,8 @@ select, input[type="number"] {
   .winner { padding: 20px 18px 18px; }
   .stamp { width: 50px; height: 50px; top: 12px; right: 12px; font-size: 10px; }
   .winner-name { padding-right: 52px; }
+  /* DEF-03: keep the heading clear of the 50 px stamp as well. */
+  .winner-kicker { display: block; padding-right: 52px; }
   select, input[type="number"] { min-width: 0; width: 100%; }
   .distribution li { grid-template-columns: 90px 1fr 44px; }
   .chart-box, .chart-wide .chart-box { height: 260px; }

@@ -1,0 +1,95 @@
+
+===== start 13:34:48 COMPUTE_DEVICE=cpu =====
+ * Serving Flask app 'app'
+ * Debug mode: off
+2026-11-10 13:34:51,795 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5055
+2026-11-10 13:34:51,796 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-11-10 13:34:52,050 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:52] "GET /api/health HTTP/1.1" 200 -
+2026-11-10 13:34:53,097 INFO core.storage: Upload received: perf.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:34:53,104 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:53,134 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:53,178 INFO core.storage: Upload received: perf.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:34:53,182 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:53,210 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:53,238 INFO core.storage: Upload received: perf.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:34:53,242 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:53,248 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:53,283 INFO core.storage: Upload received: perf.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:34:53,288 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:53,303 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:53,322 INFO core.storage: Upload received: perf.csv, 8933 bytes, 200 rows, 9 columns
+2026-11-10 13:34:53,327 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:53,348 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:53,386 INFO core.storage: Upload received: perf.csv, 470570 bytes, 10000 rows, 5 columns
+2026-11-10 13:34:53,395 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:53,416 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:53,471 INFO core.storage: Upload received: perf.csv, 470570 bytes, 10000 rows, 5 columns
+2026-11-10 13:34:53,480 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:53,510 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:53,552 INFO core.storage: Upload received: perf.csv, 470570 bytes, 10000 rows, 5 columns
+2026-11-10 13:34:53,561 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:53,587 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:53,629 INFO core.storage: Upload received: perf.csv, 470570 bytes, 10000 rows, 5 columns
+2026-11-10 13:34:53,639 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:53,665 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:53,688 INFO core.storage: Upload received: perf.csv, 470570 bytes, 10000 rows, 5 columns
+2026-11-10 13:34:53,699 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:53,711 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:53,768 INFO core.storage: Upload received: perf.csv, 2353194 bytes, 50000 rows, 5 columns
+2026-11-10 13:34:53,808 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:53,864 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:53,941 INFO core.storage: Upload received: perf.csv, 2353194 bytes, 50000 rows, 5 columns
+2026-11-10 13:34:53,980 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:53] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:54,021 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:54] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:54,071 INFO core.storage: Upload received: perf.csv, 2353194 bytes, 50000 rows, 5 columns
+2026-11-10 13:34:54,110 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:54] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:54,150 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:54] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:54,200 INFO core.storage: Upload received: perf.csv, 2353194 bytes, 50000 rows, 5 columns
+2026-11-10 13:34:54,237 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:54] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:54,291 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:54] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:54,365 INFO core.storage: Upload received: perf.csv, 2353194 bytes, 50000 rows, 5 columns
+2026-11-10 13:34:54,406 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:54] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:34:54,462 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:54] "POST /api/configure HTTP/1.1" 200 -
+2026-11-10 13:34:54,528 INFO core.storage: Upload received: perf.csv, 470570 bytes, 10000 rows, 5 columns
+2026-11-10 13:34:54,536 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:34:54] "[35m[1mPOST /api/upload HTTP/1.1[0m" 201 -
+2026-11-10 13:35:00,177 INFO core.jobs: Job 1a943940eea44b58912392f0b4931875 started: dataset perf.csv, target target, models random_forest, svm, dnn, vqc
+2026-11-10 13:35:00,178 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:00] "[35m[1mPOST /api/train HTTP/1.1[0m" 202 -
+2026-11-10 13:35:00,183 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:00] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:00,687 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:00] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:00,714 INFO core.jobs: Job 1a943940eea44b58912392f0b4931875: random_forest done in 0.40s, accuracy 0.500
+2026-11-10 13:35:01,207 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:01] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:01,709 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:01] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:02,214 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:02] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:02,738 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:02] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:03,262 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:03] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:03,790 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:03] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:04,293 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:04] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:04,804 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:04] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:05,316 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:05] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:05,831 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:05] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:06,334 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:06] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:06,850 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:06] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:07,363 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:07] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:07,881 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:07] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:08,385 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:08] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:08,527 INFO core.jobs: Job 1a943940eea44b58912392f0b4931875: svm done in 6.66s, accuracy 0.500
+2026-11-10 13:35:08,912 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:08] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:09,428 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:09] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:09,948 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:09] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:10,466 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:10] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:10,969 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:10] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:11,473 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:11] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:11,975 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:11] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:12,242 INFO core.jobs: Job 1a943940eea44b58912392f0b4931875: dnn done in 3.47s, accuracy 0.500
+2026-11-10 13:35:12,479 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:12] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:12,998 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:12] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:13,503 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:13] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:14,030 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:14] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:14,556 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:14] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:15,062 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:15] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:15,664 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:15] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:15,911 INFO core.jobs: Job 1a943940eea44b58912392f0b4931875: vqc done in 3.63s, accuracy 0.500
+2026-11-10 13:35:15,912 INFO core.jobs: Job 1a943940eea44b58912392f0b4931875 finished: complete in 15.7s
+2026-11-10 13:35:16,184 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:16] "GET /api/status/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
+2026-11-10 13:35:16,201 INFO werkzeug: 127.0.0.1 - - [10/Nov/2026 13:35:16] "GET /api/results/1a943940eea44b58912392f0b4931875 HTTP/1.1" 200 -
